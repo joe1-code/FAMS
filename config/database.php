@@ -30,6 +30,21 @@ return [
     */
 
     'connections' => [
+        
+        'pgmain' => [
+            'driver' => 'pgsql',
+            'host' => env('DB_PGMAIN_HOST', '127.0.0.1'),
+            'port' => env('DB_PGMAIN_PORT', '5432'),
+            'database' => env('DB_PGMAIN_DATABASE', 'forge'),
+            'username' => env('DB_PGMAIN_USERNAME', 'forge'),
+            'password' => env('DB_PGMAIN_PASSWORD', 'Wcf.2017'),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'schema' => env('DB_PGMAIN_SCHEMA', 'public'),
+            'sslmode' => 'prefer',
+        ],
+        
 
         'sqlite' => [
             'driver' => 'sqlite',

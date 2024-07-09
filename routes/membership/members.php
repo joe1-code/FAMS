@@ -15,8 +15,8 @@ Route::group([
     Route::group(['prefix' => 'membership',  'as' => 'membership'], function() {
 
         Route::get('/', function () {
-            return view('backend.workplace_risk_assesment.menu');
-        })->name('menu');
+            return view('backend.membership.index');
+        })->name('index');
 
 
         Route::group(['prefix' => 'register_member',  'as' => 'register_member'], function() {

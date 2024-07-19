@@ -38,5 +38,10 @@ class MemberController extends Controller
 
         return view('layouts/auth-login');
     }
+
+    public function contributions(){
+        
+        return view('layouts/contributions');
+    }
     
 }

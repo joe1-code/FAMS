@@ -47,7 +47,7 @@ class MemberController extends Controller
     public function edit(Request $request){
         // dd($request->input('member_id'));
 
-        return view('contributions/edit_contribution');
+        return view('layouts/edit_contributions');
     }
     
 }

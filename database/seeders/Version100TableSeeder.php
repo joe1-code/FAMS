@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Database\Seeders\version100\DesignationsTableSeeder;
+use Database\Seeders\version100\RegionsTableSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\Version100\UnitGroupsTableSeeder;
@@ -21,9 +22,10 @@ class Version100TableSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(UnitGroupsTableSeeder::class);
-        $this->call(UnitsTableSeeder::class);
-        $this->call(DesignationsTableSeeder::class);
+        // $this->call(UnitGroupsTableSeeder::class);
+        // $this->call(UnitsTableSeeder::class);
+        // $this->call(DesignationsTableSeeder::class);
+        $this->call(RegionsTableSeeder::class);
 
         DB::commit();
     }

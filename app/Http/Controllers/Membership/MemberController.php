@@ -18,7 +18,7 @@ class MemberController extends Controller
             'firstname' => 'required|string|max:255',
             'middlename' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            // 'email' => 'required|string|email|max:255|unique:users',
             'phone' => 'required|string|max:15',
             'password' => 'required|string|min:8',
         ]);
@@ -28,7 +28,7 @@ class MemberController extends Controller
             'firstname' => $validatedData['firstname'],
             'middlename' => $validatedData['middlename'],
             'lastname' => $validatedData['lastname'],
-            'email' => $validatedData['email'],
+            'email' => $validatedData['email'] ?? null,
             'phone' => $validatedData['phone'],
             'password' => $validatedData['password'],
             'username' => $validatedData['firstname'].'.'.$validatedData['lastname'],
@@ -42,6 +42,12 @@ class MemberController extends Controller
     public function contributions(){
         
         return view('layouts/contributions');
+    }
+
+    public function edit(Request $request){
+        // dd($request->input('member_id'));
+
+        return view('contributions/edit_contribution');
     }
     
 }

@@ -3,12 +3,24 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Repositories\UserRepository;
+use App\Repositories\UserRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
+
+    protected $userRepository;
+
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function login(Request $request){
 
         $validation = $request->validate([
@@ -16,9 +28,26 @@ class LoginController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        if (Auth::attempt($request->only('username', 'password'), $request->filled('remember'))) {
+        $user = User::where('username', $validation['username'])->where('active', true)->where('available', true)->first();
+        if (Auth::attempt($request->only('username', 'password'), $request->filled('remember')) && isset($user)) {
             // Authentication passed...
-            return redirect()->intended(route('contributions'));
+              $user = User::where('username', $validation['username'])->first();
+              $user->last_login = Carbon::now();
+              $user->save();
+
+            $data = $this->userRepository->membership($validation);
+            // dd($data);
+            return view('layouts.contributions', ['memberData' => $data]);
+            // return redirect()->intended(route('contributions'))
+            // ->with('memberData', $data);
+        }
+        elseif (!isset($user)) {
+            $login_failed = throw ValidationException::withMessages([
+                'username' => [trans('Please Contact your Admin to Activate you.')],
+            ]);
+
+            return $login_failed;
+            // return redirect()->back()->withFlashDanger('Please Contact your Admin to Activate you.');
         }
         // dump('checks..');
 

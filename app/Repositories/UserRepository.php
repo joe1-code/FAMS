@@ -45,4 +45,11 @@ class UserRepository implements UserRepositoryInterface
         $record = $this->find($id);
         return $record->delete();
     }
+
+    public function membership($validation){
+        $members = User::where('available', true)->where('active', true)->get();
+        // dd($members);
+
+        return $members;
+    }
 }

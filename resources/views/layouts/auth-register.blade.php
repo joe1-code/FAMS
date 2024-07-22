@@ -97,15 +97,15 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Enter email" required>
-                                        @if ($errors->has('email'))
+                                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Enter email" >
+                                        <!-- @if ($errors->has('email'))
                                             <div class="text-danger">
                                                 {{ $errors->first('email') }}
                                             </div>
                                         @endif
                                         <div class="invalid-feedback">
                                             Please Enter Email
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="mb-3">
                                         <label for="phone" class="form-label">Phone</label>

@@ -41,7 +41,7 @@ class LoginController extends Controller
             // return redirect()->intended(route('contributions'))
             // ->with('memberData', $data);
         }
-        elseif (!isset($user)) {
+        elseif (Auth::attempt($request->only('username', 'password'), $request->filled('remember')) && !isset($user)) {
             $login_failed = throw ValidationException::withMessages([
                 'username' => [trans('Please Contact your Admin to Activate you.')],
             ]);

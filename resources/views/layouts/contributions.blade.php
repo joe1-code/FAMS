@@ -947,7 +947,7 @@
                                     </table>                </div>
             </div>
             <div class="modal-footer">
-                <form action="{{ route('edit') }}" method="POST">
+                <form action="{{ route('edit') }}" method="GET">
                     @csrf
                     <input type="hidden" name="member_id" id="edit-member-id" value="">
                     <button type="submit" class="btn btn-success">Edit</button>

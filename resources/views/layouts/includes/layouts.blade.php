@@ -1,3 +1,5 @@
+
+
 <div id="layout-wrapper">
 
             
@@ -153,12 +155,23 @@
 
                         <div class="row">
     <!-- <========================= Content Here=======================================================> -->
-    <form class="needs-validation" action="{{ route('register_member') }}" method="POST" novalidate>
+    <form class="needs-validation" action="{{ route('submit_members', ['id'=>$particulars->id]) }}" method="POST" novalidate>
         @csrf
+        @if (session('success'))
+        <div class="col-md-8 alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="row">
             <div class="col-md-4 mb-4">
                 <label for="firstname" class="form-label">Firstname</label>
-                <input type="text" class="form-control @error('firstname') is-invalid @enderror" id="firstname" name="firstname" placeholder="Enter Firstname" required>
+                <input type="text" class="form-control @error('firstname') is-invalid @enderror" id="firstname" name="firstname" placeholder="Enter Firstname" value="{{$particulars->firstname}}" required>
                 @if ($errors->has('firstname'))
                     <div class="text-danger">
                         {{ $errors->first('firstname') }}
@@ -170,7 +183,7 @@
             </div>
             <div class="col-md-4 mb-4">
                 <label for="middlename" class="form-label">Middlename</label>
-                <input type="text" class="form-control @error('middlename') is-invalid @enderror" id="middlename" name="middlename" placeholder="Enter Middlename" required>
+                <input type="text" class="form-control @error('middlename') is-invalid @enderror" id="middlename" name="middlename" placeholder="Enter Middlename" value="{{$particulars->middlename}}" required>
                 @if ($errors->has('middlename'))
                     <div class="text-danger">
                         {{ $errors->first('middlename') }}
@@ -184,7 +197,7 @@
         <div class="row">
             <div class="col-md-4 mb-3">
                 <label for="lastname" class="form-label">Lastname</label>
-                <input type="text" class="form-control @error('lastname') is-invalid @enderror" id="lastname" name="lastname" placeholder="Enter Lastname" required>
+                <input type="text" class="form-control @error('lastname') is-invalid @enderror" id="lastname" name="lastname" placeholder="Enter Lastname" value="{{$particulars->lastname}}" required>
                 @if ($errors->has('lastname'))
                     <div class="text-danger">
                         {{ $errors->first('lastname') }}
@@ -196,7 +209,7 @@
             </div>
             <div class="col-md-4 mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Enter email" >
+                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{$particulars->email ?? ''}}" placeholder="Enter email" >
                 <!-- @if ($errors->has('email'))
                     <div class="text-danger">
                         {{ $errors->first('email') }}
@@ -208,36 +221,76 @@
             </div>
         </div>
         <div class="row">
-        <div class="col-md-4 mb-3">
-            <label for="phone" class="form-label">Phone</label>
-            <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Enter Phone" required>
-            @if ($errors->has('phone'))
-                <div class="text-danger">
-                    {{ $errors->first('phone') }}
+            <div class="col-md-4 mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Enter Phone" value="{{$particulars->phone ?? ''}}" required>
+                @if ($errors->has('phone'))
+                    <div class="text-danger">
+                        {{ $errors->first('phone') }}
+                    </div>
+                @endif
+                <div class="invalid-feedback">
+                    Please Enter Phone
                 </div>
-            @endif
-            <div class="invalid-feedback">
-                Please Enter Phone
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="phone" class="form-label">Job Title</label>
+                <input type="text" class="form-control @error('job_title') is-invalid @enderror" id="job_title" name="job_title" placeholder="Enter Job Title" value="{{$particulars->job_title ?? ''}}" >
+                @if ($errors->has('phone'))
+                    <div class="text-danger">
+                        {{ $errors->first('job_title') }}
+                    </div>
+                @endif
+                <div class="invalid-feedback">
+                    Please Enter Job Title
+                </div>
             </div>
         </div>
-        <div class="col-md-4 mb-3">
-            <label for="userpassword" class="form-label">Password</label>
-            <input type="password" class="form-control @error('password') is-invalid @enderror" id="userpassword" name="password" placeholder="Enter password" required>
-            @if ($errors->has('password'))
-                <div class="text-danger">
-                    {{ $errors->first('password') }}
+        <div class="row">
+        <div class="col-md-4 mb-4">
+                <label for="regions" class="form-label">Region</label>
+                <input type="text" class="form-control @error('regions') is-invalid @enderror" id="regions" name="regions" placeholder="Enter regions" value="{{$particulars->region ?? ''}}" required>
+                @if ($errors->has('regions'))
+                    <div class="text-danger">
+                        {{ $errors->first('regions') }}
+                    </div>
+                @endif
+                <div class="invalid-feedback">
+                    Please Enter regions
                 </div>
-            @endif
-            <div class="invalid-feedback">
-                Please Enter Password
+            </div>
+            <div class="col-md-4 mb-4">
+                <label for="district" class="form-label">District</label>
+                <input type="text" class="form-control @error('district') is-invalid @enderror" id="district" name="district" placeholder="Enter district" value="{{$particulars->district ?? ''}}" required>
+                @if ($errors->has('district'))
+                    <div class="text-danger">
+                        {{ $errors->first('district') }}
+                    </div>
+                @endif
+                <div class="invalid-feedback">
+                    Please Enter district
+                </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="dob" class="form-label">Date of Birth(DOB)</label>
+                <input type="date" class="form-control @error('dob') is-invalid @enderror" id="dob" name="dob" placeholder="Enter dob" value="{{$particulars->dob ?? ''}}" required>
+                @if ($errors->has('dob'))
+                    <div class="text-danger">
+                        {{ $errors->first('dob') }}
+                    </div>
+                @endif
+                <div class="invalid-feedback">
+                    Please Enter dob
+                </div>
+            </div>
         </div>
         
         
         
-        <div class="mt-4 d-grid col-md-4">
-            <button class="btn btn-primary waves-effect waves-light" type="submit">Register</button>
+        <div class="mt-4 d-grid col-md-4"  style="margin-left: auto; margin-right: auto;">
+            <button class="btn btn-primary waves-effect waves-light" type="submit">Submit</button>
         </div>
     </form>
 </div>

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repositories;
+namespace App;
 
-interface UserRepositoryInterface
+interface MembershipRepositoryInterface
 {
     public function all();
 
@@ -14,7 +14,4 @@ interface UserRepositoryInterface
 
     public function delete($id);
 
-    public function membership($args);
-    
-    public function editable($args1, $args2);
 }

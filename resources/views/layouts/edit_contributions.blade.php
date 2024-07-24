@@ -29,6 +29,8 @@
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
         <!-- Begin page -->
+        
+
         @include('layouts.includes.layouts')
 <!-- /Right-bar -->
 

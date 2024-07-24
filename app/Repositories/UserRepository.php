@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Repositories\UserRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -51,5 +52,25 @@ class UserRepository implements UserRepositoryInterface
         // dd($members);
 
         return $members;
+    }
+
+    public function editable($request, $id){
+        
+        // dd($request->all(), $id);
+        $member = $this->find($id);
+        DB::transaction(function() use ($member, $request){
+            $member->firstname = $request->firstname;
+            $member->middlename = $request->middlename;
+            $member->lastname = $request->lastname;
+            $member->email = $request->email ?? null;
+            $member->phone = $request->phone ?? null;
+            $member->job_title = $request->job_title ?? null;
+            $member->region = $request->regions ?? null;
+            $member->district = $request->district ?? null;
+            $member->dob = $request->dob ?? null;
+    
+            $member->save();
+    });
+
     }
 }

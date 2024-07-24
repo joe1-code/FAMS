@@ -16,4 +16,6 @@ Route::get('/contributions', [App\Http\Controllers\Membership\MemberController::
 
 // <==========================================membership routes============================================================================>
 
-Route::POST('/edit', [App\Http\Controllers\Membership\MemberController::class, 'edit'])->name('edit');
+Route::get('/edit', [App\Http\Controllers\Membership\MemberController::class, 'edit'])->name('edit');
+Route::post('/submit_members/{id}', [App\Http\Controllers\Membership\MemberController::class, 'submitEditData'])->name('submit_members');
+Route::get('/edit_members/{id}', [App\Http\Controllers\Membership\MemberController::class, 'editMember'])->name('edit_members');

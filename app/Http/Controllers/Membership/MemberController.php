@@ -4,10 +4,19 @@ namespace App\Http\Controllers\Membership;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Repositories\UserRepository;
+use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
+    protected $userRepository;
+
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function register(){
         return view('layouts/auth-register');
     }
@@ -46,8 +55,30 @@ class MemberController extends Controller
 
     public function edit(Request $request){
         // dd($request->input('member_id'));
+        $particulars = User::where('id', $request->input('member_id'))->first();
+        // dd($particulars->username);
+        return view('layouts/edit_contributions')
+        ->with('particulars', $particulars);
+    }
 
-        return view('layouts/edit_contributions');
+    public function submitEditData(Request $request, $id){
+        try {
+            $this->userRepository->editable($request, $id);
+
+            // return redirect()->route('edit', ['id' => $id])->with('success', 'User has been updated successfully');
+            return redirect()->back()->with('success', 'User has been updated successfully');
+
+        } catch (\Exception $e) {
+    
+            return redirect()->back()->with('error','An error occured while updating user details');
+
+        }
+
+    }
+
+    public function editMember($id){
+
+        return redirect()->back()->with('success', 'User has been updated successfully');
     }
     
 }

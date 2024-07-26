@@ -22,9 +22,9 @@ class Version100TableSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call(UnitGroupsTableSeeder::class);
-        // $this->call(UnitsTableSeeder::class);
-        // $this->call(DesignationsTableSeeder::class);
+        $this->call(UnitGroupsTableSeeder::class);
+        $this->call(UnitsTableSeeder::class);
+        $this->call(DesignationsTableSeeder::class);
         $this->call(RegionsTableSeeder::class);
 
         DB::commit();

@@ -65,7 +65,7 @@ class UserRepository implements UserRepositoryInterface
             $member->email = $request->email ?? null;
             $member->phone = $request->phone ?? null;
             $member->job_title = $request->job_title ?? null;
-            $member->region = $request->regions ?? null;
+            $member->region = $request->input('regions') ?? null;
             $member->district = $request->district ?? null;
             $member->dob = $request->dob ?? null;
     

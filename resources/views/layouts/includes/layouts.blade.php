@@ -1,7 +1,6 @@
 
 
 <div id="layout-wrapper">
-
             
             <header id="page-topbar">
                 <div class="navbar-header">
@@ -247,18 +246,25 @@
             </div>
         </div>
         <div class="row">
-        <div class="col-md-4 mb-4">
-                <label for="regions" class="form-label">Region</label>
-                <input type="text" class="form-control @error('regions') is-invalid @enderror" id="regions" name="regions" placeholder="Enter regions" value="{{$particulars->region ?? ''}}" required>
-                @if ($errors->has('regions'))
-                    <div class="text-danger">
-                        {{ $errors->first('regions') }}
-                    </div>
-                @endif
-                <div class="invalid-feedback">
-                    Please Enter regions
+                <div class="col-md-4 mb-4">
+            <label for="regions" class="form-label">Region</label>
+            <select class="form-control search-select" id="regions" name="regions" required>
+                <option value="" disabled selected>Select a region</option>
+                @foreach($regions as $region)
+                    <option value="{{ $particulars->job_title ?? '' }}" {{ old('region') == $region->id ? 'selected' : '' }}>{{ $region->name }}</option>
+                @endforeach
+            </select>
+            @if ($errors->has('regions'))
+                <div class="text-danger">
+                    {{ $errors->first('regions') }}
                 </div>
+            @endif
+            <div class="invalid-feedback">
+                Please select a region
             </div>
+        </div>
+
+
             <div class="col-md-4 mb-4">
                 <label for="district" class="form-label">District</label>
                 <input type="text" class="form-control @error('district') is-invalid @enderror" id="district" name="district" placeholder="Enter district" value="{{$particulars->district ?? ''}}" required>

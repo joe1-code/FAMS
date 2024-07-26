@@ -850,11 +850,11 @@
                                         </div>
                                     </td>
                                     <td><a href="javascript: void(0);" class="text-body fw-bold">{{$data->firstname.' '.$data->middlename.' '.$data->lastname}}</a></td>
-                                    <td>Neal Matthews</td>
-                                    <td>07 Oct, 2019</td>
-                                    <td>$400</td>
+                                    <td>{{$data->region}}</td>
+                                    <td>{{$data->district}}</td>
+                                    <td>{{$data->dob}}</td>
+                                    <td><i class="fas fa-phone me-1"></i> {{$data->phone}}</td>
                                     <td><span class="badge badge-pill badge-soft-success font-size-11">Paid</span></td>
-                                    <td><i class="fab fa-cc-mastercard me-1"></i> Mastercard</td>
                                     <td>
                                         <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light view-details-btn" data-id="{{$data->id}}" data-name="{{$data->firstname.' '.$data->middlename.' '.$data->lastname}}" data-bs-toggle="modal" data-bs-target=".transaction-detailModal">
                                             View Details
@@ -1002,11 +1002,11 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-sm-6">
-                                <script>document.write(new Date().getFullYear())</script> © Skote.
+                                <script>document.write(new Date().getFullYear())</script> © FAMS.
                             </div>
                             <div class="col-sm-6">
                                 <div class="text-sm-end d-none d-sm-block">
-                                    Design & Develop by Themesbrand
+                                    Design & Develop by FAMS.
                                 </div>
                             </div>
                         </div>

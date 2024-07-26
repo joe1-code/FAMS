@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Membership;
 
 use App\Http\Controllers\Controller;
+use App\Models\Region;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Repositories\UserRepositoryInterface;
@@ -55,14 +56,17 @@ class MemberController extends Controller
 
     public function edit(Request $request){
         // dd($request->input('member_id'));
-        $particulars = User::where('id', $request->input('member_id'))->first();
+        $particulars = User::where('users.id', $request->input('member_id'))->join('regions as rgn','rgn.id','=', 'users.region_id')->first();
+        $regions = Region::all();
         // dd($particulars->username);
         return view('layouts/edit_contributions')
-        ->with('particulars', $particulars);
+        ->with('particulars', $particulars)
+        ->with('regions', $regions);
     }
 
     public function submitEditData(Request $request, $id){
         try {
+            // dd($request->all());
             $this->userRepository->editable($request, $id);
 
             // return redirect()->route('edit', ['id' => $id])->with('success', 'User has been updated successfully');
@@ -76,9 +80,6 @@ class MemberController extends Controller
 
     }
 
-    public function editMember($id){
-
-        return redirect()->back()->with('success', 'User has been updated successfully');
-    }
+    
     
 }

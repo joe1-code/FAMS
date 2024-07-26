@@ -20,7 +20,6 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
                 ),
                 1 =>
                 array (
@@ -29,7 +28,6 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
                 ),
                 2 =>
                 array (
@@ -38,7 +36,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 3 =>
                 array (
@@ -47,7 +45,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 4 =>
                 array (
@@ -56,7 +54,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 5 =>
                 array (
@@ -65,7 +63,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 6 =>
                 array (
@@ -74,7 +72,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 7 =>
                 array (
@@ -83,7 +81,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 8 =>
                 array (
@@ -92,7 +90,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 9 =>
                 array (
@@ -101,7 +99,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 10 =>
                 array (
@@ -110,7 +108,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 11 =>
                 array (
@@ -119,7 +117,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 12 =>
                 array (
@@ -128,7 +126,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 13 =>
                 array (
@@ -137,7 +135,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 14 =>
                 array (
@@ -146,7 +144,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 15 =>
                 array (
@@ -155,7 +153,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 16 =>
                 array (
@@ -164,7 +162,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 17 =>
                 array (
@@ -173,7 +171,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 18 =>
                 array (
@@ -182,7 +180,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 19 =>
                 array (
@@ -191,7 +189,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 20 =>
                 array (
@@ -200,7 +198,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 21 =>
                 array (
@@ -209,7 +207,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 22 =>
                 array (
@@ -218,7 +216,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 23 =>
                 array (
@@ -227,7 +225,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 24 =>
                 array (
@@ -236,7 +234,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 25 =>
                 array (
@@ -245,7 +243,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 26 =>
                 array (
@@ -254,7 +252,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 27 =>
                 array (
@@ -263,7 +261,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 28 =>
                 array (
@@ -272,7 +270,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 29 =>
                 array (
@@ -281,7 +279,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 30 =>
                 array (
@@ -290,7 +288,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
                 31 =>
                 array (
@@ -299,7 +297,7 @@ class RegionsTableSeeder extends Seeder
                     'country_id' => 1,
                     'created_at' => '2024-07-22 11:48:21',
                     'updated_at' => NULL,
-                    'deleted_at' => NULL,
+                    
                 ),
             ));
             // $this->enableForeignKeys('units');

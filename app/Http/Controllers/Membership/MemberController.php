@@ -57,14 +57,17 @@ class MemberController extends Controller
     public function edit(Request $request){
         // dd($request->input('member_id'));
         $particulars = User::where('users.id', $request->input('member_id'))->join('regions as rgn','rgn.id','=', 'users.region_id')->first();
+        // dd($particulars);
         $regions = Region::all();
         // dd($particulars->username);
         return view('layouts/edit_contributions')
         ->with('particulars', $particulars)
+        ->with('request', $request)
         ->with('regions', $regions);
     }
 
     public function submitEditData(Request $request, $id){
+        // dd($request->input('regions'), $id);
         try {
             // dd($request->all());
             $this->userRepository->editable($request, $id);
@@ -73,7 +76,7 @@ class MemberController extends Controller
             return redirect()->back()->with('success', 'User has been updated successfully');
 
         } catch (\Exception $e) {
-    
+            dd($e);
             return redirect()->back()->with('error','An error occured while updating user details');
 
         }

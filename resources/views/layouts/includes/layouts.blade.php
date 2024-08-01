@@ -154,7 +154,7 @@
 
                         <div class="row">
     <!-- <========================= Content Here=======================================================> -->
-    <form class="needs-validation" action="{{ route('submit_members', ['id'=>$particulars->id]) }}" method="POST" novalidate>
+    <form class="needs-validation" action="{{ route('submit_members', ['id'=>$request->input('member_id')]) }}" method="POST" novalidate>
         @csrf
         @if (session('success'))
         <div class="col-md-8 alert alert-success">
@@ -251,7 +251,7 @@
             <select class="form-control search-select" id="regions" name="regions" required>
                 <option value="" disabled selected>Select a region</option>
                 @foreach($regions as $region)
-                    <option value="{{ $particulars->job_title ?? '' }}" {{ old('region') == $region->id ? 'selected' : '' }}>{{ $region->name }}</option>
+                    <option value="{{ $region->id ?? '' }}" {{ (old('region') == $region->id || $particulars->id == $region->id) ? 'selected' : '' }}>{{ $region->name }}</option>
                 @endforeach
             </select>
             @if ($errors->has('regions'))

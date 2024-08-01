@@ -18,288 +18,260 @@ class RegionsTableSeeder extends Seeder
                     'id' => 1,
                     'name' => 'Dar es Salaam',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                1 =>
+            1 =>
                 array (
                     'id' => 2,
                     'name' => 'Mwanza',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                2 =>
+            2 =>
                 array (
                     'id' => 3,
                     'name' => 'Arusha',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                3 =>
+            3 =>
                 array (
                     'id' => 4,
                     'name' => 'Dodoma',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                4 =>
+            4 =>
                 array (
                     'id' => 5,
-                    'name' => 'Geita',
+                    'name' => 'Geita ',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                5 =>
+            5 =>
                 array (
                     'id' => 6,
                     'name' => 'Iringa',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                6 =>
+            6 =>
                 array (
                     'id' => 7,
                     'name' => 'Kagera',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                7 =>
+            7 =>
                 array (
                     'id' => 8,
                     'name' => 'Katavi',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                8 =>
+            8 =>
                 array (
                     'id' => 9,
                     'name' => 'Kigoma',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                9 =>
+            9 =>
                 array (
                     'id' => 10,
                     'name' => 'Kilimanjaro',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                10 =>
+            10 =>
                 array (
                     'id' => 11,
                     'name' => 'Lindi',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                11 =>
+            11 =>
                 array (
                     'id' => 12,
                     'name' => 'Manyara',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                12 =>
+            12 =>
                 array (
                     'id' => 13,
                     'name' => 'Mara',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                13 =>
+            13 =>
                 array (
                     'id' => 14,
                     'name' => 'Mbeya',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                14 =>
+            14 =>
                 array (
                     'id' => 15,
                     'name' => 'Morogoro',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                15 =>
+            15 =>
                 array (
                     'id' => 16,
                     'name' => 'Mtwara',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                16 =>
-                array (
-                    'id' => 17,
-                    'name' => 'Njombe',
-                    'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
-                ),
-                17 =>
+            16 =>
                 array (
                     'id' => 18,
-                    'name' => 'Kaskazini Pemba',
+                    'name' => 'Njombe ',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                18 =>
+            17 =>
                 array (
                     'id' => 19,
-                    'name' => 'Kusini Pemba',
+                    'name' => 'Kaskazini Pemba ',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                19 =>
+            18 =>
                 array (
                     'id' => 20,
-                    'name' => 'Pwani',
+                    'name' => 'Kusini Pemba',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                20 =>
+            19 =>
                 array (
                     'id' => 21,
-                    'name' => 'Rukwa',
+                    'name' => 'Pwani',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                21 =>
+            20 =>
                 array (
                     'id' => 22,
-                    'name' => 'Ruvuma',
+                    'name' => 'Rukwa',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                22 =>
+            21 =>
                 array (
                     'id' => 23,
-                    'name' => 'Simiyu',
+                    'name' => 'Ruvuma',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                23 =>
+            22 =>
                 array (
                     'id' => 24,
-                    'name' => 'Singida',
+                    'name' => 'Simiyu',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                24 =>
+            23 =>
                 array (
                     'id' => 25,
-                    'name' => 'Tabora',
+                    'name' => 'Singida',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                25 =>
+            24 =>
                 array (
                     'id' => 26,
-                    'name' => 'Tanga',
+                    'name' => 'Tabora',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                26 =>
+            25 =>
                 array (
                     'id' => 27,
-                    'name' => 'Kaskazini Unguja',
+                    'name' => 'Tanga',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                27 =>
+            26 =>
                 array (
                     'id' => 28,
-                    'name' => 'Kusini Unguja',
+                    'name' => 'Kaskazini Unguja',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                28 =>
+            27 =>
                 array (
                     'id' => 29,
-                    'name' => 'Mjini Magharibi',
+                    'name' => 'Kusini Unguja',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                29 =>
+            28 =>
                 array (
                     'id' => 30,
-                    'name' => 'Zanzibar Urban West',
+                    'name' => 'Mjini Magharibi',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                30 =>
+            29 =>
                 array (
                     'id' => 31,
-                    'name' => 'Shinyanga',
+                    'name' => 'Zanzibar Urban West',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
                 ),
-                31 =>
+            30 =>
                 array (
                     'id' => 32,
+                    'name' => 'Shinyanga',
+                    'country_id' => 1,
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
+                ),
+            31 =>
+                array (
+                    'id' => 33,
                     'name' => 'Songwe',
                     'country_id' => 1,
-                    'created_at' => '2024-07-22 11:48:21',
-                    'updated_at' => NULL,
-                    
-                ),
-            ));
+                    'created_at' => '2024-08-01 23:33:50',
+                    'updated_at' => '2024-08-01 23:33:50',
+                 ),
+        ));
+
+
             // $this->enableForeignKeys('units');
 
     }

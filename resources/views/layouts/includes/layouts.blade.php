@@ -246,35 +246,39 @@
             </div>
         </div>
         <div class="row">
-                <div class="col-md-4 mb-4">
-            <label for="regions" class="form-label">Region</label>
-            <select class="form-control search-select" id="regions" name="regions" required>
-                <option value="" disabled selected>Select a region</option>
-                @foreach($regions as $region)
-                    <option value="{{ $region->id ?? '' }}" {{ (old('region') == $region->id || $particulars->id == $region->id) ? 'selected' : '' }}>{{ $region->name }}</option>
-                @endforeach
-            </select>
-            @if ($errors->has('regions'))
-                <div class="text-danger">
-                    {{ $errors->first('regions') }}
-                </div>
-            @endif
-            <div class="invalid-feedback">
-                Please select a region
-            </div>
-        </div>
-
-
             <div class="col-md-4 mb-4">
-                <label for="district" class="form-label">District</label>
-                <input type="text" class="form-control @error('district') is-invalid @enderror" id="district" name="district" placeholder="Enter district" value="{{$particulars->district ?? ''}}" required>
-                @if ($errors->has('district'))
+                <label for="regions" class="form-label">Region</label>
+                <select class="form-control search-select" id="regions" name="regions" required>
+                    <option value="" disabled selected>Select a region</option>
+                    @foreach($regions as $region)
+                        <option value="{{ $region->id ?? '' }}" {{ (old('region') == $region->id || $particulars->region_id == $region->id) ? 'selected' : '' }}>{{ $region->name }}</option>
+                    @endforeach
+                </select>
+                @if ($errors->has('regions'))
                     <div class="text-danger">
-                        {{ $errors->first('district') }}
+                        {{ $errors->first('regions') }}
                     </div>
                 @endif
                 <div class="invalid-feedback">
-                    Please Enter district
+                    Please select a region
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <label for="regions" class="form-label">District</label>
+                <select class="form-control search-select" id="districts" name="districts" required>
+                    <option value="" disabled selected>Select a district</option>
+                    @foreach($districts as $district)
+                        <option value="{{ $district->id ?? '' }}" {{ (old('district') == $district->id || $particulars->district_id == $district->id) ? 'selected' : '' }}>{{ $district->name }}</option>
+                    @endforeach
+                </select>
+                @if ($errors->has('districts'))
+                    <div class="text-danger">
+                        {{ $errors->first('districts') }}
+                    </div>
+                @endif
+                <div class="invalid-feedback">
+                    Please select a region
                 </div>
             </div>
         </div>

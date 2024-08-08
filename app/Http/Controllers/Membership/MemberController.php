@@ -25,6 +25,7 @@ class MemberController extends Controller
 
     public function registerMember(Request $request) {
         // Validate the request data
+        
         $validatedData = $request->validate([
             'firstname' => 'required|string|max:255',
             'middlename' => 'required|string|max:255',
@@ -34,12 +35,11 @@ class MemberController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        // If validation passes, the code below will execute
         User::create([
             'firstname' => $validatedData['firstname'],
             'middlename' => $validatedData['middlename'],
             'lastname' => $validatedData['lastname'],
-            'email' => $validatedData['email'] ?? null,
+            'email' => $request->email ?? null,
             'phone' => $validatedData['phone'],
             'password' => $validatedData['password'],
             'username' => $validatedData['firstname'].'.'.$validatedData['lastname'],
@@ -47,7 +47,7 @@ class MemberController extends Controller
             'available' => true,
         ]);
 
-        return view('layouts/auth-login');
+        return redirect()->back()->with('success', 'The user data has been registered successfully');
     }
 
     public function contributions(){
@@ -83,7 +83,6 @@ class MemberController extends Controller
             return redirect()->back()->with('success', 'User has been updated successfully');
 
         } catch (\Exception $e) {
-            dd($e);
             return redirect()->back()->with('error','An error occured while updating user details');
 
         }

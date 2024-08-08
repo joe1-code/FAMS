@@ -37,7 +37,7 @@ class LoginController extends Controller
 
             $data = $this->userRepository->membership($validation);
             // dd($data);
-            return view('layouts.contributions', ['memberData' => $data]);
+            return view('layouts.contributions', ['memberData' => $data, 'username' => $validation['username']]);
             // return redirect()->intended(route('contributions'))
             // ->with('memberData', $data);
         }

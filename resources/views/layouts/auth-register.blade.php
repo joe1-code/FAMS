@@ -1,4 +1,4 @@
-@if ($errors->any())
+<!-- @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -6,7 +6,9 @@
             @endforeach
         </ul>
     </div>
-@endif
+@endif -->
+
+
 
 <!doctype html>
 <html lang="en">
@@ -29,9 +31,21 @@
 
 <body>
     <div class="account-pages my-5 pt-sm-5">
+       
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6 col-xl-5">
+                @if (session('success'))
+            <div class="col-md-12 alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
                     <div class="card overflow-hidden">
                         <div class="bg-primary bg-soft">
                             <div class="row">

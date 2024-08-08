@@ -55,7 +55,7 @@
                                 </a>
                             </div>
                             <div class="p-2">
-                                <form class="form-horizontal" action="{{ route('login') }}" method="post">
+                                <form class="form-horizontal" action="{{ route('landing') }}" method="post">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="username" class="form-label">Username</label>

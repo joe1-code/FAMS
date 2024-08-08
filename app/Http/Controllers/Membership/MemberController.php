@@ -58,8 +58,8 @@ class MemberController extends Controller
     public function edit(Request $request){
         // dd($request->input('member_id'));
         $particulars = User::where('users.id', $request->input('member_id'))
-        ->join('regions as rgn','rgn.id','=', 'users.region_id')
-        ->join('districts as dst', 'dst.id', '=', 'users.district_id')
+        ->leftJoin('regions as rgn','rgn.id','=', 'users.region_id')
+        ->leftJoin('districts as dst', 'dst.id', '=', 'users.district_id')
         ->select('users.*', 'rgn.name as region_name', 'dst.name as district_name')
         ->first();
         // dd($particulars);
@@ -88,6 +88,11 @@ class MemberController extends Controller
 
         }
 
+    }
+
+    public function members(){
+
+        return view('layouts/contributions');
     }
 
     

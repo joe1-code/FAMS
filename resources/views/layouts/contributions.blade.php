@@ -404,7 +404,7 @@
                                     <span key="t-contributions">Contributions</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="" key="t-members">Members</a></li>
+                                    <li><a href="{{ route('members') }}" key="t-members">Members</a></li>
                                     <li><a href="" key="t-payments">Monthly Payments</a></li>
                                     <li><a href="" key="t-arrears">Monthly Arrears</a></li>
                                     <!-- <li><a href="dashboard-job.html"><span class="badge rounded-pill text-bg-success float-end" key="t-new">New</span> <span key="t-jobs">Jobs</span></a></li> -->
@@ -850,8 +850,8 @@
                                         </div>
                                     </td>
                                     <td><a href="javascript: void(0);" class="text-body fw-bold">{{$data->firstname.' '.$data->middlename.' '.$data->lastname}}</a></td>
-                                    <td>{{$data->region}}</td>
-                                    <td>{{$data->district}}</td>
+                                    <td>{{$data->region_name}}</td>
+                                    <td>{{$data->district_name}}</td>
                                     <td>{{$data->dob}}</td>
                                     <td><i class="fas fa-phone me-1"></i> {{$data->phone}}</td>
                                     <td><span class="badge badge-pill badge-soft-success font-size-11">Paid</span></td>
@@ -885,51 +885,24 @@
                 <table class="table align-middle table-nowrap">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Product</th>
-                                                <th scope="col">Product Name</th>
-                                                <th scope="col">Price</th>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">
-                                                    <div>
-                                                        <img src="assets/images/product/img-7.png" alt="" class="avatar-sm">
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    <div>
-                                                        <h5 class="text-truncate font-size-14">Wireless Headphone (Black)</h5>
-                                                        <p class="text-muted mb-0">$ 225 x 1</p>
-                                                    </div>
-                                                </td>
-                                                <td>$ 255</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">
-                                                    <div>
-                                                        <img src="assets/images/product/img-4.png" alt="" class="avatar-sm">
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    <div>
-                                                        <h5 class="text-truncate font-size-14">Phone patterned cases</h5>
-                                                        <p class="text-muted mb-0">$ 145 x 1</p>
-                                                    </div>
-                                                </td>
-                                                <td>$ 145</td>
-                                            </tr>
+                                            
                                             <tr>
                                                 <td colspan="2">
-                                                    <h6 class="m-0 text-right">Sub Total:</h6>
+                                                    <h6 class="m-0 text-right">Contribution Status:</h6>
                                                 </td>
-                                                <td>
+                                                <td colspan="0">
                                                     $ 400
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td colspan="2">
-                                                    <h6 class="m-0 text-right">Shipping:</h6>
+                                                    <h6 class="m-0 text-right">Total Contributions:</h6>
+
                                                 </td>
                                                 <td>
                                                     Free
@@ -937,14 +910,15 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="2">
-                                                    <h6 class="m-0 text-right">Total:</h6>
+                                                    <h6 class="m-0 text-right">Debt Status:</h6>
                                                 </td>
                                                 <td>
                                                     $ 400
                                                 </td>
                                             </tr>
                                         </tbody>
-                                    </table>                </div>
+                                    </table>                
+                    </div>
             </div>
             <div class="modal-footer">
                 <form action="{{ route('edit') }}" method="GET">

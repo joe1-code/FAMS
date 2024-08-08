@@ -48,8 +48,15 @@ class UserRepository implements UserRepositoryInterface
     }
 
     public function membership($validation){
-        $members = User::where('available', true)->where('active', true)->get();
-        // dd($members);
+
+        $members = null;
+
+        $members = User::where('available', true)->where('active', true)
+        ->leftJoin('regions as rgn','rgn.id','=', 'users.region_id')
+        ->leftJoin('districts as dst', 'dst.id', '=', 'users.district_id')
+        ->select('users.*', 'rgn.name as region_name', 'dst.name as district_name')        
+        ->get();
+        
 
         return $members;
     }

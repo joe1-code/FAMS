@@ -94,6 +94,12 @@ class MemberController extends Controller
         return view('layouts/contributions');
     }
 
+    public function monthlyPayments(){
+
+
+        return view('contributions/monthly_payments');
+    }
+
     
     
 }

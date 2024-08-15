@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Membership\MemberController;
+use App\Http\Controllers\Payments\PaymentsController;
 
 
 Route::get('/', function () {
@@ -19,3 +20,4 @@ Route::get('/contributions', [App\Http\Controllers\Membership\MemberController::
 
 Route::get('/edit', [App\Http\Controllers\Membership\MemberController::class, 'edit'])->name('edit');
 Route::post('/submit_members/{id}', [App\Http\Controllers\Membership\MemberController::class, 'submitEditData'])->name('submit_members');
+Route::get('/payments', [App\Http\Controllers\Payments\PaymentsController::class, 'monthlyPayments'])->name('payments');

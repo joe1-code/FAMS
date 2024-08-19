@@ -58,7 +58,7 @@
                             <div class="col-md-4 mb-4">
                                 <!-- File Upload -->
                                 <label for="document" class="form-label">Upload Document</label>
-                                <input type="file" class="form-control" id="document" name="document" required>
+                                <input type="file" class="form-control" id="1" name="document" required>
                                 @if ($errors->has('document'))
                                     <div class="text-danger">
                                         {{ $errors->first('document') }}

@@ -17,7 +17,7 @@ class PaymentsController extends Controller
     }
 
     public function getMonthlyPayments(Request $request){
-        dd($request->all());
+        dd($request->hasFile('document'));
         return true;
     }
 }

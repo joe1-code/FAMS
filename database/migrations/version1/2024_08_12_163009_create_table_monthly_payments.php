@@ -13,12 +13,17 @@ return new class extends Migration
     {
         Schema::create('monthly_payments', function (Blueprint $table) {
             $table->id();
+            $table->integer('payment_type');
+            $table->foreign('payment_type')->references('id')->on('payment_types')->onDelete('cascade');
             $table->integer('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('document_id');
+            $table->foreign('document_id')->references('id')->on('documents')->onDelete('cascade');
             $table->unsignedBigInteger('paid_amount');
             $table->unsignedBigInteger('entitled_amount');
             $table->dateTime('pay_date');
             $table->boolean('payment_status');
+            $table->boolean('doc_used');
             $table->boolean('approval_status');
             $table->unsignedBigInteger('total_contributions');
             $table->timestamps();

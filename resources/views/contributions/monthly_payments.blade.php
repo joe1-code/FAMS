@@ -23,25 +23,29 @@
         <!-- App Css-->
         <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/css/select2.min.css" rel="stylesheet" />
+        
 
         <style>
                 .wrapper {
-                        /* background-color: whitesmoke; */
-                        background-color: #17a2b8;
+                        /* background-color: #17a2b8; */
+                        background-color: white;
                         /* font-family: Futura, Helvetica, "san-serif" !important; */
-                        position: relative; /* Enables positioning of child elements */
-                        width: 100%; /* Full width of the container */
+                        position: absolute; /* Enables positioning of child elements */
+                        right: 0;
+                        width: 83%; /* Full width of the container */
                         height: 100vh; /* Full height of the viewport */
                     }
 
                 .content-layer {
                     position: absolute; /* Positions the content layer on top */
-                    top: 50%; /* Centers the content vertically */
-                    left: 58%; /* Centers the content horizontally */
-                    height: 85%;
+                    top: 120px; /* Centers the content vertically */
+                    left: 45%; /* Centers the content horizontally */
+                    width: 80%;
+                    height: 200px;
                     transform: translate(-50%, -50%); /* Adjusts the content to be truly centered */
                     padding: 20px; /* Optional padding for the content layer */
-                    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background for the content layer */
+                    /* background-color: rgba(255, 255, 255, 0.9); Slightly transparent white background for the content layer */
+                    background-color: #17a2b8; /* Slightly transparent white background for the content layer */
                     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow effect */
                     border-radius: 10px; /* Optional rounded corners */
                 }
@@ -76,14 +80,18 @@
         <script src="assets/libs/metismenu/metisMenu.min.js"></script>
         <script src="assets/libs/simplebar/simplebar.min.js"></script>
         <script src="assets/libs/node-waves/waves.min.js"></script>
-
-        <!-- apexcharts -->
-        <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
-
-        <!-- dashboard init -->
-        <script src="assets/js/pages/dashboard.init.js"></script>
+    
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
 </html>
 
+<script>
+        $(document).ready(function(){
+                $('#user_data').select2({
+                        'placeholder':'select a member',
+                        'allowClear': true
+                });
+        });
+
+</script>

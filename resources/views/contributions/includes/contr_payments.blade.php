@@ -35,11 +35,13 @@
             <div class="tab-content">
                 <div id="tab1" class="container tab-pane active" role="tabpanel"><br>
                     <div class="content-layer">
-                        <form action="" method="post">
+                        <form action="{{ route('get_monthly_payments') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row" style="background-color: red;">
                             <div class="col-md-4 mb-4">
-                                <!-- <label for="member" class="form-label">Select Members</label> -->
-                                <select class="form-control search-select" id="user_data" name="user_data" required>
-                                    <option value="" disabled selected placeholder=''>Select a member</option>
+                                <label for="member" class="form-label">Select Members</label>
+                                <select class="form-control search-select" id="user_data" name="id" required>
+                                    <option value="" disabled selected placeholder=''></option>
                                     @foreach($memberData as $data)
                                         <option value="{{$data->id}}">{{ $data->firstname.' '.$data->lastname }}</option>
                                     @endforeach
@@ -53,10 +55,26 @@
                                     Please select a member
                                 </div>
                             </div>
-
-                            <div>
-                                <button>Upload</button>
+                            <div class="col-md-4 mb-4">
+                                <!-- File Upload -->
+                                <label for="document" class="form-label">Upload Document</label>
+                                <input type="file" class="form-control" id="document" name="document" required>
+                                @if ($errors->has('document'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('document') }}
+                                    </div>
+                                @endif
+                                <div class="invalid-feedback">
+                                    Please upload a document
+                                </div>
                             </div>
+                            <div>
+                                <button type="submit">Submit</button>
+                            </div>
+                            </div>
+                            
+
+
 
                         </form>
                     </div>

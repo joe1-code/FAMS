@@ -15,4 +15,9 @@ class PaymentsController extends Controller
         return view('contributions/monthly_payments')
                     ->with('memberData', $user_data);
     }
+
+    public function getMonthlyPayments(Request $request){
+        dd($request->all());
+        return true;
+    }
 }

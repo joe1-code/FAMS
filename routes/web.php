@@ -21,3 +21,4 @@ Route::get('/contributions', [App\Http\Controllers\Membership\MemberController::
 Route::get('/edit', [App\Http\Controllers\Membership\MemberController::class, 'edit'])->name('edit');
 Route::post('/submit_members/{id}', [App\Http\Controllers\Membership\MemberController::class, 'submitEditData'])->name('submit_members');
 Route::get('/payments', [App\Http\Controllers\Payments\PaymentsController::class, 'monthlyPayments'])->name('payments');
+Route::post('/get_monthly_payments', [App\Http\Controllers\Payments\PaymentsController::class, 'getMonthlyPayments'])->name('get_monthly_payments');

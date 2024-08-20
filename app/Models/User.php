@@ -26,6 +26,7 @@ class User extends Authenticatable
         'password',
         'active',
         'available',
+        'entitled_amount',
     ];
 
     /**

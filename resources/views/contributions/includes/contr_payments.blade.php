@@ -58,7 +58,7 @@
                             <div class="col-md-4 mb-4">
                                 <!-- File Upload -->
                                 <label for="document" class="form-label">Upload Document</label>
-                                <input type="file" class="form-control" id="1" name="document" required>
+                                <input type="file" class="form-control" id="1" name="document" >
                                 @if ($errors->has('document'))
                                     <div class="text-danger">
                                         {{ $errors->first('document') }}
@@ -66,6 +66,19 @@
                                 @endif
                                 <div class="invalid-feedback">
                                     Please upload a document
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label for="paid_amount" class="form-label">Amount(Tshs.)</label>
+                                <input type="number" class="form-control @error('paid_amount') is-invalid @enderror" id="paid_amount" name="paid_amount" placeholder="Enter Amount" value="" required>
+                                @if ($errors->has('paid_amount'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('paid_amount') }}
+                                    </div>
+                                @endif
+                                <div class="invalid-feedback">
+                                    Please Enter Amount
                                 </div>
                             </div>
                             <div>

@@ -180,6 +180,20 @@
                     Please Enter dob
                 </div>
             </div>
+
+            <div class="col-md-4 mb-3">
+                <label for="phone" class="form-label">Entitled Amount</label>
+                <input type="number" class="form-control @error('entitled_amount') is-invalid @enderror" id="entitled_amount" name="entitled_amount" placeholder="Enter Entitled Amount" value="{{$particulars->entitled_amount ?? ''}}" required>
+                @if ($errors->has('entitled_amount'))
+                    <div class="text-danger">
+                        {{ $errors->first('entitled_amount') }}
+                    </div>
+                @endif
+                <div class="invalid-feedback">
+                    Please Enter Entitled Amount
+                </div>
+            </div>
+        
         </div>
         
         

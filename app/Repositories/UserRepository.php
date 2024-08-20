@@ -74,6 +74,7 @@ class UserRepository implements UserRepositoryInterface
             $member->region_id = $request->input('regions') ?? null;
             $member->district_id = $request->input('districts') ?? null;
             $member->dob = $request->dob ?? null;
+            $member->entitled_amount = $request->entitled_amount;
     
             $member->save();
     });

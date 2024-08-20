@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-interface BaseRepository
+interface PaymentsRepositoryInterface extends BaseRepository
 {
     public function all();
 
@@ -14,9 +14,6 @@ interface BaseRepository
 
     public function delete($id);
 
-    public function storeMonthlyPaymentsDocs($args);
+    public function monthlyTotalContributions($args);
 
-    
 }
-
-

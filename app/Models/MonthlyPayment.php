@@ -11,7 +11,10 @@ class MonthlyPayment extends Model
 
     protected $fillable = [
         'user_id',
+        'payment_type',
         'paid_amount',
+        'document_id',
+        'doc_used',
         'entitled_amount',
         'pay_date',
         'payment_status',

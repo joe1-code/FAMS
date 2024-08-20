@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Models\MonthlyPayment;
+use App\Models\NotificationDocument;
 use App\Repositories\BaseRepository;
 
 class DocumentRepository implements BaseRepository
@@ -10,7 +12,7 @@ class DocumentRepository implements BaseRepository
      * Create a new class instance.
      */
     protected $model;
-    public function __construct(model $model)
+    public function __construct(MonthlyPayment $model)
     {
         $this->model = $model;
     }
@@ -42,5 +44,32 @@ class DocumentRepository implements BaseRepository
     {
         $record = $this->find($id);
         return $record->delete();
+    }
+
+    public function storeMonthlyPaymentsDocs($request){
+
+        $validation = $request->validate([
+            'document' => 'required|file|mimes:pdf,doc,docx|max:2048',
+            // 'message' => 'please choose a document'
+        ]);
+
+        if ($request->hasFile('document')) {
+            
+            $file = $request->file('document');
+            $filename = time() .'_'. $file->getClientOriginalName();
+
+            $path = $file->storeAs('documents', $filename, 'public'); /*storage/app/public/documents*/
+
+            NotificationDocument::create([
+                'filename' => $filename,
+                'path' => $path,
+                'mime_type' => $file->getClientMimeType(),
+                'user_id' => (int)$request->id,
+            ]);
+        }
+
+        $docId = NotificationDocument::select('id')->where('filename', $filename)->first()->id;
+
+        return $docId;
     }
 }

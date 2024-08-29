@@ -2,10 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Events\NewWorkflow;
 use App\Models\MonthlyPayment;
 use App\Repositories\PaymentsRepositoryInterface;
 use App\Repositories\BaseRepository;
-
+use Illuminate\Support\Facades\DB;
 
 class PaymentsRepository implements PaymentsRepositoryInterface
 {
@@ -62,11 +63,36 @@ class PaymentsRepository implements PaymentsRepositoryInterface
         return true;
     }
 
+    public function initiateWorkflow($input)
+    {
+        // dd($input);
+        return DB::transaction(function () use ($input) {
+            // $wfModule = new WfModuleRepository();
+            // $moduleRepo = new WfModuleRepository();
+            $group = $input['module_group_id'];
+            $resource = $input['resource_id'];
+            $type = 1;
+            $comments = null;
+            $user = $input['user_id'] ?? NULL;
+            $module = $input['module_id'];
+            
+            //Initialize Workflow
+                event(new NewWorkflow(['wf_module_group_id' => $group, 'resource_id' => $resource, 'type' => $type, 'user' => $user], [], ['comments' => $comments]));
+                return $input;
+            });
+    }
+
+
     public function storeMonthlyPaymentsDocs($request)
     {
         // Implement the logic for storing monthly payment documents
         // This is just a placeholder for now
         return true;
+    }
+
+    public function monthlyViewDoc($request){
+
+        return null;
     }
 
 }

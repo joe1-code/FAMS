@@ -62,14 +62,21 @@ class UserRepository implements UserRepositoryInterface
     }
 
     public function editable($request, $id){
-        
+
+        $phone = $request->phone;
+
+        if (preg_match('/^0/', $phone)) {
+
+            $phone = preg_replace('/^0/', '+255', $phone);
+        }
+
         $member = $this->find($id);
-        DB::transaction(function() use ($member, $request){
+        DB::transaction(function() use ($member, $request, $phone){
             $member->firstname = $request->firstname;
             $member->middlename = $request->middlename;
             $member->lastname = $request->lastname;
             $member->email = $request->email ?? null;
-            $member->phone = $request->phone ?? null;
+            $member->phone = $phone ?? null;
             $member->job_title = $request->job_title ?? null;
             $member->region_id = $request->input('regions') ?? null;
             $member->district_id = $request->input('districts') ?? null;

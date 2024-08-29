@@ -26,6 +26,19 @@ if (! function_exists('convert_date')) {
     }
 }
 
+if (!function_exists('throwGeneralException')) {
+    /**
+     * Throw a GeneralException with a custom message.
+     *
+     * @param string $message
+     * @throws \App\Exceptions\GeneralException
+     */
+    function throwGeneralException($message)
+    {
+        throw new \App\Exceptions\GeneralException($message);
+    }
+}
+
 
 
 

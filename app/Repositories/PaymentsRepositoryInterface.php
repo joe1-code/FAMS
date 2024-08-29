@@ -15,5 +15,6 @@ interface PaymentsRepositoryInterface extends BaseRepository
     public function delete($id);
 
     public function monthlyTotalContributions($args);
+    public function initiateWorkflow($args);
 
 }

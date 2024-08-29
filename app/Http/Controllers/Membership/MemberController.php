@@ -35,12 +35,19 @@ class MemberController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
+        $phone = $validatedData['phone'];
+
+        if (preg_match('/^0/', $phone)) {
+
+            $phone = preg_replace('/^0/', '+255', $phone);
+        }
+
         User::create([
             'firstname' => $validatedData['firstname'],
             'middlename' => $validatedData['middlename'],
             'lastname' => $validatedData['lastname'],
             'email' => $request->email ?? null,
-            'phone' => $validatedData['phone'],
+            'phone' => $phone,
             'password' => $validatedData['password'],
             'username' => $validatedData['firstname'].'.'.$validatedData['lastname'],
             'active' => false,
@@ -83,6 +90,7 @@ class MemberController extends Controller
             return redirect()->back()->with('success', 'User has been updated successfully');
 
         } catch (\Exception $e) {
+            dd($e);
             return redirect()->back()->with('error','An error occured while updating user details');
 
         }

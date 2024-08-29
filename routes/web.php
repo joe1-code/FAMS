@@ -9,6 +9,8 @@ Route::get('/', function () {
     return view('layouts/auth-login');
 })->name('home');
 
+// <==========================================membership routes============================================================================>
+
 Route::post('/landing', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('landing');
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 Route::get('/members', [App\Http\Controllers\Membership\MemberController::class, 'members'])->name('members');
@@ -16,9 +18,12 @@ Route::get('/register', [App\Http\Controllers\Membership\MemberController::class
 Route::post('/register_member', [App\Http\Controllers\Membership\MemberController::class, 'registerMember'])->name('register_member');
 Route::get('/contributions', [App\Http\Controllers\Membership\MemberController::class, 'contributions'])->name('contributions');
 
-// <==========================================membership routes============================================================================>
 
 Route::get('/edit', [App\Http\Controllers\Membership\MemberController::class, 'edit'])->name('edit');
 Route::post('/submit_members/{id}', [App\Http\Controllers\Membership\MemberController::class, 'submitEditData'])->name('submit_members');
+
+// <==========================================monthly payments routes============================================================================>
+
 Route::get('/payments', [App\Http\Controllers\Payments\PaymentsController::class, 'monthlyPayments'])->name('payments');
 Route::post('/get_monthly_payments', [App\Http\Controllers\Payments\PaymentsController::class, 'getMonthlyPayments'])->name('get_monthly_payments');
+Route::post('/monthly_preview_document', [App\Http\Controllers\Payments\PaymentsController::class, 'monthlyPreviewDocument'])->name('monthly_preview_document');

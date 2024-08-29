@@ -12,6 +12,9 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\Version100\UnitGroupsTableSeeder;
 use Database\Seeders\version100\UnitsTableSeeder;
+use Database\Seeders\version100\WfDefinitionsTableSeeder;
+use Database\Seeders\version100\WfModuleGroupsTableSeeder;
+use Database\Seeders\version100\WfModulesTableSeeder;
 use Illuminate\Support\Facades\DB;
 // use Database\DisableForeignKeys;
 
@@ -34,6 +37,9 @@ class Version100TableSeeder extends Seeder
         $this->call(DocumentGroupsTableSeeder::class);
         $this->call(DocumentsTableSeeder::class);
         $this->call(PaymentTypesTableSeeder::class);
+        $this->call(WfModuleGroupsTableSeeder::class);
+        $this->call(WfModulesTableSeeder::class);
+        $this->call(WfDefinitionsTableSeeder::class);
 
         DB::commit();
     }

@@ -15,7 +15,8 @@ interface BaseRepository
     public function delete($id);
 
     public function storeMonthlyPaymentsDocs($args);
-
+    
+    public function monthlyViewDoc($args);
     
 }
 

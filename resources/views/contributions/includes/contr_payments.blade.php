@@ -30,7 +30,7 @@
                     <a class="nav-link" data-bs-toggle="tab" href="#tab3" role="tab">WORKFLOW HISTORY</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#tab4" role="tab">OVERDUE MEMBERS</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#tab4" role="tab">NON-PAID MEMBERS</a>
                 </li>
             </ul>
 
@@ -39,7 +39,7 @@
                 <div id="tab1" class="container tab-pane active" role="tabpanel"><br>
                 
                     <div class="content-layer">
-                        <form action="{{ route('get_monthly_payments') }}" method="post" enctype="multipart/form-data">
+                        <form id="month_payment_form" method="post" enctype="multipart/form-data">
                                @csrf
                             <div class="row">
                            
@@ -197,11 +197,87 @@
                     <p>Content for Tab 3.</p>
                 </div>
                 <div id="tab4" class="container tab-pane fade" role="tabpanel"><br>
-                    <h3>Tab 4</h3>
-                    <p>Content for Tab 4.</p>
+                
+                <div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4" style="background-color: #17a2b8;">Non-Paid Members</h4>
+                <div class="table-responsive">
+                    <table class="table align-middle table-nowrap mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 20px;">
+                                    <div class="form-check font-size-16 align-middle">
+                                        <input class="form-check-input" type="checkbox" id="transactionCheckAll">
+                                        <label class="form-check-label" for="transactionCheckAll"></label>
+                                    </div>
+                                </th>
+                                <th class="align-middle">Name</th>
+                                <th class="align-middle">Region</th>
+                                <th class="align-middle">District</th>
+                                <th class="align-middle">DOB</th>
+                                <th class="align-middle">Phone</th>
+                                <th class="align-middle">Payment Status</th>
+                                <th class="align-middle">View Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($memberData as $data)
+                                <tr>
+                                    <td>
+                                        <div class="form-check font-size-16">
+                                            <input class="form-check-input" type="checkbox" id="transactionCheck{{$loop->index}}">
+                                            <label class="form-check-label" for="transactionCheck{{$loop->index}}"></label>
+                                        </div>
+                                    </td>
+                                    <td><a href="javascript: void(0);" class="text-body fw-bold">{{$data->firstname.' '.$data->middlename.' '.$data->lastname}}</a></td>
+                                    <td>{{$data->region_name}}</td>
+                                    <td>{{$data->district_name}}</td>
+                                    <td>{{$data->dob}}</td>
+                                    <td><i class="fas fa-phone me-1"></i> {{$data->phone}}</td>
+                                    <td><span class="badge badge-pill badge-soft-success font-size-11">Paid</span></td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light view-details-btn" data-id="{{$data->id}}" data-name="{{$data->firstname.' '.$data->middlename.' '.$data->lastname}}" data-bs-toggle="modal" data-bs-target=".transaction-detailModal">
+                                            View Details
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        // "
+        $('#month_payment_form').on('submit', function(e){
+
+            e.preventDefault();
+
+            var formdata = new FormData(this);
+            console.log(formdata);
+
+            $ajax({
+                type: 'post',
+                url: "{{ route('get_monthly_payments') }}",
+                data: formdata,
+                contentType: false,
+                processData: false,
+
+                
+            });
+            
+        });
+    });
+</script>

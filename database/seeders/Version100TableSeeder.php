@@ -6,6 +6,7 @@ use Database\Seeders\version100\DesignationsTableSeeder;
 use Database\Seeders\version100\DistrictsTableSeeder;
 use Database\Seeders\version100\DocumentGroupsTableSeeder;
 use Database\Seeders\version100\DocumentsTableSeeder;
+use Database\Seeders\version100\PaymentMethodsTableSeeder;
 use Database\Seeders\version100\PaymentTypesTableSeeder;
 use Database\Seeders\version100\RegionsTableSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -40,6 +41,7 @@ class Version100TableSeeder extends Seeder
         $this->call(WfModuleGroupsTableSeeder::class);
         $this->call(WfModulesTableSeeder::class);
         $this->call(WfDefinitionsTableSeeder::class);
+        $this->call(PaymentMethodsTableSeeder::class);
 
         DB::commit();
     }

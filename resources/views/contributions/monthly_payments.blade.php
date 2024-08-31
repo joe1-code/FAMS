@@ -132,14 +132,16 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             const previewContainer = document.getElementById('document_frame');
-            console.log(data.document);
                 
             if (data.status === 'success') {
                 const fileType = data.document.split('.').pop().toLowerCase();
-                const filePath = `{{ asset('assets/documents') }}/${data.document}`;
+                const filePath = `{{ ('storage/documents') }}/${data.document}`;
                 
                 if (fileType === 'pdf') {
+                    console.log(filePath);
+
                     // alert(previewContainer);
+                    alert(filePath);
                     previewContainer.innerHTML = `<embed src="${filePath}" type="application/pdf" width="100%" height="600px">`;
                 } else if (['jpg', 'jpeg', 'png', 'gif'].includes(fileType)) {
                     previewContainer.innerHTML = `<img src="${filePath}" style="max-width: 100%; height: auto;" alt="Document Preview">`;

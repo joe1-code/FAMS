@@ -23,6 +23,8 @@ return new class extends Migration
             $table->unsignedBigInteger('entitled_amount');
             $table->dateTime('pay_date');
             $table->boolean('payment_status');
+            $table->integer('payment_method_id')->nullable()->comment('1=>CRDB Account, 2=>UTT AMIS Account');
+            $table->foreign('payment_method_id')->references('id')->on('payment_methods')->onDelete('cascade');
             $table->boolean('doc_used');
             $table->boolean('approval_status');
             $table->unsignedBigInteger('total_contributions')->default(0);

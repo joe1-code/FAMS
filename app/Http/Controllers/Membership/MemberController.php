@@ -99,7 +99,10 @@ class MemberController extends Controller
 
     public function members(){
 
-        return view('layouts/contributions');
+        $members = User::ActiveMembers()->get();
+        
+        return view('layouts/contributions')
+                ->with('memberData', $members);
     }
 
     public function monthlyPayments(){

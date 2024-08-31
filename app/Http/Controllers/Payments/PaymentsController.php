@@ -26,16 +26,16 @@ class PaymentsController extends Controller
     }
     
     public function monthlyPayments(){
-        $user_data = User::where('available', true)->where('active', true)->get();
-
+        // $user_data = User::where('available', true)->where('active', true)->get();
+        $user_data = User::ActiveMembers()->get();
         // dd($user_data);
         return view('contributions/monthly_payments')
                     ->with('memberData', $user_data);
     }
 
-    public function getMonthlyPayments(Request $request){
+    public function getMonthlyPayments(){
         // dd($request->all());
-
+        dd(123);
        $document_id = $this->DocumentRepository->storeMonthlyPaymentsDocs($request);
 
        $contributions = $this->PaymentsRepository->monthlyTotalContributions($request);

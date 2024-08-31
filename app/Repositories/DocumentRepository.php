@@ -59,7 +59,11 @@ class DocumentRepository implements BaseRepository
             $file = $request->file('document');
             $filename = time() .'_'. $file->getClientOriginalName();
 
-            $path = $file->storeAs('assets/documents', $filename, 'public'); /*storage/app/public/documents*/
+            $path = $file->storeAs('documents', $filename, 'public');
+            // $storagePath = public_path('assets/documents');
+            // $file->move($storagePath, $file);
+            // $path = ('assets/documents/' . $filename);
+            // dd($path);
 
             DB::transaction(function() use($filename, $path, $file, $request){
                 NotificationDocument::create([

@@ -60,4 +60,8 @@ class User extends Authenticatable
                     ->select('users.*', 'rgn.name as region_name', 'dst.name as district_name');        
                     
     }
+
+    public function Access(){
+        
+    }
 }

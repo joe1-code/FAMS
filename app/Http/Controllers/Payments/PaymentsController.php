@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use PhpParser\Node\Expr\Throw_;
+use Yajra\DataTables\Facades\DataTables;
 
 class PaymentsController extends Controller
 {
@@ -33,9 +34,9 @@ class PaymentsController extends Controller
                     ->with('memberData', $user_data);
     }
 
-    public function getMonthlyPayments(){
+    public function getMonthlyPayments(Request $request){
         // dd($request->all());
-        dd(123);
+        // dd(123);
        $document_id = $this->DocumentRepository->storeMonthlyPaymentsDocs($request);
 
        $contributions = $this->PaymentsRepository->monthlyTotalContributions($request);
@@ -55,18 +56,18 @@ class PaymentsController extends Controller
             }
 
             $current_month = Carbon::now()->format('m');
-           try {
-                if($current_month == $available_month){
+        //    try {
+        //         if($current_month == $available_month){
 
-                    throw ValidationException::withMessages([
-                        'error' => [trans('You already paid for this month.')],
-                    ]);
-                }
-           } 
-           catch (\App\Exceptions\GeneralException $e) {
+        //             throw ValidationException::withMessages([
+        //                 'error' => [trans('You already paid for this month.')],
+        //             ]);
+        //         }
+        //    } 
+        //    catch (\App\Exceptions\GeneralException $e) {
 
-                return redirect()->back()->with('error', $e->getMessage());
-           }
+        //         return redirect()->back()->with('error', $e->getMessage());
+        //    }
             
             
             $monthlyPayment = MonthlyPayment::create([
@@ -101,6 +102,18 @@ class PaymentsController extends Controller
 
        return $response;
 
+    }
+
+    public function getForDataTable(){
+
+        $query = User::query()->join('monthly_payments as mp', 'mp.user_id', '=', 'users.id')
+                            ->whereRaw('MONTH(mp.created_at) = ?', [Carbon::now()->month])
+                            ->whereRaw('YEAR(mp.created_at) = ?', [Carbon::now()->year])
+                        ->join('regions as rgn', 'rgn.id', '=', 'users.region_id')
+                        ->join('districts as dst', 'dst.id', '=', 'users.district_id')
+                        ->select('firstname', 'lastname', 'dob', 'phone', 'payment_status', 'rgn.name as region', 'dst.name as district');
+
+        return DataTables::of($query)->make(true);
     }
 
     

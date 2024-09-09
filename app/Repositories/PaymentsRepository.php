@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 use App\Events\NewWorkflow;
 use App\Models\MonthlyPayment;
+use App\Models\Workflow\Wf_definition;
+use App\Models\Workflow\WfTrack;
 use App\Repositories\PaymentsRepositoryInterface;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
@@ -66,6 +68,7 @@ class PaymentsRepository implements PaymentsRepositoryInterface
     public function initiateWorkflow($input)
     {
         // dd($input);
+
         return DB::transaction(function () use ($input) {
             // $wfModule = new WfModuleRepository();
             // $moduleRepo = new WfModuleRepository();
@@ -77,7 +80,7 @@ class PaymentsRepository implements PaymentsRepositoryInterface
             $module = $input['module_id'];
             
             //Initialize Workflow
-                event(new NewWorkflow(['wf_module_group_id' => $group, 'resource_id' => $resource, 'type' => $type, 'user' => $user], [], ['comments' => $comments]));
+                event(new NewWorkflow(['wf_module_group_id' => $group, 'resource_id' => $resource, 'type' => $type, 'user' => $user, 'module_id' => $input['module_id']], [], ['comments' => $comments]));
                 return $input;
             });
     }
@@ -93,6 +96,32 @@ class PaymentsRepository implements PaymentsRepositoryInterface
     public function monthlyViewDoc($request){
 
         return null;
+    }
+
+    public function getRecentResourceTrack($module_id, $resource_id)
+    {
+        // dd(Wf_track::get());
+        $wf_track = WfTrack::where('resource_id', $resource_id)->whereHas('WfDefinition', function ($query) use ($module_id) {
+            $query->where('wf_module_id', $module_id);
+        })->orderBy('id','desc')->first();
+
+        return $wf_track;
+    }
+
+    public function getDefinition($module_id, $resource_id)
+    {
+        $track = $this->getRecentResourceTrack($module_id, $resource_id);
+
+        if (empty($track)) {
+            $definition = Wf_definition::where(['wf_module_id' => $module_id, 'level' => 1])->first();
+
+            $wf_definition_id = $definition->id;
+
+        } else {
+            $wf_definition_id = $track->wf_definition_id;
+        }
+        //dd($track);
+        return $wf_definition_id;
     }
 
 }

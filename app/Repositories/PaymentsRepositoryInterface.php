@@ -16,5 +16,8 @@ interface PaymentsRepositoryInterface extends BaseRepository
 
     public function monthlyTotalContributions($args);
     public function initiateWorkflow($args);
+    public function getDefinition($args, $id);
+    public function getRecentResourceTrack($args, $id);
+
 
 }

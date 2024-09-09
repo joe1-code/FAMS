@@ -22,6 +22,7 @@
         <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <!-- App Css-->
         <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+        <link href="" id="app-style" rel="stylesheet" type="text/css" />
         
 
         <style>
@@ -73,6 +74,9 @@
                         color: white;
    
                 }
+                #tab44{
+                    background-color: red;
+                }
 
         </style>
 
@@ -103,13 +107,18 @@
         <script src="assets/libs/simplebar/simplebar.min.js"></script>
         <script src="assets/libs/node-waves/waves.min.js"></script>
         <script src="assets/js/app.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>
+        <script src="https://cdn.datatables.net/2.1.5/css/dataTables.dataTables.css"></script>
+
+<!-- datatables.js -->
 
 
+<!-- ending -->
         <!-- Include Select2 CSS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/css/select2.min.css" rel="stylesheet" />
 
 </html>
-
 
 <script>
         
@@ -141,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log(filePath);
 
                     // alert(previewContainer);
-                    alert(filePath);
+                    /*alert(filePath);*/
                     previewContainer.innerHTML = `<embed src="${filePath}" type="application/pdf" width="100%" height="600px">`;
                 } else if (['jpg', 'jpeg', 'png', 'gif'].includes(fileType)) {
                     previewContainer.innerHTML = `<img src="${filePath}" style="max-width: 100%; height: auto;" alt="Document Preview">`;

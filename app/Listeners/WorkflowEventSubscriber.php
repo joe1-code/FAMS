@@ -2,67 +2,58 @@
 
 namespace App\Listeners;
 
+use App\Events\NewWorkflow;
 use App\Services\Workflow\Workflow;
-
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Auth;
 
 class WorkflowEventSubscriber
 {
     /**
-     * Handle on new workflow events.
-     * @param $event
-     * @throws \App\Exceptions\GeneralException
+     * Create the event listener.
      */
-    public function onNewWorkflow($event)
+    public function __construct()
     {
-        dd(123);
+        //
+    }
+
+    /**
+     * Handle the event.
+     */
+    public function handle(NewWorkflow $event): void
+    {
+        // $event->listen(
+        //     'App\Events\NewWorkflow',
+        //     'App\Listeners\WorkflowEventSubscriber@onNewWorkflow'
+        // );
+        $this->onNewWorkflow($event);
+    }
+
+    public function onNewWorkflow($event){
         $input = $event->input;
         $par = $event->par;
         $extra = $event->extra;
         $resource_id = $input['resource_id'];
         $wf_module_group_id = $input['wf_module_group_id'];
+        $module_id = $input['module_id'];
+
         if (isset($input['type'])) {
             $type = $input['type'];
         } else {
             $type = 0;
         }
+        // dd(Auth()->user);
         $data = [
             "resource_id" => $resource_id,
             "sign" => 1,
-            "user_id" => $input['user'] ?? access()->id(),
+            "user_id" => $input['user'],
         ];
         $data['comments'] = isset($extra['comments']) ? $extra['comments'] : "Recommended";
 
-        $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $resource_id, 'type' => $type]);
+        $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $resource_id, 'type' => $type, 'wf_module_id' => $module_id]);
 
         $workflow->createLog($data);
-    }
 
-    /**
-     * Register the listeners for the subscriber.
-     *
-     * @param  Illuminate\Events\Dispatcher  $events
-     */
-    public function subscribe($events)
-    {
-    dd(456);
-
-        $events->listen(
-            'App\Events\ApproveWorkflow',
-            'App\Listeners\WorkflowEventSubscriber@onApproveWorkflow'
-        );
-
-        $events->listen(
-            'App\Events\NewWorkflow',
-            'App\Listeners\WorkflowEventSubscriber@onNewWorkflow'
-        );
-
-        $events->listen(
-            'App\Events\RejectWorkflow',
-            'App\Listeners\WorkflowEventSubscriber@onRejectWorkflow'
-        );
-        $events->listen(
-            'App\Events\TerminateWorkflow',
-            'App\Listeners\WorkflowEventSubscriber@onTerminateWorkflow'
-        );
     }
 }

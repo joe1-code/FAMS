@@ -6,6 +6,7 @@ use App\Exceptions\GeneralException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\MonthlyPayment;
+use App\Models\Payments\PaymentMethod;
 use App\Models\User;
 use App\Repositories\BaseRepository;
 use App\Repositories\DocumentRepository;
@@ -29,9 +30,11 @@ class PaymentsController extends Controller
     public function monthlyPayments(){
         // $user_data = User::where('available', true)->where('active', true)->get();
         $user_data = User::ActiveMembers()->get();
-        // dd($user_data);
+        $paymentMethods = PaymentMethod::all();
+
         return view('contributions/monthly_payments')
-                    ->with('memberData', $user_data);
+                    ->with('memberData', $user_data)
+                    ->with('payment_methods', $paymentMethods);
     }
 
     public function getMonthlyPayments(Request $request){
@@ -69,7 +72,6 @@ class PaymentsController extends Controller
         //         return redirect()->back()->with('error', $e->getMessage());
         //    }
             
-            
             $monthlyPayment = MonthlyPayment::create([
                 'payment_type' => 1,
                 'user_id' => $userID,
@@ -78,17 +80,18 @@ class PaymentsController extends Controller
                 'entitled_amount' => $user_instance[0]['entitled_amount'],
                 'pay_date' => Carbon::now(),
                 'payment_status' => false,
+                'payment_method_id' => (int)$request->payment_method,
                 'doc_used' => false,
                 'total_contributions' => $contributions,
                 'approval_status' => false,
-        ]);
+             ]);
         });
         
         $resource_id = MonthlyPayment::where('user_id', $userID)->where('payment_status', false)->where('approval_status', false)->first()->id;
 
         $input = ['resource_id'=>$resource_id, 'module_id' => (int)$request->module_id, 'module_group_id' => (int)$request->module_group_id, 'user_id' => $userID];
 
-        $this->PaymentsRepository->initiateWorkflow($input);
+        // $this->PaymentsRepository->initiateWorkflow($input);
 
         
         // dd($request->all());
@@ -106,12 +109,19 @@ class PaymentsController extends Controller
 
     public function getForDataTable(){
 
-        $query = User::query()->join('monthly_payments as mp', 'mp.user_id', '=', 'users.id')
-                            ->whereRaw('MONTH(mp.created_at) = ?', [Carbon::now()->month])
-                            ->whereRaw('YEAR(mp.created_at) = ?', [Carbon::now()->year])
-                        ->join('regions as rgn', 'rgn.id', '=', 'users.region_id')
-                        ->join('districts as dst', 'dst.id', '=', 'users.district_id')
-                        ->select('firstname', 'lastname', 'dob', 'phone', 'payment_status', 'rgn.name as region', 'dst.name as district');
+        $query = User::query()->join('unpaid_members as um', 'um.user_id', '=', 'users.id')
+                                ->join('regions as rgn', 'rgn.id', '=', 'users.region_id')
+                                ->join('districts as dst', 'dst.id', '=', 'users.district_id')
+                                ->whereBetween('um.created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])
+                                ->select(
+                                        DB::raw("CONCAT(firstname,' ',lastname) as fullname"),
+                                        DB::raw('dob'),
+                                        DB::raw('phone'),
+                                        DB::raw("case when um.pay_status = true then 'Paid' else 'Not Paid' end as pay_status"),
+                                        DB::raw('rgn.name as region'),
+                                        DB::raw('rgn.name as district'));
+
+                        
 
         return DataTables::of($query)->make(true);
     }

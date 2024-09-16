@@ -9,6 +9,7 @@ use App\Models\Workflow_track;
 use App\Repositories\PaymentsRepository;
 use App\Repositories\UserRepository;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -502,7 +503,8 @@ class Workflow
 
 
 
-                        WfTrack::create([
+                       $wf_track = WfTrack::create([
+                            'user_id' => $input['user_id'],
                              'status' => 1,
                              'resource_id' => $input['resource_id'],
                              'wf_definition_id' => $this->wf_definition_id,
@@ -521,7 +523,7 @@ class Workflow
                          ]);
                          DB::commit();
 
-                    dd('<======================end transaction====================================>');
+                    // dd('<======================end transaction====================================>');
 
                     // });
 
@@ -532,37 +534,37 @@ class Workflow
 
 
                     
-            switch ($source) {
-                case 1:
-                    if ($input['user_id']) {
-                        $user = new User();
+            // switch ($source) {
+            //     case 1:
+            //         if ($input['user_id']) {
+            //             $user = new User();
 
-                        $userRepo = new UserRepository($user);
+            //             $userRepo = new UserRepository($user);
 
-                        $user = $userRepo->find($input['user_id']);
+            //             $user = $userRepo->find($input['user_id']);
                     
-                    } else {
-                        $user = Auth()->user();
-                    }
+            //         } else {
+            //             $user = Auth()->user();
+            //         }
 
-                    $Wf_Track->user_id = $user;
-                    $Wf_Track->assigned = 1;
-                    $user->wfTracks()->save($wf_track);
-                    break;
-                case 2:
-                    $userRepo = new PortalUserRepository();
-                    $user = $userRepo->query()->find($input['user_id']);
-                    $wf_track->user_id = $input['user_id'];
-                    $wf_track->assigned = 1;
-                    $user->wfTracks()->save($wf_track);
-                    break;
-                case 3:
-                    $user = HcpUser::find($input['user_id']);
-                    $wf_track->user_id = $input['user_id'];
-                    $wf_track->assigned = 1;
-                    $user->wfTracks()->save($wf_track);
-                    break;
-            }
+            //         $Wf_Track->user_id = $user;
+            //         $Wf_Track->assigned = 1;
+            //         $user->wfTracks()->save($wf_track);
+            //         break;
+            //     case 2:
+            //         $userRepo = new PortalUserRepository();
+            //         $user = $userRepo->query()->find($input['user_id']);
+            //         $wf_track->user_id = $input['user_id'];
+            //         $wf_track->assigned = 1;
+            //         $user->wfTracks()->save($wf_track);
+            //         break;
+            //     case 3:
+            //         $user = HcpUser::find($input['user_id']);
+            //         $wf_track->user_id = $input['user_id'];
+            //         $wf_track->assigned = 1;
+            //         $user->wfTracks()->save($wf_track);
+            //         break;
+            // }
             //update Resource Type for the current wftrack
             $this->updateResourceType($wf_track);
 
@@ -583,446 +585,20 @@ class Workflow
     {
         $resourceId = $wfTrack->resource_id;
         $wfModule = $wfTrack->wfDefinition->wfModule;
-        $moduleGroupId = $wfModule->wfModuleGroup->id;
+        $moduleGroupId = $wfModule->WfModuleGroup->id;
         $type = $wfModule->type;
+
         //$this->wf_module_group_id
         switch ($moduleGroupId) {
             case 1:
-                //Interest Waiving
-            $interestWriteOff = (new InterestWriteOffRepository())->query()->find($resourceId);
-            $interestWriteOff->wfTracks()->save($wfTrack);
-            break;
-            case 2:
-                //Interest Adjustment
-            $bookingInterest = (new BookingInterestRepository())->query()->find($resourceId);
-            $bookingInterest->wfTracks()->save($wfTrack);
-            break;
-            case 3:
-            case 4:
-                //Claim & Notification Processing
-            if ($type >= 4) {
-                    //This is progressive notification
-                $workflow = (new NotificationWorkflowRepository())->query()->find($resourceId);
-                $workflow->wfTracks()->save($wfTrack);
-            } else {
-                    //This is legacy notification report
-                $notificationReport = (new NotificationReportRepository())->query()->find($resourceId);
-                $notificationReport->wfTracks()->save($wfTrack);
-            }
-            break;
-            case 5:
-                //Contribution Receipt
-            $receipt = (new ReceiptRepository())->query()->find($resourceId);
-            $receipt->wfTracks()->save($wfTrack);
-            break;
-            case 6:
-                //Employer Registration
-            $employer = (new EmployerRepository())->findWithoutScopeOrThrowException($resourceId);
-            $employer->wfTracks()->save($wfTrack);
-            break;
-            case 7:
-                //Contribution Before Electronic Receipt
-            $legacyReceipt = (new LegacyReceiptRepository())->query()->find($resourceId);
-            $legacyReceipt->wfTracks()->save($wfTrack);
-            break;
+                //Monthly Payments
+            $monthlypaymentModel = new MonthlyPayment();
 
-            case 11:
-                //Payroll bank updates
-            $bank_update = (new PayrollBankUpdateRepository())->query()->find($resourceId);
-            $bank_update->wfTracks()->save($wfTrack);
-            break;
+            $monthlyPayment = (new PaymentsRepository($monthlypaymentModel))->find($resourceId);
 
-            case 12:
-                //Payroll Status change
-            $status_change = (new PayrollStatusChangeRepository())->query()->find($resourceId);
-            $status_change->wfTracks()->save($wfTrack);
+            $monthlyPayment->wfTracks()->save($wfTrack);
             break;
-
-            case 13:
-                //Payroll  Recovery
-            $payroll_recovery = (new PayrollRecoveryRepository())->query()->find($resourceId);
-            $payroll_recovery->wfTracks()->save($wfTrack);
-            break;
-            case 10:
-                //Payroll  run processing
-            $payroll_run_approval = (new PayrollRunApprovalRepository())->query()->find($resourceId);
-            $payroll_run_approval->wfTracks()->save($wfTrack);
-            break;
-
-            case 14:
-                //Payroll  reconciliations
-            $payroll_reconciliations = (new PayrollReconciliationRepository())->query()->find($resourceId);
-            $payroll_reconciliations->wfTracks()->save($wfTrack);
-            break;
-
-            case 15:
-                //Payroll  beneficiary update
-            $payroll_beneficiary_updates = (new PayrollBeneficiaryUpdateRepository())->query()->find($resourceId);
-            $payroll_beneficiary_updates->wfTracks()->save($wfTrack);
-            break;
-            case 16:
-                //Employer Advance Payment
-            $advance = (new EmployerAdvancePaymentRepository())->query()->find($resourceId);
-            $advance->wfTracks()->save($wfTrack);
-            break;
-            case 17:
-                //Online Notification Application
-            $incident = (new PortalIncidentRepository())->query()->find($resourceId);
-            $incident->wfTracks()->save($wfTrack);
-            break;
-            case 18:
-                //Employer business closure
-            $closure = (new EmployerClosureRepository())->query()->find($resourceId);
-            $closure->wfTracks()->save($wfTrack);
-            break;
-            case 19:
-                //Letter Issuance
-            $letter = (new LetterRepository())->query()->find($resourceId);
-            $letter->wfTracks()->save($wfTrack);
-            break;
-            case 20:
-                //Employer Inspection Plan
-            $inspection = (new InspectionRepository())->query()->find($resourceId);
-            $inspection->wfTracks()->save($wfTrack);
-            break;
-            case 21:
-                //Employer Inspection Task
-            $workflow = (new EmployerInspectionTaskWorkflowRepository())->query()->find($resourceId);
-            $workflow->wfTracks()->save($wfTrack);
-            break;
-            case 22:
-                //Employer Closure Reopen
-            $employerReopen = (new EmployerClosureReopenRepository())->query()->find($resourceId);
-            $employerReopen->wfTracks()->save($wfTrack);
-            break;
-            case 23:
-                //Employer Particular Changes
-            $employer_change = (new EmployerParticularChangeRepository())->query()->find($resourceId);
-            $employer_change->wfTracks()->save($wfTrack);
-            break;
-            case 24:
-                //Payroll Monthly Pension Updates
-
-            $mp_update = (new PayrollMpUpdateRepository())->query()->find($resourceId);
-            $mp_update->wfTracks()->save($wfTrack);
-            break;
-            case 26:
-            /* Contribution Receivables */
-            $ir_update = InstallmentRequest::find($resourceId);
-            $ir_update->wfTracks()->save($wfTrack);
-
-            break;
-            case 27:
-            /* Contribution Liability */
-
-            break;
-            case 28:
-            /* osh audit */
-                switch ($wfModule->type) {
-                    case 0:
-                        $osh_audit = (new OshAuditPeriodRepository())->query()->find($resourceId);
-                        $osh_audit->wfTracks()->save($wfTrack);
-                    break;
-                    case 1:
-                        $user_program = UserProgramReport::find($resourceId);
-                        $user_program->wfTracks()->save($wfTrack);
-                    break;
-                }
-                break;
-
-            break;
-            case 29:
-            /* Investment budget */
-            $investment_budget = (new InvestimentBudgetRepository())->find($resourceId);
-            $investment_budget->wfTracks()->save($wfTrack);
-            break;
-
-            case 30:
-            /* Employer closure extension */
-            $closure_extension = (new EmployerClosureExtensionRepository())->find($resourceId);
-            $closure_extension->wfTracks()->save($wfTrack);
-            break;
-            case 31:
-            /* Claim accrual */
-            $claim_accrual = (new AccrualNotificationReportRepository())->find($resourceId);
-            $claim_accrual->wfTracks()->save($wfTrack);
-            break;
-            case 32:
-            /* Investigation Plan */
-            $claim_accrual = (new InvestigationPlanRepository())->find($resourceId);
-            $claim_accrual->wfTracks()->save($wfTrack);
-            break;
-
-            case 33:
-            /* Interest Adjustment (Receipt)*/
-            $interest_adj = (new InterestAdjustmentRepository())->find($resourceId);
-            $interest_adj->wfTracks()->save($wfTrack);
-            break;
-            case 34:
-            /* Payroll Retiree MP update*/
-            $payroll_retiree_mp_update = (new PayrollRetireeMpUpdateRepository())->find($resourceId);
-            $payroll_retiree_mp_update->wfTracks()->save($wfTrack);
-            break;
-            case 35:
-            // if($type == 26){
-            if($type == 31){
-                /* Employer Payroll Contribution reallocation*/
-                $reallocation = (new ContributionReallocationRepository())->find($resourceId);
-                $reallocation->wfTracks()->save($wfTrack);
-            }
-            else if(in_array($type, [29, 30])){
-                $reallocation = (new PaidMonthContributionRequestRepository())->find($resourceId);
-                $reallocation->wfTracks()->save($wfTrack);
-            }
-            else{
-                /* Employer Payroll Merging*/
-                $employer_payroll_merge = (new MergeDeMergeEmployerPayrollRepository())->find($resourceId);
-                $employer_payroll_merge->wfTracks()->save($wfTrack);
-            }
-            break;
-            case $this->wf_module->paidBillRecoveryType()['group']:
-                switch ($type) {
-                    case 3:
-                        /* HCP / HSP Bill Vetting New 2023*/
-                        //$hsp_bill_vetting = (new MedicalBillRepository())->find($resourceId);
-                        $hsp_bill_vetting =MedicalBillWorkflow::find($resourceId);
-                        $hsp_bill_vetting->wfTracks()->save($wfTrack);
-                        break;
-
-                    case 4:
-                        /* Paid Bill Recovery Workflow 2023*/
-                        $repo =(new HspServiceAuthorizationRepository())->find($resourceId);
-                        $repo->wfTracks()->save($wfTrack);
-                        break;
-
-                    default:
-                        /* HSP Bill Vetting */
-                        $hsp_bill_vetting = (new HspBillingRepository())->find($resourceId);
-                        $hsp_bill_vetting->wfTracks()->save($wfTrack);
-                        break;
-                }
-            break;
-
-            case 37:
-            /* Contribution Modification */
-            $contrib_modification = (new ContributionModificationRepository())->find($resourceId);
-            $contrib_modification->wfTracks()->save($wfTrack);
-            break;
-
-            case 38:
-            /* Contribution / Interest Rate Adjustment */
-            $contrib_rates = (new ContributionInterestRateRepository())->find($resourceId);
-            $contrib_rates->wfTracks()->save($wfTrack);
-            break;
-
-            case 63:
-            /*  Refund Waiting List */
-            $refund_waiting_list = (new HspRefundRepository())->find($resourceId);
-            $refund_waiting_list->wfTracks()->save($wfTrack);
-            break;
-            case 64:
-            /*  AuthorizedRejectedBill */
-            $payment_rate = \App\Models\Operation\Claim\Hsp\AuthorizedRejectedBill::find($resourceId);
-            $payment_rate->wfTracks()->save($wfTrack);
-            break;
-            case 39:
-            /* Payroll Bulk MP update*/
-            $payroll_bulk_mp_update = (new PayrollBulkMpUpdateRepository())->find($resourceId);
-            $payroll_bulk_mp_update->wfTracks()->save($wfTrack);
-            break;
-
-            case 40:
-            /* Payroll Constant Care change*/
-            $payroll_constant_care_change = (new PayrollConstantCareChangeRepository())->find($resourceId);
-            $payroll_constant_care_change->wfTracks()->save($wfTrack);
-            break;
-
-            case 42:
-            /* Payroll Bulk MP update*/
-//                $review_guidance = (new DirectGuidanceRepository())->find($resourceId);
-//                $review_guidance->wfTracks()->save($wfTrack);
-                switch ($type){
-                    case 1;
-                        $review_guidance = (new DirectGuidanceRepository())->find($resourceId);
-                        $review_guidance->wfTracks()->save($wfTrack);
-                    break;
-                    case 2;
-                        $review_guidance = NotificationReviewMap::where('id',$resourceId)->first();
-//                        $review_guidance = (new DirectGuidanceRepository())->find($resourceId);
-                        $review_guidance->wfTracks()->save($wfTrack);
-                }
-
-            break;
-            case 43:
-            case 44:
-            case 49:
-            /* Unqualified Claim Review*/
-            $unqualified = (new NotificationReviewRepository())->find($resourceId);
-            // dd($unqualified);
-            $unqualified->wfTracks()->save($wfTrack);
-            break;
-
-            case 45:
-            /* Review hearing Approval*/
-            $review_hearing = (new ReviewHearingRepository())->find($resourceId);
-            $review_hearing->wfTracks()->save($wfTrack);
-            break;
-
-            case 46:
-            /* Review Benefit Approval*/
-            $review_benefit = (new ReviewWorkflowRepository())->find($resourceId);
-            $review_benefit->wfTracks()->save($wfTrack);
-            break;
-
-            case 47:
-            /* Review Mae Approval*/
-            $review_mae = (new ReviewWorkflowRepository())->find($resourceId);
-            $review_mae->wfTracks()->save($wfTrack);
-            break;
-
-            case 48:
-            /* Review Td Approval*/
-            $review_td = (new ReviewWorkflowRepository())->find($resourceId);
-            $review_td->wfTracks()->save($wfTrack);
-            break;
-
-            case 50:
-                //Staff Employer Approval
-                $approval = StaffEmployerApproval::query()->find($resourceId);
-                $approval->wfTracks()->save($wfTrack);
-                break;
-            case 51:
-            /* Installment version 2*/
-            $installment_repo = (new InstallmentRepository())->find($resourceId);
-            $installment_repo->wfTracks()->save($wfTrack);
-            break;
-
-            case 52:
-                /* Employer merging*/
-                switch ($type) {
-                    case 1:
-                        $merge = (new EmployerMergeRepository())->find($resourceId);
-                        $merge->wfTracks()->save($wfTrack);
-                        break;
-                    case 2:
-                        $merge = (new EmployerDeMergeRepository())->find($resourceId);
-                        $merge->wfTracks()->save($wfTrack);
-                        break;
-
-                    default:
-                        #
-                        break;
-                }
-
-                break;
-
-            case 53:
-                //Employee Removal
-                $approval = EmployeeRemoval::query()->find($resourceId);
-                $approval->wfTracks()->save($wfTrack);
-                break;
-            case 61:
-                //Claim Assessment
-                switch ($type) {
-                    case 1:
-                        $approval = ImpairmentAssessmentPlan::query()->find($resourceId);
-                        $approval->wfTracks()->save($wfTrack);
-                        break;
-                    case 2:
-                        $approval = MapOrItcPlan::query()->find($resourceId);
-                        $approval->wfTracks()->save($wfTrack);
-                        break;
-                    case 3:
-                        $approval = RehabilitationPlan::query()->find($resourceId);
-                        $approval->wfTracks()->save($wfTrack);
-                        break;
-
-                    default:
-                        # code...
-                        break;
-                }
-                break;
-            case 65:
-                /*  Removed Refund Waiting List */
-                $refund_waiting_list = (new HspRefundRepository())->find($resourceId);
-                $refund_waiting_list->wfTracks()->save($wfTrack);
-                break;
-            case 101:
-                //SEmployee Enquiry
-                $approval = EmployeeEnquiry::query()->find($resourceId);
-                $approval->wfTracks()->save($wfTrack);
-                break;
-            case 66:
-                /* Formal Hearing */
-                $formal_hearing = FormalHearingWorkflow::find($resourceId);
-                $formal_hearing->wfTracks()->save($wfTrack);
-                break;
-
-            case 67:
-                /*Defaulter Requests*/
-                $defaulter_request = DefaulterRequest::query()->find($resourceId);
-                $defaulter_request->wfTracks()->save($wfTrack);
-                break;
-
-            case 68:
-                // archive review workflow
-                $unreachaable = UnreachableRegionalReview::query()->find($resourceId);
-                $unreachaable->wfTracks()->save($wfTrack);
-                break;
-                case 69:
-                //  review benefit workflow
-                $review_request = NotificationReview::query()->find($resourceId);
-                    $review_request->wfTracks()->save($wfTrack);
-                break;
-
-            // case $this->wf_module->treatmentReactivationType()['group']:   // this is 72
-            //     /*HSP/HCP Service Authorization*/
-            //     $repo =(new HspServiceAuthorizationRepository())->find($resourceId);
-            //     $repo->wfTracks()->save($wfTrack);
-            //     break;
-
-            case $this->wf_module->caseRehabilitationPlanType()['group']:
-            case $this->wf_module->referralRequestType()['group']:
-                    switch ($type) {
-                        case 1:
-                        /*HSP/HCP case Rehabilitation*/
-                            $repo = (new CaseAssessmentRepository())->find($resourceId);
-                            $repo->wfTracks()->save($wfTrack);
-                            break;
-                        case 2:
-                        case 3:
-                            $repo = ReferralWorkflow::find($resourceId);
-                            $repo->wfTracks()->save($wfTrack);
-                            break;
-
-                        default:
-                            # code...
-                            break;
-                    }
-                break;
-            case 75:
-                $repo = AuthorizationPriorApprovalService::find($resourceId);
-                $repo->wfTracks()->save($wfTrack);
-                break;
-            case 73:
-                $user = (new HcpPortalUserRepository())->find($resourceId);
-                $user->wfTracks()->save($wfTrack);
-                break;
-            case 76:
-                $external_assessment = NotificationExternalAssessmentWorkflow::find($resourceId);
-                $external_assessment->wfTracks()->save($wfTrack);
-                break;
-
-            case 70:
-                /*Verification Plan*/
-                $verification_plan = VerificationPlan::find($resourceId);
-                $verification_plan->wfTracks()->save($wfTrack);
-                break;
-            case 77:
-                /*Bulk employer closure*/
-                $employer_closure_bulk_approval = EmployerClosureBulkApproval::find($resourceId);
-                $employer_closure_bulk_approval->wfTracks()->save($wfTrack);
-                break;
+            
             default:
             break;
         }

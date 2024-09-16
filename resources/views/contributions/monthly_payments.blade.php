@@ -41,13 +41,18 @@
                     top: 120px; /* Centers the content vertically */
                     left: 45%; /* Centers the content horizontally */
                     width: 80%;
-                    height: 200px;
+                    height: 220px;
                     transform: translate(-50%, -50%); /* Adjusts the content to be truly centered */
                     padding: 20px; /* Optional padding for the content layer */
                     /* background-color: rgba(255, 255, 255, 0.9); Slightly transparent white background for the content layer */
                     background-color: #17a2b8; 
                     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow effect */
                     border-radius: 10px; /* Optional rounded corners */
+                }
+
+                .content-layer{
+                    display: flex;
+                    background-color: red;
                 }
                 .content-layer2 {
                     position: absolute; /* Positions the content layer on top */
@@ -64,7 +69,7 @@
                 }
 
                 .monthly_pay_butt{
-                        left: 45%;
+                        left: 75%;
                 }
                 .monthly_preview_doc{
                         left: 30%;

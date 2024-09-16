@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Workflow\WfTrack;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,6 +19,7 @@ class MonthlyPayment extends Model
         'entitled_amount',
         'pay_date',
         'payment_status',
+        'payment_method_id',
         'approval_status',
         'total_contributions',
         'created_at',
@@ -34,4 +36,9 @@ class MonthlyPayment extends Model
                         ->where;        
         
     }
+
+    public function wfTracks()
+	{
+		return $this->morphMany(WfTrack::class, 'resource');
+	}
 }

@@ -40,12 +40,27 @@ $(function () {
         serverSide: true,
         ajax: "{{ route('get_monthly_nonpaid') }}",
         columns: [
-            { data: 'firstname', name: 'firstname' },
+            { data: 'fullname', name: 'fullname' },
             { data: 'region', name: 'region' },
             { data: 'district', name: 'district' },
             { data: 'dob', name: 'dob' },
             { data: 'phone', name: 'phone' },
-            { data: 'payment_status', name: 'payment_status', orderable: false, searchable: false },
+            { 
+                data: 'pay_status', 
+                name: 'pay_status', 
+                orderable: false, 
+                searchable: false,
+                render: function(data, type, row) {
+                            if (data === 'Paid') {
+                                return '<span class="badge bg-success">Paid</span>';
+                            } else if (data === 'Not Paid') {
+                                return '<span class="badge bg-warning">Not Paid</span>';
+                            } else {
+                                return '<span class="badge bg-secondary">Unknown</span>';
+                            }
+                        }
+
+             },
         ],
         order: [[0, 'desc']],
     });

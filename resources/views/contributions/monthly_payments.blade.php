@@ -68,6 +68,12 @@
                     border-radius: 10px; /* Optional rounded corners */
                 }
 
+                #dt{
+                    /* background-color: green; */
+                    width: 100%;
+
+                }
+
                 .monthly_pay_butt{
                         left: 75%;
                 }

@@ -21,16 +21,16 @@
         <div class="row">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#tab1" role="tab">MONTHLY PAYMENTS</a>
+                    <small><a class="nav-link active" data-bs-toggle="tab" href="#tab1" role="tab">MONTHLY PAYMENTS</a></small> 
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#tab2" role="tab">DOCUMENTS CENTRE</a>
+                    <small><a class="nav-link" data-bs-toggle="tab" href="#tab2" role="tab">DOCUMENTS CENTRE</a></small>   
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#tab3" role="tab">WORKFLOW HISTORY</a>
+                    <small><a class="nav-link" data-bs-toggle="tab" href="#tab3" role="tab">WORKFLOW HISTORY</a></small>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#tab4" role="tab">NON-PAID & PAID MEMBERS</a>
+                    <small><a class="nav-link" data-bs-toggle="tab" href="#tab4" role="tab">NON-PAID & PAID MEMBERS</a></small>
                 </li>
             </ul>
 

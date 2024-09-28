@@ -38,7 +38,7 @@
 <div class="content-layer1">
     <div class="card">
         <div class="card-header">
-            Monthly Payment
+           <small>Monthly Payment</small> 
         </div>
         <div class="card-body">
             <form id="month_payment" enctype="multipart/form-data">
@@ -46,7 +46,7 @@
                 
                 <div class="form-group row">
                     <div class="col-md-6">
-                        <label for="member">Select Members</label>
+                        <label for="member"><small>Select Members</small></label>
                         <select class="form-control search-select" id="user_data" name="id" required>
                             <option value="" disabled selected></option>
                             @foreach($memberData as $data)
@@ -55,7 +55,7 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label for="document" class="form-label">Upload Document</label>
+                        <label for="document" class="form-label"><small>Upload Document</small></label>
                         <input type="file" class="form-control" id="1" name="document">
                         @if ($errors->has('document'))
                             <div class="text-danger">
@@ -70,11 +70,11 @@
 
                 <div class="form-group row">
                     <div class="col-md-6">
-                        <label for="paid_amount" class="form-label">Amount (Tshs.)</label>
+                        <label for="paid_amount" class="form-label"><small>Amount (Tshs.)</small></label>
                         <input type="number" class="form-control @error('paid_amount') is-invalid @enderror" id="paid_amount" name="paid_amount" placeholder="Enter Amount" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="payment_method">Payment Method</label>
+                        <label for="payment_method"><small>Payment Method</small></label>
                         <select class="form-control search-select" id="payment_method" name="payment_method" required>
                             <option value="" disabled selected></option>
                             @foreach($payment_methods as $methods)
@@ -88,7 +88,7 @@
                 <input type="hidden" id="module_group_id" name="module_group_id" value="1">
 
                 <div class="monthly_pay_butt">
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="submit" class="btn btn-success"><small>Submit</small></button>
                 </div>
             </form>
         </div>

@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\NewWorkflow;
+use App\Repositories\WfDefinitionRepository;
 use App\Services\Workflow\Workflow;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -51,7 +52,9 @@ class WorkflowEventSubscriber
         ];
         $data['comments'] = isset($extra['comments']) ? $extra['comments'] : "Recommended";
 
-        $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $resource_id, 'type' => $type, 'wf_module_id' => $module_id]);
+        $wfDefRepo = app(WfDefinitionRepository::class);
+
+        $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $resource_id, 'type' => $type, 'wf_module_id' => $module_id], $wfDefRepo);
 
         $workflow->createLog($data);
 

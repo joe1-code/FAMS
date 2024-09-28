@@ -13,6 +13,6 @@ class Wf_definition extends Model
 
     public function WfModule(){
 
-        return $this->belongsTo(WfModule::class);
+        return $this->belongsTo(WfModule::class, 'wf_module_id');
     }
 }

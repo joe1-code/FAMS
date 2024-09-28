@@ -91,7 +91,7 @@ class PaymentsController extends Controller
 
         $input = ['resource_id'=>$resource_id, 'module_id' => (int)$request->module_id, 'module_group_id' => (int)$request->module_group_id, 'user_id' => $userID];
 
-        // $this->PaymentsRepository->initiateWorkflow($input);
+        $this->PaymentsRepository->initiateWorkflow($input);
 
         
         // dd($request->all());

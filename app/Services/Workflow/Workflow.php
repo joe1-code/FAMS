@@ -2,12 +2,16 @@
 
 namespace App\Services\Workflow;
 
+use App\Events\Sockets\BroadcastWorkflowUpdated;
 use App\Models\MonthlyPayment;
 use App\Models\User;
+use App\Models\wfModulesGroup;
+use App\Models\Workflow\Wf_definition;
 use App\Models\Workflow\WfTrack;
 use App\Models\Workflow_track;
 use App\Repositories\PaymentsRepository;
 use App\Repositories\UserRepository;
+use App\Repositories\WfDefinitionRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -20,13 +24,13 @@ use Illuminate\Support\Facades\DB;
  * the process of forwarding the application process and handle the proper completion of
  * each workflow.
  *
- * @author     Erick Chrysostom <e.chrysostom@nextbyte.co.tz>
- * @category   MAC
+ * @author     Joel Njaghah <john4m2@gmail.com>
+ * @category   FAMS
  * @package    App\Services\Workflow
  * @subpackage None
- * @copyright  Copyright (c) Workers Compensation Fund (WCF) Tanzania
+ * @copyright  Copyright (c) Family Management Systems Tanzania
  * @license    Not Applicable
- * @version    Release: 1.02
+ * @version    Release: 1.00
  * @link       None
  * @since      Class available since Release 1.0.0
  */
@@ -79,6 +83,7 @@ class Workflow
      */
     public $wf_track;
 
+    protected $model;
 
 
     /**
@@ -86,8 +91,9 @@ class Workflow
      * @param array $input
      * @throws GeneralException
      */
-    public function __construct(array $input)
+    public function __construct(array $input, WfDefinitionRepository $wf_definition)
     {
+        $this->wf_definition = $wf_definition;
         // $this->paymentsRepository = $paymentRepository;
 
         $this->resource_id = (isset($input['resource_id']) ? $input['resource_id'] : null);
@@ -123,7 +129,7 @@ class Workflow
             $definition = $this->wf_definition->getCurrentLevel($wf_definition);
             $return = $definition->level;
         } else {
-            $return = $this->wf_definition->getNextLevel($this->wf_definition_id, $skip);
+            $return = (new WfDefinitionRepository())->getNextLevel($this->wf_definition_id, $skip);
         }
         return $return;
     }
@@ -276,7 +282,9 @@ class Workflow
      */
     public function nextDefinition($sign, $skip = false)
     {
-        return $this->wf_definition->getNextDefinition($this->wf_module_id, $this->wf_definition_id, $sign, $skip);
+        $wfDefinition = new Wf_definition();
+
+        $this->wf_definition = (new WfDefinitionRepository($wfDefinition))->getNextDefinition($this->wf_module_id, $this->wf_definition_id, $sign, $skip);
     }
 
     /**
@@ -294,8 +302,10 @@ class Workflow
      */
     public function previousLevelUser($level)
     {
-        return $this->wf_track->previousLevelUser($this->wf_module_id, $level, $this->resource_id);
+        return (new WfDefinitionRepository())->previousLevelUser($this->wf_module_id, $level, $this->resource_id);
     }
+
+    
 
     /**
      * @param $sign
@@ -327,7 +337,15 @@ class Workflow
      */
     public function currentWfTrack()
     {
-        return $this->wf_track->getRecentResourceTrack($this->wf_module_id, $this->resource_id);
+        return $this->getRecentResourceTrack($this->wf_module_id, $this->resource_id);
+    }
+
+    public function getRecentResourceTrack($module_id, $resource_id)
+    {
+        $wf_track = WfTrack::where('resource_id', $resource_id)->whereHas('wfDefinition', function ($query) use ($module_id) {
+            $query->where('wf_module_id', $module_id);
+        })->orderBy('id','desc')->first();
+        return $wf_track;
     }
 
     /**
@@ -447,7 +465,6 @@ class Workflow
             $data->save();
 
             DB::commit();
-            dd('<======================end transaction====================================>');
 
             
         // });
@@ -567,9 +584,9 @@ class Workflow
             // }
             //update Resource Type for the current wftrack
             $this->updateResourceType($wf_track);
-
             $nextInsert = $this->upNew($input);
-            $wf_track = $track->query()->create($nextInsert); // changed
+            $wf_track = WfTrack::query()->create($nextInsert); // changed
+            dd($wf_track);
 
             //update Resource Type for the next wftrack
             $this->updateResourceType($wf_track);
@@ -586,6 +603,7 @@ class Workflow
         $resourceId = $wfTrack->resource_id;
         $wfModule = $wfTrack->wfDefinition->wfModule;
         $moduleGroupId = $wfModule->WfModuleGroup->id;
+
         $type = $wfModule->type;
 
         //$this->wf_module_group_id
@@ -741,9 +759,11 @@ class Workflow
             }
 
         } else {
+
             $wf_definition = 0;  //if user specified a specific level to forward
             $assigned = 0;
             if (isset($input['wf_definition'])) {
+                
                 if ($input['wf_definition']) {
                     $wf_definition = $input['wf_definition'];
                     $insert['wf_definition_id'] = $wf_definition;
@@ -782,13 +802,15 @@ class Workflow
             }
 
             if (!$user) {
-                $group = (new WfGroupRepository())->query()->where("id", $this->wf_module_group_id)->first();
+
+                $group = wfModulesGroup::query()->where("id", $this->wf_module_group_id)->first();
 
                 if ($group->autolocate) {
                     $nextWfDefinition = $this->wf_definition->find($insert['wf_definition_id']);
                     switch ($nextWfDefinition->user_selector) {
                         case 1:
                             // Using Incident User Allocations ...
+                            dd($this->wf_module_group_id);
                             switch ($this->wf_module_group_id) {
                                 case 3:
                                     // Notification & Claim Processing

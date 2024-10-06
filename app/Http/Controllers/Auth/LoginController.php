@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\MonthlyPayment;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Repositories\UserRepositoryInterface;
@@ -36,8 +37,10 @@ class LoginController extends Controller
               $user->save();
 
             $data = $this->userRepository->membership($validation);
+             $total_contributions = MonthlyPayment::where('user_id', $user->id)->pluck('total_contributions')->all();
+
             // dd($data);
-            return view('layouts.contributions', ['memberData' => $data, 'username' => $validation['username']]);
+            return view('layouts.contributions', ['memberData' => $data, 'username' => $validation['username'], 'contributions' => $total_contributions]);
             // return redirect()->intended(route('contributions'))
             // ->with('memberData', $data);
         }

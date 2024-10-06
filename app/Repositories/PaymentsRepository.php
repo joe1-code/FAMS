@@ -55,14 +55,15 @@ class PaymentsRepository implements PaymentsRepositoryInterface
 
     public function monthlyTotalContributions($request){
 
+            // dd($request->all());
             $previous_contribution = MonthlyPayment::select('total_contributions')
                                     ->where('user_id', (int)$request->id)
-                                    ->orderBy('created_at')
-                                    ->latest();
+                                    ->latest()
+                                    ->first();
 
-            // $total_contribution = $previous_contribution + $request->paid_amount;
-                                    
-        return true;
+            $total_contribution = $previous_contribution['total_contributions'] + (int)$request->paid_amount;  
+                                              
+        return $total_contribution;
     }
 
     public function initiateWorkflow($input)

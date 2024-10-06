@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Membership;
 
 use App\Http\Controllers\Controller;
 use App\Models\District;
+use App\Models\MonthlyPayment;
 use App\Models\Region;
 use App\Models\User;
 use App\Repositories\UserRepository;
@@ -100,7 +101,7 @@ class MemberController extends Controller
     public function members(){
 
         $members = User::ActiveMembers()->get();
-        
+
         return view('layouts/contributions')
                 ->with('memberData', $members);
     }

@@ -20,10 +20,11 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .card-header {
-            background-color: #28a745;
-            color: white;
-            text-align: center;
-            font-size: 1.25rem;
+                background: linear-gradient(to right, #f5f5f5, #ffffff); /* Light smoke-like effect */
+                color: black; /* Change text color to black for contrast */
+                text-align: center;
+                font-size: 1.25rem;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds some depth */
         }
         .form-group {
             margin-bottom: 1.5rem;

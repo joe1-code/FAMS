@@ -132,15 +132,22 @@
 </html>
 
 <script>
-        
+
+   
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('#doc_view');
-    
+
+    function checkClose(){
+
+         $('#close').on('click', function(){
+        $('#monthly_doc_modal').modal('hide');
+    });
+
+    }
     form.addEventListener('submit', function(e) {
         e.preventDefault();
 
         const formData = new FormData(form);
-
 
         fetch('{{ route("monthly_preview_document") }}', {
             method: 'POST',
@@ -155,19 +162,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 
             if (data.status === 'success') {
                 const fileType = data.document.split('.').pop().toLowerCase();
-                const filePath = `{{ ('storage/documents') }}/${data.document}`;
+                const filePath = `{{ asset('storage/documents') }}/${data.document}`;
                 
                 if (fileType === 'pdf') {
-                    console.log(filePath);
-
-                    // alert(previewContainer);
-                    /*alert(filePath);*/
                     previewContainer.innerHTML = `<embed src="${filePath}" type="application/pdf" width="100%" height="600px">`;
                 } else if (['jpg', 'jpeg', 'png', 'gif'].includes(fileType)) {
                     previewContainer.innerHTML = `<img src="${filePath}" style="max-width: 100%; height: auto;" alt="Document Preview">`;
                 } else {
                     previewContainer.innerHTML = `<p>Unable to preview this file type.</p>`;
                 }
+
+                // Show the modal
+                $('#monthly_doc_modal').modal('show');
+                $('#close').on('click', function(){
+                $('#monthly_doc_modal').modal('hide');
+             });
             } else {
                 previewContainer.innerHTML = `<p>${data.message}</p>`;
             }
@@ -177,5 +186,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 </script>
 

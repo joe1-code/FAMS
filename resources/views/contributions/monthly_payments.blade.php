@@ -158,6 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
+
             const previewContainer = document.getElementById('document_frame');
                 
             if (data.status === 'success') {
@@ -178,10 +179,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 $('#monthly_doc_modal').modal('hide');
              });
             } else {
-                previewContainer.innerHTML = `<p>${data.message}</p>`;
+
+                Swal.fire({
+                        title: "Not Found",
+                        text: previewContainer.innerHTML = `${data.message}`,
+                        icon: "error" 
+                    });
+
             }
         })
         .catch(error => {
+
+                // console.error(xhr);
             console.error('Error:', error);
         });
     });

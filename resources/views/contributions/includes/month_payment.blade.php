@@ -36,6 +36,7 @@
 </head>
 <body>
 
+<div id="alert"></div>
 <div class="content-layer1">
     <div class="card">
         <div class="card-header">
@@ -137,12 +138,20 @@
                 },
                 error: function(xhr,status,error){
 
-                    Swal.fire({
-                            title: "Error",
-                            text: "An error occurred while processing your payment.",
-                            icon: "error"
-                        });                    
-                    console.error(xhr);
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        
+                        $('#alert').html('<div class="alert alert-danger">' + xhr.responseJSON.message + '</div>');
+                    }
+                    // if (xhr.responseJSON && xhr.responseJSON.message) {
+                        
+                    //     $('#alert').html('<div class="alert alert-danger">' + xhr.responseJSON.message + '</div>');
+                    //  }
+                    // Swal.fire({
+                    //         title: "Error",
+                    //         text: "An error occurred while processing your payment.",
+                    //         icon: "error"
+                    //     });                    
+                    // console.error(xhr);
                     
                 }
             });

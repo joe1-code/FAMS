@@ -39,6 +39,34 @@ if (!function_exists('throwGeneralException')) {
     }
 }
 
+if (! function_exists('standard_date_format')) {
+    function standard_date_format($date)
+    {
+        return \Carbon\Carbon::parse($date)->format('Y-n-j');
+    }
+}
+
+
+if (!function_exists('comparable_date_format')) {
+    
+    function comparable_date_format($date){
+        
+        $standard_format = standard_date_format($date);
+
+        return strtotime($standard_format);
+
+    }
+}
+
+if (!function_exists('number_2_format')) {
+    function number_2_format($value)
+    {
+        $floatValue = floatval($value);
+        return number_format($floatValue, 2, '.', ',');
+    }
+}
+
+
 
 
 

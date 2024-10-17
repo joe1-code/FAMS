@@ -54,11 +54,19 @@ class PaymentsController extends Controller
             $available_month = null;
             
             if (isset($checkMonth)) {
+
                 $available_month = Carbon::parse($checkMonth)->format('m');
+
+                $current_month = Carbon::now()->format('m');
+
+                if($available_month == $current_month){
+                    
+                    throw new GeneralException("You already paid for this respective Month");
+                }
+                
 
             }
 
-            $current_month = Carbon::now()->format('m');
         //    try {
         //         if($current_month == $available_month){
 

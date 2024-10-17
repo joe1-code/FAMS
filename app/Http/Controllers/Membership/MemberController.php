@@ -9,6 +9,7 @@ use App\Models\Region;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Repositories\UserRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -75,10 +76,10 @@ class MemberController extends Controller
         $districts = District::all();
         // dd($particulars->username);
         return view('layouts/edit_contributions')
-        ->with('particulars', $particulars)
-        ->with('request', $request)
-        ->with('regions', $regions)
-        ->with('districts', $districts);
+                ->with('particulars', $particulars)
+                ->with('request', $request)
+                ->with('regions', $regions)
+                ->with('districts', $districts);
     }
 
     public function submitEditData(Request $request, $id){
@@ -91,7 +92,7 @@ class MemberController extends Controller
             return redirect()->back()->with('success', 'User has been updated successfully');
 
         } catch (\Exception $e) {
-            dd($e);
+            // dd($e);
             return redirect()->back()->with('error','An error occured while updating user details');
 
         }
@@ -101,9 +102,17 @@ class MemberController extends Controller
     public function members(){
 
         $members = User::ActiveMembers()->get();
+        $entitled_amount = $members->where('id', Auth()->user()->id)->pluck('entitled_amount');
+        $UTT_deposit = MonthlyPayment::where('payment_method_id', 2)->sum('paid_amount');
+        // dd(Carbon::now()->format('m'));
+        $monthly_earnings = MonthlyPayment::whereMonth('pay_date', Carbon::now()->month)->whereYear('pay_date', Carbon::now()->year)->where('payment_status', 0)->sum('paid_amount');
+        // dd($monthly_earnings);
 
         return view('layouts/contributions')
-                ->with('memberData', $members);
+                ->with('memberData', $members)
+                ->with('average_amount', number_2_format($entitled_amount[0]))
+                ->with('utt_amis', number_2_format($UTT_deposit))
+                ->with('earnings', number_2_format($monthly_earnings));
     }
 
     public function monthlyPayments(){

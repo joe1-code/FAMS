@@ -61,7 +61,7 @@ class PaymentsRepository implements PaymentsRepositoryInterface
                                     ->latest()
                                     ->first();
 
-            $total_contribution = $previous_contribution['total_contributions'] + (int)$request->paid_amount;  
+            $total_contribution = $previous_contribution ? $previous_contribution['total_contributions'] + (int)$request->paid_amount : 0;  
                                               
         return $total_contribution;
     }

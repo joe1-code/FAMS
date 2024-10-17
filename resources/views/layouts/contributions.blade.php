@@ -541,7 +541,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-grow-1">
                                                         <p class="text-muted fw-medium">Monthly Earnings</p>
-                                                        <h4 class="mb-0">$35, 723</h4>
+                                                        <h4 class="mb-0">Tshs. {{ $earnings }}</h4>
                                                     </div>
 
                                                     <div class="flex-shrink-0 align-self-center ">
@@ -561,7 +561,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-grow-1">
                                                         <p class="text-muted fw-medium">Fund Balance(UTT AMIS)</p>
-                                                        <h4 class="mb-0">$16.2</h4>
+                                                        <h4 class="mb-0">Tshs. {{ $utt_amis }}</h4>
                                                     </div>
 
                                                     <div class="flex-shrink-0 align-self-center">
@@ -581,7 +581,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-grow-1">
                                                         <p class="text-muted fw-medium">Average Amount</p>
-                                                        <h4 class="mb-0">$16.2</h4>
+                                                        <h4 class="mb-0">Tshs. {{ $average_amount }}</h4>
                                                     </div>
 
                                                     <div class="flex-shrink-0 align-self-center">

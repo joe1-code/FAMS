@@ -39,7 +39,7 @@ class LoginController extends Controller
             $data = $this->userRepository->membership($validation);
              $total_contributions = MonthlyPayment::where('user_id', $user->id)->pluck('total_contributions')->all();
 
-            return view('layouts.contributions', ['memberData' => $data, 'username' => $validation['username'], 'contributions' => $total_contributions]);
+            return view('layouts.home', ['memberData' => $data, 'username' => $validation['username'], 'contributions' => $total_contributions]);
             // return redirect()->intended(route('contributions'))
             // ->with('memberData', $data);
         }

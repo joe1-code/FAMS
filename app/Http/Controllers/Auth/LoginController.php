@@ -37,6 +37,7 @@ class LoginController extends Controller
               $user->save();
 
             $data = $this->userRepository->membership($validation);
+            
              $total_contributions = MonthlyPayment::where('user_id', $user->id)->pluck('total_contributions')->all();
 
             return view('layouts.home', ['memberData' => $data, 'username' => $validation['username'], 'contributions' => $total_contributions]);

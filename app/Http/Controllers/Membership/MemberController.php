@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Membership;
 
 use App\Http\Controllers\Controller;
+use App\Models\Designation;
 use App\Models\District;
 use App\Models\MonthlyPayment;
 use App\Models\Region;
+use App\Models\Unit;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Repositories\UserRepositoryInterface;
@@ -69,23 +71,28 @@ class MemberController extends Controller
         $particulars = User::where('users.id', $request->input('member_id'))
         ->leftJoin('regions as rgn','rgn.id','=', 'users.region_id')
         ->leftJoin('districts as dst', 'dst.id', '=', 'users.district_id')
+        ->join('units as unit', 'unit.id', '=', 'users.unit_id')
+        ->join('designations as desgn', 'desgn.id', '=', 'users.designation_id')
         ->select('users.*', 'rgn.name as region_name', 'dst.name as district_name')
         ->first();
         // dd($particulars);
         $regions = Region::all();
         $districts = District::all();
-        // dd($particulars->username);
+
+        // dd(, );
         return view('layouts/edit_contributions')
                 ->with('particulars', $particulars)
                 ->with('request', $request)
                 ->with('regions', $regions)
-                ->with('districts', $districts);
+                ->with('districts', $districts)
+                ->with('units', Unit::all())
+                ->with('designations', Designation::all());
     }
 
     public function submitEditData(Request $request, $id){
         // dd($request->input('regions'), $id);
         try {
-            // dd($request->regions);
+            // dd($request->all());
             $this->userRepository->editable($request, $id);
 
             // return redirect()->route('edit', ['id' => $id])->with('success', 'User has been updated successfully');

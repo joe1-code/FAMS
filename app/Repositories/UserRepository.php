@@ -51,7 +51,7 @@ class UserRepository implements UserRepositoryInterface
 
         $members = null;
 
-        $members = User::where('available', true)->where('active', true)
+        $members = User::where('available', true)
         ->leftJoin('regions as rgn','rgn.id','=', 'users.region_id')
         ->leftJoin('districts as dst', 'dst.id', '=', 'users.district_id')
         ->select('users.*', 'rgn.name as region_name', 'dst.name as district_name')        
@@ -82,6 +82,8 @@ class UserRepository implements UserRepositoryInterface
             $member->district_id = $request->input('districts') ?? null;
             $member->dob = $request->dob ?? null;
             $member->entitled_amount = $request->entitled_amount;
+            $member->unit_id = $request->units ?? null;
+            $member->designation_id = $request->designations ?? null;
     
             $member->save();
     });

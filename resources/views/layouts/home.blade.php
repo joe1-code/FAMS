@@ -40,6 +40,8 @@ $inactive = $memberData->where('active', 0)->count();
         <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <!-- App Css-->
         <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
     </head>
 
@@ -215,7 +217,6 @@ $inactive = $memberData->where('active', 0)->count();
                     <th style="text-align: center">Action</th>
                     </thead>
                     <tbody>
-                    {{-- <td>September-2021</td><td> 1,252,568.00 </td><td> 658,444.00 </td><td>  1,911,012.00 </td>     <td> 0% </td><td> No Changes</td></tr> --}}
                     <!-- @php
                         try {
                             if (isset($contribution_history['contributions']) && is_countable($contribution_history['contributions']) && count($contribution_history['contributions'])) {
@@ -236,9 +237,19 @@ $inactive = $memberData->where('active', 0)->count();
                                 </td>
                             <td class="" style="text-align: center">{{$data->region_name}}</td>
                             @if($data->active == true)
-                                 <td style="text-align: right"><button class="">Deactivate</button></td>
+                            <td style="text-align: right;">
+                                <button class="btn btn-secondary site-btn" style="font-weight: normal; background-color: white; color: black;">
+                                    <i class="fas fa-pencil-alt" aria-hidden="true" style="color: black;"></i> Deactivate
+                                </button>
+                            </td>
+
                             @else
-                                 <td style="text-align: right"><button class="">Activate</button></td>
+                            
+                            <td style="text-align: right;">
+                                <button class="btn btn-secondary site-btn" style="font-weight: normal; background-color: white; color: black;">
+                                    <i class="fas fa-pencil-alt" aria-hidden="true" style="color: black;"></i> Activate
+                                </button>
+                            </td>
                             @endif
                                 <!-- <td class="over15color" style="text-align: center">{{ 10 .'%'}}</td> -->
                         </tr>
@@ -249,13 +260,14 @@ $inactive = $memberData->where('active', 0)->count();
             </div>
         </div>
         <div class="col-md-6">
-        <table class="table table-bordered">
+            <div>
+                <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th colspan="4" style="text-align: center; background-color: #e3f2fd ;">REGISTERED Members</th></tr>
-                    <tr><th style="text-align: center;">Active</th>
+                        <th colspan="4" style="text-align: center; background-color: #e3f2fd ;">REGISTERED MEMBERS</th></tr>
+                    <tr><th style="text-align: center; background-color: green;">Active</th>
                         <!-- <th>Amount</th> -->
-                            <th style="text-align: center;">Inactive</th>
+                            <th style="text-align: center; background-color:#e6771c;">Inactive</th>
                         <!-- <th>Remark</th> -->
                     </tr>
                     </thead>
@@ -270,91 +282,78 @@ $inactive = $memberData->where('active', 0)->count();
                     </tr>
                     </tbody>
                 </table>
+
+                <table class="table table-bordered">
+                    <tr>
+                        <th colspan="4" style="text-align: center; background-color: #e3f2fd ;">CHAIRPERSON</th></tr>
+                        <th>Full Names</th>
+                        <td>{{ $data->firstname.' '.$data->middlename.' '.$data->lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Age</th>
+                        <td> {{ 29 }}</td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td> {{ 29 }}</td>
+                    </tr>
+                    
+                </table>
+                <table class="table table-bordered">
+                    <tr>
+                        <th colspan="4" style="text-align: center; background-color: #e3f2fd ;">GENERAL SECRETARY</th></tr>
+                        <th>Full Names</th>
+                        <td>{{ $data->firstname.' '.$data->middlename.' '.$data->lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Age</th>
+                        <td> {{ 29 }}</td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td> {{ 29 }}</td>
+                    </tr>
+                    
+                </table>
+                <table class="table table-bordered">
+                    <tr>
+                        <th colspan="4" style="text-align: center; background-color: #e3f2fd ;">ACCOUNTANT</th></tr>
+                        <th>Full Names</th>
+                        <td>{{ $data->firstname.' '.$data->middlename.' '.$data->lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Age</th>
+                        <td> {{ 29 }}</td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td> {{ 29 }}</td>
+                    </tr>
+                    
+                </table>
+            </div>
+                
+                </div>
+           
+        </div>
+        <div>&nbsp;</div>
+
         </div>
         <div>&nbsp;</div>
         <legend></legend>
         <div>&nbsp;</div>
 
-        <div class="col-md-12">
-            <div class="col-md-8">
-                <table class="table table-bordered">
+       
+                <!-- <table class="table table-bordered">
                     <tr><th class="active">Active Members: </th>
                         <td class="badge bg-success">{{ $active }}</td>
                         <th>Inactive Members: </th>
                         <td  class="badge bg-warning"> {{ $inactive }} </td>
                     </tr>
-                </table>
-                </br>
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th colspan="4" style="text-align: center; background-color: transparent ;">GME USED</th></tr>
-                    <tr><th>Month</th>
-                        <th>Amount</th>
-                            <th>Confirm</th>
-                        <th>Remark</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{ '20224-03-01' }}</td>
-                        <td> {{ 5600 }} </td>
-                            <td>
-                                {{ 3444 }}
-                            </td>
-                        <td>{{ 'Need Review' }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                </br>
-                <table class="table table-bordered">
-                    <tr>
-                        <th>Minimum Monthly Compensation: </th>
-                        <td>{{ 34446 }}</td>
-                        <th>Maximum Monthly Compensation: </th>
-                        <td> {{ 2100 }} </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-md-4">
-                <table class="table table-bordered">
-                    <tr>
-                        <th>Gender </th>
-                        <td> {{ 'No Info' }}</td>
-                    </tr>
-                    <tr>
-                        <th>Job Title </th>
-                        <td> {{ 'No Info' }} </td>
-                    </tr>
-                    <tr>
-                        <th>Age </th>
-                        <td> {{ 29 }}</td>
-                    </tr>
-                    <tr>
-                        <th>Incident Date </th>
-                        <td> {{'2020-01-02' }} </td></tr>
-                    <tr>
-                        <th>Notification Date</th>
-                        <td> {{ '2020-01-03' }} </td>
-                    </tr>
-                        <tr>
-                            <th>Date of Death</th>
-                            <td>{{'2021-01-01' }}</td>
-                        </tr>
-                        <tr>
-                            <th>Health State</th>
-                            <td>{{'Returned to work' }}</td>
-                        </tr>
-                        <tr>
-                            <th>Date of MMI</th>
-                            <td>{{'Not Reached'}}</td>
-                        </tr>
-                </table>
-            </div>
-        </div>
-        <div>&nbsp;</div>
+                </table> -->
 
-    </div>
+
+           
             </div>
         </div>
     </div>

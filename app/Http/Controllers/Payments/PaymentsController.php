@@ -134,5 +134,11 @@ class PaymentsController extends Controller
         return DataTables::of($query)->make(true);
     }
 
+    public function monthlyArrears(){
+
+        // dd(12);
+        return view();
+    }
+
     
 }

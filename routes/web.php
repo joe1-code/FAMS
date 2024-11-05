@@ -12,6 +12,7 @@ Route::get('/', function () {
 // <==========================================membership routes============================================================================>
 
 Route::post('/landing', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('landing');
+Route::get('/landing/homepage', [App\Http\Controllers\Auth\LoginController::class, 'homePage'])->name('landing/homepage');
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 Route::get('/members', [App\Http\Controllers\Membership\MemberController::class, 'members'])->name('members');
 Route::get('/register', [App\Http\Controllers\Membership\MemberController::class, 'register'])->name('register');
@@ -28,3 +29,4 @@ Route::get('/payments', [App\Http\Controllers\Payments\PaymentsController::class
 Route::post('/get_monthly_payments', [App\Http\Controllers\Payments\PaymentsController::class, 'getMonthlyPayments'])->name('get_monthly_payments');
 Route::post('/monthly_preview_document', [App\Http\Controllers\Payments\PaymentsController::class, 'monthlyPreviewDocument'])->name('monthly_preview_document');
 Route::get('/get_monthly_nonpaid', [App\Http\Controllers\Payments\PaymentsController::class, 'getForDataTable'])->name('get_monthly_nonpaid');
+Route::get('/monthly_arrears', [App\Http\Controllers\Payments\PaymentsController::class, 'monthlyArrears'])->name('monthly_arrears');

@@ -401,9 +401,10 @@
                                     <span key="t-contributions">Contributions</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('landing/homepage') }}" key="t-members">HomePage</a></li>
                                     <li><a href="{{ route('members') }}" key="t-members">Members</a></li>
                                     <li><a href="{{ route('payments') }}" method='POST' key="t-payments">Monthly Payments</a></li>
-                                    <li><a href="" key="t-arrears">Monthly Arrears</a></li>
+                                    <li><a href="{{ route('monthly_arrears') }}" key="t-arrears">Monthly Arrears</a></li>
                                     <!-- <li><a href="dashboard-job.html"><span class="badge rounded-pill text-bg-success float-end" key="t-new">New</span> <span key="t-jobs">Jobs</span></a></li> -->
                                 </ul>
                             </li>

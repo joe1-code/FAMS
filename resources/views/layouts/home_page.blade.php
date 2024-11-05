@@ -23,7 +23,6 @@ $inactive = $memberData->where('active', 0)->count();
     
 <!-- Mirrored from themesbrand.com/skote/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 12 Oct 2022 14:34:47 GMT -->
 <head>
-        
         <meta charset="utf-8" />
         <title>Dashboard | FAMS - Family Management system.</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -158,7 +157,7 @@ $inactive = $memberData->where('active', 0)->count();
                                     <li><a href="{{ route('landing/homepage') }}" key="t-members">HomePage</a></li>
                                     <li><a href="{{ route('members') }}" key="t-members">Members</a></li>
                                     <li><a href="{{ route('payments') }}" method='POST' key="t-payments">Monthly Payments</a></li>
-                                    <li><a href="{{ route('monthly_arrears') }}" key="t-arrears">Monthly Arrears</a></li>
+                                    <li><a href="" key="t-arrears">Monthly Arrears</a></li>
                                     <!-- <li><a href="dashboard-job.html"><span class="badge rounded-pill text-bg-success float-end" key="t-new">New</span> <span key="t-jobs">Jobs</span></a></li> -->
                                 </ul>
                             </li>

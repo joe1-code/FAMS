@@ -47,7 +47,7 @@ class UserRepository implements UserRepositoryInterface
         return $record->delete();
     }
 
-    public function membership($validation){
+    public function membership($validation = null){
 
         $members = null;
 

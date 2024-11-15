@@ -61,7 +61,10 @@ class User extends Authenticatable
                     
     }
 
-    public function Access(){
-        
-    }
+    // public function access(){
+    //     return User::where('available', true)
+    //     ->leftJoin('regions as rgn','rgn.id','=', 'users.region_id')
+    //     ->leftJoin('districts as dst', 'dst.id', '=', 'users.district_id')
+    //     ->select('users.*', 'rgn.name as region_name', 'dst.name as district_name');
+    // }
 }

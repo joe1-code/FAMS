@@ -4,11 +4,13 @@ namespace App\Repositories;
 
 use App\Events\NewWorkflow;
 use App\Models\MonthlyPayment;
+use App\Models\Unpaid_member;
 use App\Models\Workflow\Wf_definition;
 use App\Models\Workflow\WfTrack;
 use App\Repositories\PaymentsRepositoryInterface;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class PaymentsRepository implements PaymentsRepositoryInterface
 {
@@ -123,6 +125,26 @@ class PaymentsRepository implements PaymentsRepositoryInterface
         }
         //dd($track);
         return $wf_definition_id;
+    }
+
+    public function getArrears(){
+
+        $query = (new Unpaid_member())->query()
+                                        ->join('users as u', 'u.id', '=', 'unpaid_members.user_id')
+                                        ->join('regions as rgn', 'rgn.id', '=', 'u.region_id')
+                                        ->join('districts as dist', 'dist.id', '=', 'u.district_id')
+                                        ->select("u.*", 
+                                                  "rgn.name as region_name",
+                                                  "dist.name as district_name",
+                                                  DB::raw("COALESCE(u.firstname, '') || ' ' || COALESCE(u.lastname, '') AS fullname"), 
+                                                  DB::raw("SUM(u.entitled_amount) AS arrears"), 
+                                                  DB::raw("MAX(unpaid_members.created_at) AS latest_month"))
+                                        ->where('pay_status', 0)
+                                        ->whereNotNull('unpaid_members.deleted_at')
+                                        ->groupBy('u.id', 'fullname', 'region_name', 'district_name')
+                                        ->get();
+
+        return DataTables::of($query)->make(true);
     }
 
 }

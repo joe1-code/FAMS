@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\MonthlyPayment;
 use App\Models\Payments\PaymentMethod;
+use App\Models\Unpaid_member;
 use App\Models\User;
 use App\Repositories\BaseRepository;
 use App\Repositories\DocumentRepository;
+use App\Repositories\PaymentsRepository;
 use App\Repositories\PaymentsRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -67,18 +69,18 @@ class PaymentsController extends Controller
 
             }
 
-        //    try {
-        //         if($current_month == $available_month){
+           try {
+                if($current_month == $available_month){
 
-        //             throw ValidationException::withMessages([
-        //                 'error' => [trans('You already paid for this month.')],
-        //             ]);
-        //         }
-        //    } 
-        //    catch (\App\Exceptions\GeneralException $e) {
+                    throw ValidationException::withMessages([
+                        'error' => [trans('You already paid for this month.')],
+                    ]);
+                }
+           } 
+           catch (\App\Exceptions\GeneralException $e) {
 
-        //         return redirect()->back()->with('error', $e->getMessage());
-        //    }
+                return redirect()->back()->with('error', $e->getMessage());
+           }
             
             $monthlyPayment = MonthlyPayment::create([
                 'payment_type' => 1,
@@ -136,8 +138,18 @@ class PaymentsController extends Controller
 
     public function monthlyArrears(){
 
-        // dd(12);
-        return view();
+        $debted_members = (new MonthlyPayment())->query()->get();
+        return view('contributions/arrears/monthly_arrears');
+    }
+
+    public function getMembersWithArrearsDt(){
+
+        return $this->PaymentsRepository->getArrears();
+    }
+
+    public function arrearsSummary($id){
+        // dd($id);
+        return view('contributions/arrears/arrears_summary');
     }
 
     

@@ -18,6 +18,7 @@ interface PaymentsRepositoryInterface extends BaseRepository
     public function initiateWorkflow($args);
     public function getDefinition($args, $id);
     public function getRecentResourceTrack($args, $id);
+    public function getArrears();
 
 
 }

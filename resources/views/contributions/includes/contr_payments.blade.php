@@ -43,7 +43,7 @@
                     <br>
                     @include('contributions.includes.document_centre')
                 </div>
-                </div>
+                <!-- </div> -->
 
                 
                 <div id="tab3" class="container tab-pane fade" role="tabpanel"><br>

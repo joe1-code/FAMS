@@ -35,7 +35,7 @@ class CreateUnpaidMemberJob implements ShouldQueue
         if ($pastMonthdata->isNotEmpty()) {
             // dd(1);
             foreach ($pastMonthdata as $data) {
-                    dump($data['user_id']);
+                    // dump($data['user_id']);
                     Unpaid_member::where('user_id', $data['user_id'])->update(['deleted_at'=>Carbon::now()]);
             }
         }

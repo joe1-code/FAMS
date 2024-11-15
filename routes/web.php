@@ -30,3 +30,5 @@ Route::post('/get_monthly_payments', [App\Http\Controllers\Payments\PaymentsCont
 Route::post('/monthly_preview_document', [App\Http\Controllers\Payments\PaymentsController::class, 'monthlyPreviewDocument'])->name('monthly_preview_document');
 Route::get('/get_monthly_nonpaid', [App\Http\Controllers\Payments\PaymentsController::class, 'getForDataTable'])->name('get_monthly_nonpaid');
 Route::get('/monthly_arrears', [App\Http\Controllers\Payments\PaymentsController::class, 'monthlyArrears'])->name('monthly_arrears');
+Route::get('/monthly_arrears/getForDatatable', [App\Http\Controllers\Payments\PaymentsController::class, 'getMembersWithArrearsDt'])->name('monthly_arrears/getForDatatable');
+Route::get('/monthly_arrears/getForDatatable/arrears_summary/{id?}', [App\Http\Controllers\Payments\PaymentsController::class, 'arrearsSummary'])->name('monthly_arrears.getForDatatable.arrears_summary');

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 
 if (! function_exists('format_phone_number')) {
     /**
@@ -63,6 +64,17 @@ if (!function_exists('number_2_format')) {
     {
         $floatValue = floatval($value);
         return number_format($floatValue, 2, '.', ',');
+    }
+}
+
+if (!function_exists('access')) {
+    
+    function access(){
+
+    return User::where('available', true)
+        ->leftJoin('regions as rgn','rgn.id','=', 'users.region_id')
+        ->leftJoin('districts as dst', 'dst.id', '=', 'users.district_id')
+        ->select('users.*', 'rgn.name as region_name', 'dst.name as district_name');
     }
 }
 

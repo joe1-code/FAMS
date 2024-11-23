@@ -19,6 +19,9 @@ interface PaymentsRepositoryInterface extends BaseRepository
     public function getDefinition($args, $id);
     public function getRecentResourceTrack($args, $id);
     public function getArrears();
+    public function individualArrears($args);
+    public function arrearsInformations();
+    
 
 
 }

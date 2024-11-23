@@ -9,6 +9,8 @@ use App\Models\Workflow\Wf_definition;
 use App\Models\Workflow\WfTrack;
 use App\Repositories\PaymentsRepositoryInterface;
 use App\Repositories\BaseRepository;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -128,23 +130,52 @@ class PaymentsRepository implements PaymentsRepositoryInterface
     }
 
     public function getArrears(){
-
+        
         $query = (new Unpaid_member())->query()
-                                        ->join('users as u', 'u.id', '=', 'unpaid_members.user_id')
-                                        ->join('regions as rgn', 'rgn.id', '=', 'u.region_id')
-                                        ->join('districts as dist', 'dist.id', '=', 'u.district_id')
-                                        ->select("u.*", 
-                                                  "rgn.name as region_name",
-                                                  "dist.name as district_name",
-                                                  DB::raw("COALESCE(u.firstname, '') || ' ' || COALESCE(u.lastname, '') AS fullname"), 
-                                                  DB::raw("SUM(u.entitled_amount) AS arrears"), 
-                                                  DB::raw("MAX(unpaid_members.created_at) AS latest_month"))
-                                        ->where('pay_status', 0)
-                                        ->whereNotNull('unpaid_members.deleted_at')
-                                        ->groupBy('u.id', 'fullname', 'region_name', 'district_name')
-                                        ->get();
+                ->join('users as u', 'u.id', '=', 'unpaid_members.user_id')
+                ->join('regions as rgn', 'rgn.id', '=', 'u.region_id')
+                ->join('districts as dist', 'dist.id', '=', 'u.district_id')
+                ->select("u.*", 
+                            "rgn.name as region_name",
+                            "dist.name as district_name",
+                            DB::raw("COALESCE(u.firstname, '') || ' ' || COALESCE(u.lastname, '') AS fullname"), 
+                            DB::raw("SUM(unpaid_members.total_arrears) AS arrears"), 
+                            DB::raw("MAX(unpaid_members.created_at) AS latest_month"))
+                ->where('pay_status', 0)
+                ->whereNotNull('unpaid_members.deleted_at')
+                ->groupBy('u.id', 'fullname', 'region_name', 'district_name')
+                ->get();
 
         return DataTables::of($query)->make(true);
+    }
+
+    public function individualArrears($id){
+
+        return (new Unpaid_member())->query()
+                ->select(['unpaid_members.*',DB::raw("COALESCE(u.firstname, ' ') ||' '|| COALESCE(u.middlename, ' ') ||' '|| COALESCE(u.lastname, ' ') AS full_name"),
+                                                        'u.job_title','u.phone','u.email','u.entitled_amount', DB::raw("EXTRACT(Year FROM AGE(CURRENT_DATE, u.dob)) AS age")])
+                ->join('users as u', 'u.id', '=', 'unpaid_members.user_id')
+                ->whereNotNull('unpaid_members.deleted_at')
+                ->where('user_id', $id)
+                ->where('pay_status', false)    
+                ->get();
+
+                    
+    }
+
+    public function arrearsInformations(){
+
+        $unpaidObj = (new Unpaid_member());
+
+        $members_arrears = $unpaidObj->query()->join('users as u', 'u.id', '=', 'unpaid_members.user_id')
+                            ->select([DB::raw("SUM(u.entitled_amount) AS members_arrears"), DB::raw("SUM(unpaid_members.penalty) AS total_penalties"), DB::raw("SUM(unpaid_members.total_arrears) AS total_arrears")])
+                            ->whereNotNull('unpaid_members.deleted_at')
+                            ->where('pay_status', false)
+                            ->get();
+        
+        $individual_arrears = $unpaidObj->query()->join('users as u', 'u.id', '=', 'unpaid_members.user_id')->where('user_id', Auth()->user()->id)->whereNotNull('unpaid_members.deleted_at')->sum('u.entitled_amount');
+
+        return ['members_arrears' => $members_arrears, 'individual_arrears' => $individual_arrears];
     }
 
 }

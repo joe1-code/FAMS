@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\MonthlyPayment;
 use App\Models\Unpaid_member;
 use App\Models\User;
 use Carbon\Carbon;
@@ -35,7 +36,13 @@ class CreateUnpaidMemberJob implements ShouldQueue
         if ($pastMonthdata->isNotEmpty()) {
             // dd(1);
             foreach ($pastMonthdata as $data) {
-                    // dump($data['user_id']);
+                    dump($data['user_id']);
+                    $paid_status = MonthlyPayment::join('unpaid_members as um', 'um.user_id', '=', 'monthly_payments.user_id')
+                           ->where('um.id', $data['user_id'])
+                           ->whereBetween('monthly_payments.created_at',[Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])
+                           ->get();
+                    // dump($paid_status);
+                    // dd(1244);
                     Unpaid_member::where('user_id', $data['user_id'])->update(['deleted_at'=>Carbon::now()]);
             }
         }

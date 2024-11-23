@@ -137,9 +137,11 @@ class PaymentsController extends Controller
     }
 
     public function monthlyArrears(){
-
-        $debted_members = (new MonthlyPayment())->query()->get();
-        return view('contributions/arrears/monthly_arrears');
+        
+        $arrears_particulars = $this->PaymentsRepository->arrearsInformations();
+        
+        return view('contributions/arrears/monthly_arrears')
+                    ->with('arrears_info', $arrears_particulars);
     }
 
     public function getMembersWithArrearsDt(){
@@ -147,9 +149,18 @@ class PaymentsController extends Controller
         return $this->PaymentsRepository->getArrears();
     }
 
-    public function arrearsSummary($id){
-        // dd($id);
-        return view('contributions/arrears/arrears_summary');
+    public function arrearsSummary(Request $request){
+
+        $query_parameter = $request->query();
+
+        $penalty = 1000;
+
+        $individual_arrears = $this->PaymentsRepository->individualArrears($query_parameter);
+        // foreach ($individual_arrears as $arrears) {
+        //     dd($arrears->entitled_amount);
+        // }
+        
+        return view('contributions/arrears/arrears_summary', ['individual_arrears' => $individual_arrears]);
     }
 
     

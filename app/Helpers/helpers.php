@@ -78,6 +78,15 @@ if (!function_exists('access')) {
     }
 }
 
+// if (!function_exists('within_month')) {
+    
+//     function within_month(){
+
+//         return [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()];
+
+//     }
+// }
+
 
 
 

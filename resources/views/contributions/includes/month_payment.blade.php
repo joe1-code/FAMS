@@ -135,6 +135,8 @@
                 
                     });
 
+                    window.location.reload();
+
                 },
                 error: function(xhr,status,error){
 

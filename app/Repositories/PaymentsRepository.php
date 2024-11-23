@@ -152,8 +152,12 @@ class PaymentsRepository implements PaymentsRepositoryInterface
     public function individualArrears($id){
 
         return (new Unpaid_member())->query()
-                ->select(['unpaid_members.*',DB::raw("COALESCE(u.firstname, ' ') ||' '|| COALESCE(u.middlename, ' ') ||' '|| COALESCE(u.lastname, ' ') AS full_name"),
-                                                        'u.job_title','u.phone','u.email','u.entitled_amount', DB::raw("EXTRACT(Year FROM AGE(CURRENT_DATE, u.dob)) AS age")])
+                ->select(['unpaid_members.*',
+                    DB::raw("COALESCE(u.firstname, ' ') ||' '|| COALESCE(u.middlename, ' ') ||' '|| COALESCE(u.lastname, ' ') AS full_name"),
+                    DB::raw("EXTRACT(Year FROM AGE(CURRENT_DATE, u.dob)) AS age"),
+                    DB::raw('(COALESCE(u.entitled_amount, 0) - COALESCE(unpaid_members.paid_amount, 0)) AS monthly_arrear'),
+                    'u.job_title','u.phone','u.email','u.entitled_amount', 
+                    ])
                 ->join('users as u', 'u.id', '=', 'unpaid_members.user_id')
                 ->whereNotNull('unpaid_members.deleted_at')
                 ->where('user_id', $id)
@@ -167,13 +171,24 @@ class PaymentsRepository implements PaymentsRepositoryInterface
 
         $unpaidObj = (new Unpaid_member());
 
-        $members_arrears = $unpaidObj->query()->join('users as u', 'u.id', '=', 'unpaid_members.user_id')
-                            ->select([DB::raw("SUM(u.entitled_amount) AS members_arrears"), DB::raw("SUM(unpaid_members.penalty) AS total_penalties"), DB::raw("SUM(unpaid_members.total_arrears) AS total_arrears")])
+        $members_arrears = $unpaidObj->query()
+                            ->join('users as u', 'u.id', '=', 'unpaid_members.user_id')
+                            ->select([DB::raw("(SUM(COALESCE(u.entitled_amount, 0)) - SUM(COALESCE(unpaid_members.paid_amount, 0))) AS members_arrears"),
+                              DB::raw("SUM(unpaid_members.penalty) AS total_penalties"),
+                              DB::raw("SUM(unpaid_members.total_arrears) AS total_arrears")])
                             ->whereNotNull('unpaid_members.deleted_at')
                             ->where('pay_status', false)
                             ->get();
         
-        $individual_arrears = $unpaidObj->query()->join('users as u', 'u.id', '=', 'unpaid_members.user_id')->where('user_id', Auth()->user()->id)->whereNotNull('unpaid_members.deleted_at')->sum('u.entitled_amount');
+        $individual_data = $unpaidObj->query()->join('users as u', 'u.id', '=', 'unpaid_members.user_id')
+                            ->select([
+                                DB::raw('SUM(u.entitled_amount) AS entitled_amount'), 
+                                DB::raw('SUM(unpaid_members.paid_amount) AS paid_amount')])
+                            ->where('user_id', Auth()->user()->id)
+                            ->whereNotNull('unpaid_members.deleted_at')
+                            ->first();
+        
+        $individual_arrears = ($individual_data->entitled_amount - $individual_data->paid_amount);
 
         return ['members_arrears' => $members_arrears, 'individual_arrears' => $individual_arrears];
     }

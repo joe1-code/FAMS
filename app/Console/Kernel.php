@@ -22,6 +22,7 @@ class Kernel extends ConsoleKernel
       //  $schedule->job(new \App\Jobs\CreateUnpaidMemberJob())->monthlyOn(); //this job runs at every 1st of each month to populate the members ready for payment
        $schedule->job(new \App\Jobs\CreateUnpaidMemberJob())->everyMinute(); //this job runs at every 1st of each month to populate the members ready for payment
        $schedule->job(new \App\Jobs\UpdateUnpaidMembersJob())->everyFiveMinutes(); //this job after every 5 mins to update the users who have paid monthly fees
+       $schedule->job(new \App\Jobs\AddPenaltiesJob())->everyFiveMinutes(); //this job after every 5 mins to update the users who have paid monthly fees
         logger('checks....');
        /**
         * either way to dispatch a job or call exciplictily a dispatch method to sending a job into a queue 

@@ -223,7 +223,7 @@
                     @endphp -->
                     @foreach($individual_arrears as $data)
                         <tr class="" style="text-align: center">
-                            <td style="text-align: center">{{ $data->entitled_amount }}</td>
+                            <td style="text-align: center">{{ $data->monthly_arrear }}</td>
                             <td style="text-align: center">{{ $data->created_at }}</td>
                             <td style="text-align: center">{{ $data->penalty }}</td>
                             <td style="text-align: center">{{ '(50%)' }}</td>

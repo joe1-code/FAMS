@@ -45,26 +45,28 @@ class AddPenaltiesJob implements ShouldQueue
         // dd($arrears_instance);
         foreach ($arrears_instance as $arrears) {
                 
-            $paid_status = MonthlyPayment::join('unpaid_members as um', 'um.user_id', '=', 'monthly_payments.user_id')
-                           ->where('um.id', $arrears->id)
-                           ->whereBetween('monthly_payments.created_at',[Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()]);
-            // dd($arrears);
-            $penalty = (50/100) * ($arrears->entitled_amount);
-
         if ($arrears->penalty == null and $arrears->total_arrears == null) {
                 dump('<=================== arrears==============>'. 1);
 
-                $total_arrears = $arrears->entitled_amount + $penalty;
+                if (!empty($arrears->paid_amount)) {
+                    
+                    $diff_amount = $arrears->entitled_amount - $arrears->paid_amount;
+
+                    $penalty = (50/100) * ($diff_amount);
+
+                    $total_arrears = $diff_amount + $penalty;
+                }
+                else {
+                    
+                    $penalty = (50/100) * ($arrears->entitled_amount);
+
+                    $total_arrears = $arrears->entitled_amount + $penalty;
+
+                }
+
                 Unpaid_member::where('user_id', $arrears->id)->whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->update(['penalty' => $penalty, 'total_arrears' => $total_arrears]);
-                // $arrears->save();
             }
-            // elseif ($arrears->penalty and $arrears->total_arrears) {
-            //     dump(2);
-                
-            //     $total_arrears = $arrears->total_arrears + $penalty;
-            //     Unpaid_member::where('user_id', $arrears->id)->update(['total_arrears' => $total_arrears]);
-    
-            // }
+            
         }
     }
 }

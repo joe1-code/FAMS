@@ -54,11 +54,13 @@ class PaymentsController extends Controller
             $checkMonth = MonthlyPayment::where('user_id', $userID)->orderBy('pay_date', 'DESC')->first()?->pay_date;
 
             $available_month = null;
+
+            $current_month = null;
             
             if (isset($checkMonth)) {
-
+                
                 $available_month = Carbon::parse($checkMonth)->format('m');
-
+                
                 $current_month = Carbon::now()->format('m');
 
                 if($available_month == $current_month){
@@ -69,18 +71,18 @@ class PaymentsController extends Controller
 
             }
 
-           try {
-                if($current_month == $available_month){
+        //    try {
+        //         if($current_month == $available_month){
 
-                    throw ValidationException::withMessages([
-                        'error' => [trans('You already paid for this month.')],
-                    ]);
-                }
-           } 
-           catch (\App\Exceptions\GeneralException $e) {
+        //             throw ValidationException::withMessages([
+        //                 'error' => [trans('You already paid for this month.')],
+        //             ]);
+        //         }
+        //    } 
+        //    catch (\App\Exceptions\GeneralException $e) {
 
-                return redirect()->back()->with('error', $e->getMessage());
-           }
+        //         return redirect()->back()->with('error', $e->getMessage());
+        //    }
             
             $monthlyPayment = MonthlyPayment::create([
                 'payment_type' => 1,
@@ -153,14 +155,14 @@ class PaymentsController extends Controller
 
         $query_parameter = $request->query();
 
-        $penalty = 1000;
-
         $individual_arrears = $this->PaymentsRepository->individualArrears($query_parameter);
-        // foreach ($individual_arrears as $arrears) {
-        //     dd($arrears->entitled_amount);
-        // }
         
         return view('contributions/arrears/arrears_summary', ['individual_arrears' => $individual_arrears]);
+    }
+
+    public function arrearsPayment(){
+
+        dd(123);
     }
 
     

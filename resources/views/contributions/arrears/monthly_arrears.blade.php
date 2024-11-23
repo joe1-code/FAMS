@@ -417,7 +417,7 @@ $(document).ready(function() {
             orderable: false,
             searchable: false,
             render: function(data, type, row) {
-                return '<button class="btn btn-primary">Arrears Payment</button>';
+                return "<button class='btn btn-primary' action="{{ route('edit') }}" method="GET">Arrears Payment</button>";
             }
         }
     ],

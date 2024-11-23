@@ -11,6 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\DB;
 
 class CreateUnpaidMemberJob implements ShouldQueue
 {
@@ -34,17 +35,30 @@ class CreateUnpaidMemberJob implements ShouldQueue
                         ->get();
         // dd(($pastMonthdata));
         if ($pastMonthdata->isNotEmpty()) {
-            // dd(1);
-            foreach ($pastMonthdata as $data) {
-                    dump($data['user_id']);
-                    $paid_status = MonthlyPayment::join('unpaid_members as um', 'um.user_id', '=', 'monthly_payments.user_id')
-                           ->where('um.id', $data['user_id'])
-                           ->whereBetween('monthly_payments.created_at',[Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])
-                           ->get();
-                    // dump($paid_status);
-                    // dd(1244);
+
+            DB::transaction(function() use($pastMonthdata){
+
+                foreach ($pastMonthdata as $data) {
+
                     Unpaid_member::where('user_id', $data['user_id'])->update(['deleted_at'=>Carbon::now()]);
-            }
+    
+                    $paid_status = MonthlyPayment::whereBetween('monthly_payments.created_at',[Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])
+                    ->where('payment_status', true)
+                    ->get();
+                    
+                    if ($paid_status->isNotEmpty()) {
+                        
+                        foreach ($paid_status as $paid) {
+                            dump($paid->user_id);
+                            
+                            Unpaid_member::where('user_id', $paid->user_id)->whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->update(['paid_amount' => $paid->paid_amount]);
+
+                        }
+    
+                    }
+                }
+            });
+            
         }
         
         // dd($pastMonthdata);

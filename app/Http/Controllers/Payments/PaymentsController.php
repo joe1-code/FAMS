@@ -162,7 +162,7 @@ class PaymentsController extends Controller
 
     public function arrearsPayment(){
 
-        dd(123);
+        return view('contributions/arrears/arrears_payments');
     }
 
     

@@ -26,8 +26,11 @@ Route::post('/submit_members/{id}', [App\Http\Controllers\Membership\MemberContr
 // <==========================================monthly payments routes============================================================================>
 
 Route::get('/payments', [App\Http\Controllers\Payments\PaymentsController::class, 'monthlyPayments'])->name('payments');
+Route::get('/monthly_payment_show', [App\Http\Controllers\Payments\PaymentsController::class, 'showMonthlyPayments'])->name('monthly_payment_show');
 Route::post('/get_monthly_payments', [App\Http\Controllers\Payments\PaymentsController::class, 'getMonthlyPayments'])->name('get_monthly_payments');
+Route::get('/monthly_documents', [App\Http\Controllers\Payments\PaymentsController::class, 'contributionsDocuments'])->name('monthly_documents');
 Route::post('/monthly_preview_document', [App\Http\Controllers\Payments\PaymentsController::class, 'monthlyPreviewDocument'])->name('monthly_preview_document');
+Route::get('/monthly_nonpaid', [App\Http\Controllers\Payments\PaymentsController::class, 'getForNonPaidDt'])->name('monthly_nonpaid');
 Route::get('/get_monthly_nonpaid', [App\Http\Controllers\Payments\PaymentsController::class, 'getForDataTable'])->name('get_monthly_nonpaid');
 Route::get('/monthly_arrears', [App\Http\Controllers\Payments\PaymentsController::class, 'monthlyArrears'])->name('monthly_arrears');
 Route::get('/monthly_arrears/getForDatatable', [App\Http\Controllers\Payments\PaymentsController::class, 'getMembersWithArrearsDt'])->name('monthly_arrears/getForDatatable');

@@ -1,30 +1,9 @@
 <!doctype html>
-<html lang="en">
-<style>
-    /* Add faint green border styling for separator lines */
-    .separator-line {
-        /**faint green */
-         border-bottom: 1px solid #a0d6a0; 
-        /* border-bottom: 1px solid #7db8d6;  */
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-    }
-
-    .title_name{
-        font-size: 16px;
-        color: #333333; 
-    }
-
-    .list-group-item-heading {
-        font-weight: normal;
-    }
-</style>
-
-<!-- Mirrored from themesbrand.com/skote/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 12 Oct 2022 14:34:47 GMT -->
-<head>
+<html lang="en"> 
+    <head>
         
         <meta charset="utf-8" />
-        <title>Dashboard | FAMS - Family Management system.</title>
+        <title>Dashboard | Paid & Non-paid Members.</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
@@ -39,13 +18,10 @@
         <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <!-- App Css-->
         <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 
     </head>
 
     <body data-sidebar="dark" data-layout-mode="light">
-    <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
         <!-- Begin page -->
         <div id="layout-wrapper">
@@ -78,7 +54,6 @@
                         <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
                             <i class="fa fa-fw fa-bars"></i>
                         </button>
-
                     </div>
 
                     <div class="d-flex">
@@ -103,14 +78,11 @@
                                 </form>
                             </div>
                         </div>
-
-
                         <div class="dropdown d-none d-lg-inline-block ms-1">
                             <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">
                                 <i class="bx bx-fullscreen"></i>
                             </button>
                         </div>
-
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -174,127 +146,52 @@
             <!-- ============================================================== -->
             <!-- Start right Content here -->
             <!-- ============================================================== -->
-    <div class="main-content">
+            <div class="main-content">
 
-        <div class="page-content">
-            <div class="container-fluid">                        
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title mb-4">MONTHLY CONTRIBUTIONS PAYMENTS MENU</h4>
-                                <div class="row">
-                        <div class="col-md-12">
-                            <div>&nbsp;</div>
-                            <div class="computation-group">
-                                <!-- Here to put the content panel-->
-                                <div style="color:#fff">
-                                    <div class="col-sm-12 col-md-12">
-
-                                        <br>
-                                        <!-- Add a slightly darker grey background to the heading or surrounding div -->
-                                        <div style="background-color: #d3d3d3; padding: 10px;">
-                                            <h6 class="cancel_button site-btn" style="color: black; margin: 0; display:flex; justify-content:center;">MONTHLY PAYMENTS PROCESS</h6>
-                                        </div>
-                                        <br>
-
-                                        <div class="row">
-                                            <div class="col-sm-6 col-md-6">
-                                                <div class="separator-line">
-                                                    <a href="#">
-                                                        <h6 class="list-group-item-heading ng-binding">
-                                                            <a href="{{ route('monthly_payment_show') }}" style="color: inherit;"> 
-                                                                <i class="icon fa fa-credit-card" style="color: #333;"></i>
-                                                                <span class="title_name">&nbsp;&nbsp;Process Monthly Payments</span>
-                                                            </a>
-                                                        </h6>
-                                                        <p style="color: grey;" class="list-group-item-text ng-binding">
-                                                            Pay your current monthly contributions which you are entitled ready for processing.
-                                                        </p>
-
-                                                    </a>
-                                                </div>
-                                                <div class="separator-line">
-                                                    <a href="#">
-                                                        <h6 class="list-group-item-heading ng-binding">
-                                                            <a href="#" style="color: inherit;"> 
-                                                                <i class="icon fa fa-history" style="color: #333;"></i>
-                                                                <span class="title_name">&nbsp;&nbsp;Workflow History</span>
-                                                            </a>
-                                                        </h6>
-                                                        <p style="color: grey;" class="list-group-item-text ng-binding">
-                                                            Keep Track or Make Followup of your Workflows for Submitted Monthly Contributions Payments.
-                                                        </p>
-
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-6 col-md-6">
-                                                <div class="separator-line">
-                                                    <a href="{{ route('monthly_documents') }}" style="color: inherit;">
-                                                        <h6 class="list-group-item-heading ng-binding">
-                                                            <i class="icon fa fa-book-open"  style="color: #333;"></i>
-                                                            <span class="title_name">&nbsp;&nbsp;Document Centre</span>
-                                                        </h6>
-                                                            <p style="color: grey;" class="list-group-item-text ng-binding">
-                                                                View your submitted documents ready for payment processing 
-                                                            </p>
-                                                    </a>
-                                                </div>
-                                                <div class="separator-line">
-                                                    <a href="#">
-                                                        <h6 class="list-group-item-heading ng-binding">
-                                                            <a href="{{ route('monthly_nonpaid') }}" style="color: inherit;"> 
-                                                                <i class="icon fa fa-check-circle" style="color: #333;"></i>
-                                                                <span class="title_name">&nbsp;&nbsp;Paid And Non Paid Members</span>
-                                                            </a>
-                                                        </h6>
-                                                        <p style="color: grey;" class="list-group-item-text ng-binding">
-                                                            Hereby there is a list of active members who have both paid and not paid per current month.
-                                                        </p>
-
-                                                    </a>
-                                                </div>
-                                            </div>                                        
+                <div class="page-content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4" style="display: flex; justify-content:center;">PAID & NON-PAID MEMBERS</h4>
+                                        <div class="table-responsive">
+                                            <table class="table align-middle table-nowrap " id="non_paid_members">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th style="width: 20px;">No.(#)</th>
+                                                        <th width="25%">Name</th>
+                                                        <th width="15%">Region</th>
+                                                        <th width="15%">District</th>
+                                                        <th width="15%">DOB</th>
+                                                        <th width="15%">Phone</th>
+                                                        <th width="15%">Payment Status</th>
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div>&nbsp;</div>
 
-                        </div>
-                        <div>&nbsp;</div>
-                        <legend></legend>
-                        <div>&nbsp;</div>
-
-                        
-                            </div>
-                        </div>
-                    </div>
-            </div>                    
-
-        </div>
-    </div>
-<!-- Transaction Modal -->
-
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <script>document.write(new Date().getFullYear())</script> © FAMS.
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="text-sm-end d-none d-sm-block">
-                                    Design & Develop by FAMS.
+                        <div>
+                            <footer class="footer">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <script>document.write(new Date().getFullYear())</script> © FAMS.
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="text-sm-end d-none d-sm-block">
+                                                Design & Develop by FAMS.
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            </footer>
                         </div>
-                    </div>
-                </footer>
-            </div>
             <!-- end main content-->
 
         </div>
@@ -381,19 +278,56 @@
 <!-- Mirrored from themesbrand.com/skote/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 12 Oct 2022 14:37:45 GMT -->
 </html>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const viewDetailsButtons = document.querySelectorAll('.view-details-btn');
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
-    viewDetailsButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const memberId = this.getAttribute('data-id');
-            const memberName = this.getAttribute('data-name');
+<script type="text/javascript">
+    $(document).ready(function() {
 
-            document.getElementById('member-id').textContent = memberId;
-            document.getElementById('member-name').textContent = memberName;
-            document.getElementById('edit-member-id').value = memberId;
+        
+        $('#non_paid_members').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('get_monthly_nonpaid') }}",
+            columns: [
+                { 
+                    data: null, 
+                    name: 'index', 
+                    orderable: false, 
+                    searchable: false,
+                    render: function(data, type, row, meta) {
+                        return meta.row + 1; // Display index number (starting from 1)
+                    } 
+                },
+                { data: 'fullname', name: 'fullname' },
+                { data: 'region', name: 'region' },
+                { data: 'district', name: 'district' },
+                { data: 'dob', name: 'dob' },
+                { data: 'phone', name: 'phone' },
+                {
+                    data: 'pay_status',
+                    name: 'pay_status',
+                    orderable: false,
+                    searchable: false,
+                    render: function(data) {
+                        return data === 'Paid' ? 
+                            '<span class="badge bg-success">Paid</span>' : 
+                            '<span class="badge bg-warning">Not Paid</span>';
+                    }
+                }
+            ],
+            success: function(response){
+                console.log(response);
+                
+            },
+            order: [[0, 'desc']],
+            dom: '<"d-flex justify-content-end"f><"table-responsive"t><"d-flex justify-content-end"ip>',
+            // dom: 'Bfrtip',
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            lengthMenu: [10, 25, 50, 100],
+            pageLength: 10,
+            responsive: true // Enable responsive feature
         });
     });
-});
 </script>

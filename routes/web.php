@@ -32,7 +32,11 @@ Route::get('/monthly_documents', [App\Http\Controllers\Payments\PaymentsControll
 Route::post('/monthly_preview_document', [App\Http\Controllers\Payments\PaymentsController::class, 'monthlyPreviewDocument'])->name('monthly_preview_document');
 Route::get('/monthly_nonpaid', [App\Http\Controllers\Payments\PaymentsController::class, 'getForNonPaidDt'])->name('monthly_nonpaid');
 Route::get('/get_monthly_nonpaid', [App\Http\Controllers\Payments\PaymentsController::class, 'getForDataTable'])->name('get_monthly_nonpaid');
+Route::get('/workflow_history', [App\Http\Controllers\Payments\PaymentsController::class, 'wfHistory'])->name('workflow_history');
+Route::get('/workflow_model_content', [App\Http\Controllers\Payments\PaymentsController::class, 'wfModelContent'])->name('workflow_model_content');
 Route::get('/monthly_arrears', [App\Http\Controllers\Payments\PaymentsController::class, 'monthlyArrears'])->name('monthly_arrears');
 Route::get('/monthly_arrears/getForDatatable', [App\Http\Controllers\Payments\PaymentsController::class, 'getMembersWithArrearsDt'])->name('monthly_arrears/getForDatatable');
 Route::get('/arrears_summary/{id?}', [App\Http\Controllers\Payments\PaymentsController::class, 'arrearsSummary'])->name('arrears_summary');
 Route::post('/arrears_payment/{id?}', [App\Http\Controllers\Payments\PaymentsController::class, 'arrearsPayment'])->name('arrears_payment');
+Route::get('/pay_arrears', [App\Http\Controllers\Payments\PaymentsController::class, 'payArrears'])->name('pay_arrears');
+Route::get('/clear_arrears', [App\Http\Controllers\Payments\PaymentsController::class, 'getArrearsPayments'])->name('get_arrears_payment');

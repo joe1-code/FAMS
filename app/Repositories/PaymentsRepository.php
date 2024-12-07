@@ -72,7 +72,6 @@ class PaymentsRepository implements PaymentsRepositoryInterface
 
     public function initiateWorkflow($input)
     {
-        // dd($input);
 
         return DB::transaction(function () use ($input) {
             // $wfModule = new WfModuleRepository();

@@ -40,7 +40,7 @@ class CreateUnpaidMemberJob implements ShouldQueue
 
                 foreach ($pastMonthdata as $data) {
 
-                    Unpaid_member::where('user_id', $data['user_id'])->update(['deleted_at'=>Carbon::now()]);
+                    Unpaid_member::where('user_id', $data['user_id'])->whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->update(['deleted_at'=>Carbon::now()]);
     
                     $paid_status = MonthlyPayment::whereBetween('monthly_payments.created_at',[Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])
                     ->where('payment_status', true)

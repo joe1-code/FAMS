@@ -3,17 +3,20 @@
 namespace App\Http\Controllers\Payments;
 
 use App\Exceptions\GeneralException;
+use App\Http\Controllers\Backend\System\WorkflowController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\MonthlyPayment;
 use App\Models\Payments\PaymentMethod;
 use App\Models\Unpaid_member;
 use App\Models\User;
+use App\Models\Workflow\WfTrack;
 use App\Repositories\BaseRepository;
 use App\Repositories\DocumentRepository;
 use App\Repositories\PaymentsRepository;
 use App\Repositories\PaymentsRepositoryInterface;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use PhpParser\Node\Expr\Throw_;
@@ -56,19 +59,19 @@ class PaymentsController extends Controller
 
             $current_month = null;
             
-            if (isset($checkMonth)) {
+            // if (isset($checkMonth)) {
                 
-                $available_month = Carbon::parse($checkMonth)->format('m');
+            //     $available_month = Carbon::parse($checkMonth)->format('m');
                 
-                $current_month = Carbon::now()->format('m');
+            //     $current_month = Carbon::now()->format('m');
 
-                if($available_month == $current_month){
+            //     if($available_month == $current_month){
                     
-                    throw new GeneralException("You already paid for this respective Month");
-                }
+            //         throw new GeneralException("You already paid for this respective Month");
+            //     }
                 
 
-            }
+            // }
 
         //    try {
         //         if($current_month == $available_month){
@@ -167,12 +170,22 @@ class PaymentsController extends Controller
 
     public function showMonthlyPayments(){
 
+        $workflowScriptAlreadyIncluded = false;
         $user_data = User::ActiveMembers()->get();
         $paymentMethods = PaymentMethod::all();
+        // $workflowInput3 = ['resource_id' => $review->id, 'wf_module_group_id'=> $moduleGroup, 'type' => $wfModule->type, 'workflowScriptAlreadyIncluded' => $workflowScriptAlreadyIncluded];
+        $workflow = WfTrack::join('wf_definitions as wd', 'wd.id', '=', 'wf_tracks.wf_definition_id')
+                                    ->join('wf_modules as wfm', 'wfm.id', '=', 'wd.wf_module_id')
+                                    ->join('wf_module_groups as wfmg', 'wfmg.id', '=', 'wfm.wf_module_group_id')
+                                    ->where('wf_tracks.user_id', Auth()->user()->id)->orderBy('wf_tracks.created_at', 'DESC')->first();
+
+        $workflowInput = ['resource_id' => $workflow->resource_id, 'wf_module_group_id'=> $workflow->wf_module_group_id, 'type' => $workflow->type, 'workflowScriptAlreadyIncluded' => $workflowScriptAlreadyIncluded];
+        dd($workflowInput);
 
         return view('contributions/monthly_contributions/month_payment')
                 ->with('memberData', $user_data)
-                ->with('payment_methods', $paymentMethods);
+                ->with('payment_methods', $paymentMethods)
+                ->with('workflow', $workflowInput);
     }
 
     public function contributionsDocuments(){
@@ -192,6 +205,34 @@ class PaymentsController extends Controller
                 ->with('memberData', $user_data)
                 ->with('payment_methods', $paymentMethods);
     }
+
+    public function wfHistory(){
+
+        return view('contributions/monthly_contributions/workflow_history');
+    }
+
+    public function wfModelContent(){
+        dd(12);
+        $modelContent = (new WorkflowController())->getWorkflowModalContent();
+        dd($modelContent);
+        return view('contributions/monthly_contributions/workflow_history');
+    }
+
+    public function payArrears(){
+
+        $user_data = User::ActiveMembers()->get();
+        $paymentMethods = PaymentMethod::all();
+
+        return view('contributions/arrears/pay_arrears')
+                        ->with('memberData', $user_data)
+                        ->with('payment_methods', $paymentMethods);
+    }
+
+    public function getArrearsPayments(){
+        
+    }
+
+
 
     
 }

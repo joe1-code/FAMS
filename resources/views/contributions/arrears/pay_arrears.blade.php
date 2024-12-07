@@ -1,32 +1,11 @@
-
 <!doctype html>
 <html lang="en">
-    <style>
 
-    .nav-tabs .nav-link {
-        color: #333; /* Default text color for tabs */
-        background-color: #f8f9fa; /* Default background for tabs */
-        border: 1px solid #dee2e6;
-        border-bottom: none; /* Remove border from the bottom for inactive tabs */
-        transition: all 0.3s ease; /* Smooth transition effect */
-    }
-
-    .nav-tabs .nav-link.active {
-        color: #fff; /* Text color for active tab */
-        background-color: #28a745; /* Green background for active tab */
-        border-color: #28a745; /* Green border for active tab */
-        border-bottom: 2px solid #28a745; /* Highlight active tab */
-    }
-
-
-
-
-    </style>
     
-<head>
+    <head>
         
         <meta charset="utf-8" />
-        <title>Arrears | FAMS - Family Management system.</title>
+        <title>Dashboard | Arrears Payment Form.</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
@@ -41,15 +20,40 @@
         <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <!-- App Css-->
         <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-
+        <style>
+            .content-layer1 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 60vh;
+                /* background-color: #f7f7f7; */
+            }
+            .card {
+                width: 50%;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .card-header {
+                    background: linear-gradient(to right, #f5f5f5, #ffffff); /* Light smoke-like effect */
+                    color: black; /* Change text color to black for contrast */
+                    text-align: center;
+                    font-size: 1.25rem;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds some depth */
+            }
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+            .monthly_pay_butt {
+                text-align: center;
+            }
+         </style>
 
     </head>
 
     <body data-sidebar="dark" data-layout-mode="light">
-    <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
         <!-- Begin page -->
         <div id="layout-wrapper">
@@ -82,7 +86,6 @@
                         <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
                             <i class="fa fa-fw fa-bars"></i>
                         </button>
-
                     </div>
 
                     <div class="d-flex">
@@ -107,14 +110,11 @@
                                 </form>
                             </div>
                         </div>
-
-
                         <div class="dropdown d-none d-lg-inline-block ms-1">
                             <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">
                                 <i class="bx bx-fullscreen"></i>
                             </button>
                         </div>
-
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -179,61 +179,223 @@
             <!-- Start right Content here -->
             <!-- ============================================================== -->
             <div class="main-content">
-
                 <div class="page-content">
-                    <div class="container-fluid">
+                    <div class="container-fluid p-0">
+                        <div class="row m-0">
+                            <div class="col-lg-12">
+                                <div class="card w-100">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4" style="display: flex; justify-content:center;">ARREARS PAYMENT PROCESS</h4>
+                                        <div id="alert"></div>
+                                        <div class="content-layer1">
+                                            <div class="card w-90 p-0">
+                                                <div class="card-header">
+                                                    <small>Arrears Payment</small>
+                                                </div>
+                                                <div class="card-body">
+                                                    <form id="arrears_payment" enctype="multipart/form-data">
+                                                        @csrf 
+                                                        <div class="form-group row">
+                                                            <div class="col-md-6">
+                                                                <label for="member"><small>Select Members</small></label>
+                                                                <select class="form-control search-select" id="user_data" name="id" required>
+                                                                    <option value="" disabled selected></option>
+                                                                    @foreach($memberData as $data)
+                                                                        <option value="{{$data->id}}">{{ $data->firstname.' '.$data->lastname }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="document" class="form-label"><small>Upload Document</small></label>
+                                                                <input type="file" class="form-control" id="1" name="document">
+                                                                @if ($errors->has('document'))
+                                                                    <div class="text-danger">
+                                                                        {{ $errors->first('document') }}
+                                                                    </div>
+                                                                @endif
+                                                                <div class="invalid-feedback">
+                                                                    Please upload a document
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                    <div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title mb-4">Monthly Arrears</h4>
-                <div class="row">
-                <div class="container mt-5">
-    <!-- Tabs Navigation -->
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Monthly Payments</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Documents Centre</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" id="tab3-tab" data-bs-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">Workflow History</a>
-        </li>
-    </ul>
+                                                        <div class="form-group row">
+                                                            <div class="col-md-6">
+                                                                <label for="paid_amount" class="form-label"><small>Amount (Tshs.)</small></label>
+                                                                <input type="number" class="form-control @error('paid_amount') is-invalid @enderror" id="paid_amount" name="paid_amount" placeholder="Enter Amount" required>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="payment_method"><small>Payment Method</small></label>
+                                                                <select class="form-control search-select" id="payment_method" name="payment_method" required>
+                                                                    <option value="" disabled selected></option>
+                                                                    @foreach($payment_methods as $methods)
+                                                                        <option value="{{$methods->id}}">{{ $methods->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
 
-    <!-- Tabs Content -->
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
-            @include('contributions.arrears.includes.arrears_payments')
-        </div>
-        <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
-            <p>Content for Documents Centre</p>
-        </div>
-        <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
-            <p>Content for Workflow History</p>
-        </div>
-    </div>
-</div>
-                    
+                                                        <input type="hidden" id="module_id" name="module_id" value="1">
+                                                        <input type="hidden" id="module_group_id" name="module_group_id" value="1">
+
+                                                        <div class="monthly_pay_butt">
+                                                            <button type="submit" class="btn btn-success"><small>Submit</small></button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-       
-        <div>&nbsp;</div>
-
+            <!-- end main content-->
         </div>
-        <div>&nbsp;</div>
-        <legend></legend>
-        <div>&nbsp;</div>
+        <!-- END layout-wrapper -->
 
-            </div>
+        <!-- Right Sidebar -->
+        <div class="right-bar">
+            <div data-simplebar class="h-100">
+                <div class="rightbar-title d-flex align-items-center px-3 py-4">
+            
+                    <h5 class="m-0 me-2">Settings</h5>
+
+                    <a href="javascript:void(0);" class="right-bar-toggle ms-auto">
+                        <i class="mdi mdi-close noti-icon"></i>
+                    </a>
+                </div>
+
+                <!-- Settings -->
+                <hr class="mt-0" />
+                <h6 class="text-center mb-0">Choose Layouts</h6>
+
+                <div class="p-4">
+                    <div class="mb-2">
+                        <img src="assets/images/layouts/layout-1.jpg" class="img-thumbnail" alt="layout images">
+                    </div>
+
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input theme-choice" type="checkbox" id="light-mode-switch" checked>
+                        <label class="form-check-label" for="light-mode-switch">Light Mode</label>
+                    </div>
+    
+                    <div class="mb-2">
+                        <img src="assets/images/layouts/layout-2.jpg" class="img-thumbnail" alt="layout images">
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch">
+                        <label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
+                    </div>
+    
+                    <div class="mb-2">
+                        <img src="assets/images/layouts/layout-3.jpg" class="img-thumbnail" alt="layout images">
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input theme-choice" type="checkbox" id="rtl-mode-switch">
+                        <label class="form-check-label" for="rtl-mode-switch">RTL Mode</label>
+                    </div>
+
+                    <div class="mb-2">
+                        <img src="assets/images/layouts/layout-4.jpg" class="img-thumbnail" alt="layout images">
+                    </div>
+                    <div class="form-check form-switch mb-5">
+                        <input class="form-check-input theme-choice" type="checkbox" id="dark-rtl-mode-switch">
+                        <label class="form-check-label" for="dark-rtl-mode-switch">Dark RTL Mode</label>
+                    </div>
+
+            
+                </div>
+
+            </div> <!-- end slimscroll-menu-->
         </div>
-    </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+        <!-- /Right-bar -->
+
+        <!-- Right bar overlay-->
+        <div class="rightbar-overlay"></div>
+
+        <!-- JAVASCRIPT -->
+        <script src="assets/libs/jquery/jquery.min.js"></script>
+        <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/libs/metismenu/metisMenu.min.js"></script>
+        <script src="assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="assets/libs/node-waves/waves.min.js"></script>
+
+        <!-- apexcharts -->
+        <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+
+        <!-- dashboard init -->
+        <script src="assets/js/pages/dashboard.init.js"></script>
+
+        <!-- App js -->
+        <script src="assets/js/app.js"></script>
+    </body>
+
+
+<!-- Mirrored from themesbrand.com/skote/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 12 Oct 2022 14:37:45 GMT -->
 </html>
 
+<!-- CSRF token -->
+@push('after-script-end')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    
+    $(document).ready(function(){
+
+       $('#arrears_payment').on('submit', function(e){
+            e.preventDefault();
+
+            var formData = new FormData(this);
+            
+
+            $.ajax({
+
+                url: "{{ route('get_monthly_payments') }}",
+                method: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response){
+
+                    Swal.fire({
+                    title: "Good job!",
+                    text: "You successfully paid your monthly bill!",
+                    icon: "success",
+                
+                    });
+
+                    window.location.reload();
+
+                },
+                error: function(xhr,status,error){
+
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        
+                        $('#alert').html('<div class="alert alert-danger">' + xhr.responseJSON.message + '</div>');
+                    }
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        
+                        $('#alert').html('<div class="alert alert-danger">' + xhr.responseJSON.message + '</div>');
+                     }
+                    Swal.fire({
+                            title: "Error",
+                            text: "An error occurred while processing your payment.",
+                            icon: "error"
+                        });                    
+                    console.error(xhr);
+                    
+                }
+            });
+       });
 
 
+    });
+</script>

@@ -183,7 +183,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Arrears Payment Menu</h4>
+                                <h4 class="card-title mb-4" style="display: flex; justify-content:center;">ARREARS PAYMENT MENU</h4>
                                 <div class="row">
                         <div class="col-md-12">
                             <div>&nbsp;</div>
@@ -204,7 +204,7 @@
                                                 <div class="separator-line">
                                                     <a href="#">
                                                         <h6 class="list-group-item-heading ng-binding">
-                                                            <a href="#" style="color: inherit;"> 
+                                                            <a href="{{ route('pay_arrears') }}" style="color: inherit;"> 
                                                                 <i class="icon fa fa-credit-card" style="color: #333;"></i>
                                                                 <span class="title_name">&nbsp;&nbsp;Process Arrears Payments</span>
                                                             </a>

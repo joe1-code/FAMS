@@ -1,11 +1,12 @@
+
 <!doctype html>
 <html lang="en">
 
     
-    <head>
+<head>
         
         <meta charset="utf-8" />
-        <title>Dashboard | Payment Form.</title>
+        <title>Dashboard | FAMS - Family Management system.</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
@@ -20,36 +21,6 @@
         <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <!-- App Css-->
         <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-        <style>
-            .content-layer1 {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 60vh;
-                /* background-color: #f7f7f7; */
-            }
-            .card {
-                width: 50%;
-                padding: 20px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
-            .card-header {
-                    background: linear-gradient(to right, #f5f5f5, #ffffff); /* Light smoke-like effect */
-                    color: black; /* Change text color to black for contrast */
-                    text-align: center;
-                    font-size: 1.25rem;
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds some depth */
-            }
-            .form-group {
-                margin-bottom: 1.5rem;
-            }
-            .monthly_pay_butt {
-                text-align: center;
-            }
-         </style>
 
     </head>
 
@@ -179,83 +150,40 @@
             <!-- Start right Content here -->
             <!-- ============================================================== -->
             <div class="main-content">
+
                 <div class="page-content">
-                    <div class="container-fluid p-0">
-                        <div class="row m-0">
+                    <div class="container-fluid">
+                        <div class="row">
                             <div class="col-lg-12">
-                                <div class="card w-100">
+                                <div class="card">
                                     <div class="card-body">
-                                        <h4 class="card-title mb-4" style="display: flex; justify-content:center;">MONTHLY CONTRIBUTIONS PAYMENT PROCESS</h4>
-                                        <div id="alert"></div>
-                                        <div class="content-layer1">
-                                            <div class="card w-90 p-0">
-                                                <div class="card-header">
-                                                    <small>Monthly Payment</small>
-                                                </div>
-                                                <div class="card-body">
-                                                    <form id="month_payment" enctype="multipart/form-data">
-                                                        @csrf 
-                                                        <div class="form-group row">
-                                                            <div class="col-md-6">
-                                                                <label for="member"><small>Select Members</small></label>
-                                                                <select class="form-control search-select" id="user_data" name="id" required>
-                                                                    <option value="" disabled selected></option>
-                                                                    @foreach($memberData as $data)
-                                                                        <option value="{{$data->id}}">{{ $data->firstname.' '.$data->lastname }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="document" class="form-label"><small>Upload Document</small></label>
-                                                                <input type="file" class="form-control" id="1" name="document">
-                                                                @if ($errors->has('document'))
-                                                                    <div class="text-danger">
-                                                                        {{ $errors->first('document') }}
-                                                                    </div>
-                                                                @endif
-                                                                <div class="invalid-feedback">
-                                                                    Please upload a document
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row">
-                                                            <div class="col-md-6">
-                                                                <label for="paid_amount" class="form-label"><small>Amount (Tshs.)</small></label>
-                                                                <input type="number" class="form-control @error('paid_amount') is-invalid @enderror" id="paid_amount" name="paid_amount" placeholder="Enter Amount" required>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="payment_method"><small>Payment Method</small></label>
-                                                                <select class="form-control search-select" id="payment_method" name="payment_method" required>
-                                                                    <option value="" disabled selected></option>
-                                                                    @foreach($payment_methods as $methods)
-                                                                        <option value="{{$methods->id}}">{{ $methods->name }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <input type="hidden" id="module_id" name="module_id" value="1">
-                                                        <input type="hidden" id="module_group_id" name="module_group_id" value="1">
-
-                                                        <div class="monthly_pay_butt">
-                                                            <button type="submit" class="btn btn-success"><small>Submit</small></button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div style="background-color: red;">
-                                            @include("contributions.monthly_contributions.includes.wf_track_html", $workflow)
+                                        <h4 class="card-title mb-4" style="display: flex; justify-content:center;">MONTHLY CONTRIBUTIONS WORKFLOW HISTORY</h4>
+                                        <div>
+                                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
+
+                        <div>
+                            <footer class="footer">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <script>document.write(new Date().getFullYear())</script> © FAMS.
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="text-sm-end d-none d-sm-block">
+                                                Design & Develop by FAMS.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </footer>
+                        </div>
             <!-- end main content-->
+
         </div>
         <!-- END layout-wrapper -->
 
@@ -340,64 +268,83 @@
 <!-- Mirrored from themesbrand.com/skote/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 12 Oct 2022 14:37:45 GMT -->
 </html>
 
-<!-- CSRF token -->
-@push('after-script-end')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
 <script>
+
+$(document).ready(function() {
     
-    $(document).ready(function(){
+    
+    $('#member_arrears').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: "{{ route('monthly_arrears/getForDatatable') }}",
+    columns: [
+        { 
+            data: null, 
+            name: 'index', 
+            orderable: false, 
+            searchable: false,
+            render: function(data, type, row, meta) {
+                return meta.row + 1; // Display index number (starting from 1)
+            } 
+        },
+        { data: 'fullname', name: 'fullname' },
+        { data: 'region_name', name: 'region_name' },
+        { data: 'district_name', name: 'district_name' },
+        { data: 'phone', name: 'phone' },
+        { data: 'arrears', name: 'arrears' },
+        {
+            data: 'pay_status',
+            name: 'pay_status',
+            orderable: false,
+            searchable: false,
+            render: function(data) {
+                return data === 'Paid' ? 
+                    '<span class="badge bg-success">Paid</span>' : 
+                    '<span class="badge bg-warning">Not Paid</span>';
+            }
+        },
+        {
+            data: null,
+            name: 'action',
+            orderable: false,
+            searchable: false,
+            render: function(data, type, row) {
+                var paymentUrl = "{{ route('arrears_payment') }}";
 
-       $('#month_payment').on('submit', function(e){
-            e.preventDefault();
-
-            var formData = new FormData(this);
-            
-
-            $.ajax({
-
-                url: "{{ route('get_monthly_payments') }}",
-                method: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                headers:{
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response){
-
-                    Swal.fire({
-                    title: "Good job!",
-                    text: "You successfully paid your monthly bill!",
-                    icon: "success",
-                
-                    });
-
-                    window.location.reload();
-
-                },
-                error: function(xhr,status,error){
-
-                    if (xhr.responseJSON && xhr.responseJSON.message) {
-                        
-                        $('#alert').html('<div class="alert alert-danger">' + xhr.responseJSON.message + '</div>');
-                    }
-                    if (xhr.responseJSON && xhr.responseJSON.message) {
-                        
-                        $('#alert').html('<div class="alert alert-danger">' + xhr.responseJSON.message + '</div>');
-                     }
-                    Swal.fire({
-                            title: "Error",
-                            text: "An error occurred while processing your payment.",
-                            icon: "error"
-                        });                    
-                    console.error(xhr);
-                    
-                }
-            });
-       });
-
-
-    });
+                return `
+                    <form action="${paymentUrl}" method="POST" style="display:inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-primary">Arrears Payment</button>
+                    </form>
+                `;            
+            }
+        }
+    ],
+    fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+  $('td', nRow).click(function() {
+    document.location.href = "{{ route('arrears_summary') }}?id=" + aData['id'];
+  }).hover(function() {
+    $(this).css('cursor', 'pointer');
+  }, function() {
+    $(this).css('cursor', 'auto');
+  });
+}
+,
+    success: function(response){
+        console.log(response);
+        
+    },
+    order: [[0, 'desc']],
+    dom: '<"d-flex justify-content-end"f><"table-responsive"t><"d-flex justify-content-end"ip>',
+    // dom: 'Bfrtip',
+    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+    lengthMenu: [10, 25, 50, 100],
+    pageLength: 10,
+    responsive: true 
+});
+});
 </script>

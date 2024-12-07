@@ -247,7 +247,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">OUTSTANDING ARREARS</h4>
+                <h4 class="card-title mb-4" style="display: flex; justify-content:center;">OUTSTANDING ARREARS</h4>
                 <div class="table-responsive">
                     <table class="table align-middle table-nowrap " id="member_arrears">
                         <thead class="table-light">

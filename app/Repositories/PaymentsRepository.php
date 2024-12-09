@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Events\NewWorkflow;
 use App\Models\MonthlyPayment;
+use App\Models\Payments\PaymentMethod;
 use App\Models\Unpaid_member;
 use App\Models\Workflow\Wf_definition;
 use App\Models\Workflow\WfTrack;
@@ -190,6 +191,13 @@ class PaymentsRepository implements PaymentsRepositoryInterface
         $individual_arrears = ($individual_data->entitled_amount - $individual_data->paid_amount);
 
         return ['members_arrears' => $members_arrears, 'individual_arrears' => $individual_arrears];
+    }
+
+    public function outstandingArrearsMembers(){
+
+        $paymentMethods = PaymentMethod::all();
+
+
     }
 
 }

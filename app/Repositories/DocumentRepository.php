@@ -96,4 +96,40 @@ class DocumentRepository implements BaseRepository
         }
    
     }
+
+    public function storeArrearsDocuments($requestPayload){
+
+        $validation = $requestPayload->validate([
+            'document' => 'required|file|mimes:pdf,doc,docx,jpeg,jpg,png,gif|max:2048',
+            // 'message' => 'please choose a document'
+        ]);
+
+        if ($requestPayload->hasFile('document')) {
+            
+            $file = $requestPayload->file('document');
+            $filename = time() .'_'. $file->getClientOriginalName();
+
+            $path = $file->storeAs('documents', $filename, 'public');
+            // $storagePath = public_path('assets/documents');
+            // $file->move($storagePath, $file);
+            // $path = ('assets/documents/' . $filename);
+            // dd($path);
+
+            DB::transaction(function() use($filename, $path, $file, $requestPayload){
+                NotificationDocument::create([
+                    'filename' => $filename,
+                    'path' => $path,
+                    'mime_type' => $file->getClientMimeType(),
+                    'user_id' => (int)$requestPayload->id,
+                ]);
+            });
+            
+        }
+
+        $docId = NotificationDocument::select('id')->where('filename', $filename)->first()->id;
+
+        return $docId;
+    }
+
+
 }

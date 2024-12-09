@@ -165,6 +165,8 @@ class PaymentsController extends Controller
 
     public function arrearsPayment(){
 
+        // dd(request()->input('id'));
+
         return view('contributions/arrears/arrears_payments');
     }
 
@@ -221,6 +223,8 @@ class PaymentsController extends Controller
     public function payArrears(){
 
         $user_data = User::ActiveMembers()->get();
+        // $user_data = (new Unpaid_member())->query()->join('users as usr', 'usr.id', '=', 'unpaid_members.user_id')->where('pay_status', 0)->distinct()->pluck('user_id');
+        // dd($user_data['user_id']);
         $paymentMethods = PaymentMethod::all();
 
         return view('contributions/arrears/pay_arrears')
@@ -228,8 +232,11 @@ class PaymentsController extends Controller
                         ->with('payment_methods', $paymentMethods);
     }
 
-    public function getArrearsPayments(){
-        
+    public function getArrearsPayments(Request $request){
+
+        // dd($request->all());
+        $arrears_document = $this->DocumentRepository->storeArrearsDocuments($request);
+
     }
 
 

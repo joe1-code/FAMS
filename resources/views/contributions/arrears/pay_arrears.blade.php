@@ -351,11 +351,13 @@
             e.preventDefault();
 
             var formData = new FormData(this);
+            console.log(formData);
+            
             
 
             $.ajax({
 
-                url: "{{ route('get_monthly_payments') }}",
+                url: "{{ route('get_arrears_payment') }}",
                 method: "POST",
                 data: formData,
                 contentType: false,

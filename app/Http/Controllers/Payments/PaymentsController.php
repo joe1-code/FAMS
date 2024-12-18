@@ -6,6 +6,7 @@ use App\Exceptions\GeneralException;
 use App\Http\Controllers\Backend\System\WorkflowController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ArrearsPayment;
 use App\Models\MonthlyPayment;
 use App\Models\Payments\PaymentMethod;
 use App\Models\Unpaid_member;
@@ -182,7 +183,7 @@ class PaymentsController extends Controller
                                     ->where('wf_tracks.user_id', Auth()->user()->id)->orderBy('wf_tracks.created_at', 'DESC')->first();
 
         $workflowInput = ['resource_id' => $workflow->resource_id, 'wf_module_group_id'=> $workflow->wf_module_group_id, 'type' => $workflow->type, 'workflowScriptAlreadyIncluded' => $workflowScriptAlreadyIncluded];
-        dd($workflowInput);
+        // dd($workflowInput);
 
         return view('contributions/monthly_contributions/month_payment')
                 ->with('memberData', $user_data)
@@ -236,6 +237,22 @@ class PaymentsController extends Controller
 
         // dd($request->all());
         $arrears_document = $this->DocumentRepository->storeArrearsDocuments($request);
+
+        $arrears_computations = $this->PaymentsRepository->arrearsComputations($request);
+
+        $contributions = $this->PaymentsRepository->createArrears($request, $arrears_document, $arrears_computations);
+
+        
+        return redirect()->back();
+
+
+    }
+
+    public function getPaymentLimit($id){
+
+        $payment_limit = DB::table('arrears_general')->where('userid', $id)->get();
+
+        return response()->json(['total_arrears' => (int)$payment_limit->first()->member_arrears]);
 
     }
 

@@ -3,9 +3,11 @@
 namespace App\Repositories;
 
 use App\Events\NewWorkflow;
+use App\Models\ArrearsPayment;
 use App\Models\MonthlyPayment;
 use App\Models\Payments\PaymentMethod;
 use App\Models\Unpaid_member;
+use App\Models\User;
 use App\Models\Workflow\Wf_definition;
 use App\Models\Workflow\WfTrack;
 use App\Repositories\PaymentsRepositoryInterface;
@@ -197,6 +199,97 @@ class PaymentsRepository implements PaymentsRepositoryInterface
 
         $paymentMethods = PaymentMethod::all();
 
+
+    }
+
+    public function arrearsComputations($request){
+
+        $pending_arrears = (new Unpaid_member())->query()
+                            ->where('user_id', (int)$request->id)
+                            ->where('pay_status', false)
+                            ->whereNotNull('deleted_at')
+                            ->orderBy('created_at', 'ASC')
+                            ->get();
+
+        $paid_amount = $request->paid_amount;
+
+        foreach ($pending_arrears as $arrears) {
+            // Get previous paid amount or default to 0
+            $previous_paid = isset($arrears->paid_amount) ? $arrears->paid_amount : 0;
+            // Add the new payment to the previous amount
+            $current_total_paid = $previous_paid + $paid_amount;
+        
+            if ($paid_amount >= $arrears->total_arrears) {
+
+                $diff = $arrears->total_arrears - $paid_amount;
+                $total_paid = $previous_paid + $arrears->total_arrears;
+                dd($total_paid);
+                // Case 1 & 2: Fully pay this month and carry over remaining amount
+                $arrears->paid_amount =  // Full payment for this month
+                $arrears->pay_status = true; // Mark as fully paid
+                $arrears->save();
+        
+                // Calculate remaining amount for the next arrears
+                // $paid_amount = $current_total_paid - $arrears->total_arrears;
+                $paid_amount = $paid_amount - $arrears->total_arrears;
+
+            } elseif ($paid_amount > 0) {
+
+                if ($paid_amount < $arrears->total_arrears) {
+
+                    $diff = $arrears->total_arrears - $paid_amount;
+                }
+                // Case 3: Partially pay this month
+                $arrears->paid_amount = $current_total_paid; // Update with cumulative payment
+                $arrears->pay_status = false; // Not fully paid yet
+                $arrears->total_arrears = $diff;
+                $arrears->save();
+        
+                $paid_amount = 0; // All payment exhausted
+                break;
+            } else {
+                // No payment left to process
+                break;
+            }
+        }
+        
+                            
+
+        // dd($request);
+    }
+
+    public function createArrears($data, $arrears_document, $computations){
+
+        $userID = (int)$data->id;
+
+        $user_instance = User::where('id', $userID)->get();
+
+        DB::transaction(function() use($userID, $arrears_document, $data, $user_instance, $computations){
+ 
+            $arrearsPayments = ArrearsPayment::create([
+                'payment_type' => 2,
+                'user_id' => $userID,
+                'document_id' => $arrears_document,
+                'paid_amount' => $data->paid_amount,
+                'entitled_amount' => $user_instance[0]['entitled_amount'],
+                'pay_date' => Carbon::now(),
+                'payment_status' => false,
+                'payment_method_id' => (int)$data->payment_method,
+                'doc_used' => false,
+                'total_arrears' => $computations,
+                'approval_status' => false,
+                'unpaid_member_id' => false,
+                'completion_status' => false,
+            ]);
+                       
+                    
+        });
+        
+        $resource_id = ArrearsPayment::where('user_id', $userID)->where('payment_status', false)->where('approval_status', false)->first()->id;
+
+        $input = ['resource_id'=>$resource_id, 'module_id' => (int)$data->module_id, 'module_group_id' => (int)$data->module_group_id, 'user_id' => $userID];
+
+        // $this->PaymentsRepository->initiateWorkflow($input);   
 
     }
 

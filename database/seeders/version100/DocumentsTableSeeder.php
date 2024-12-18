@@ -16,7 +16,27 @@ class DocumentsTableSeeder extends Seeder
             0 =>
            array (
                'id' => 1,
-               'name' => 'Monthly_payments',
+               'name' => 'contributions_slip',
+               'document_group_id' => 1,
+               'description' => 'documents to show monthly payments',
+               'isActive' => true,
+               'created_at' => '2024-08-19 11:48:21',
+               'updated_at' => NULL,
+           ),
+            1 =>
+           array (
+               'id' => 2,
+               'name' => 'Arrears_slip',
+               'document_group_id' => 1,
+               'description' => 'documents to show arrears payments',
+               'isActive' => true,
+               'created_at' => '2024-08-19 11:48:21',
+               'updated_at' => NULL,
+           ),
+            2 =>
+           array (
+               'id' => 3,
+               'name' => 'debts_slip',
                'document_group_id' => 1,
                'description' => 'documents to show monthly payments',
                'isActive' => true,

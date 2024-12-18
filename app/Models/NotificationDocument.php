@@ -14,5 +14,6 @@ class NotificationDocument extends Model
         'path',
         'mime_type',
         'user_id',
+        'document_type',
     ];
 }

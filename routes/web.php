@@ -40,3 +40,4 @@ Route::get('/arrears_summary/{id?}', [App\Http\Controllers\Payments\PaymentsCont
 Route::post('/arrears_payment/{id?}', [App\Http\Controllers\Payments\PaymentsController::class, 'arrearsPayment'])->name('arrears_payment');
 Route::get('/pay_arrears', [App\Http\Controllers\Payments\PaymentsController::class, 'payArrears'])->name('pay_arrears');
 Route::post('/clear_arrears', [App\Http\Controllers\Payments\PaymentsController::class, 'getArrearsPayments'])->name('get_arrears_payment');
+Route::get('/api/get_payment_limit/{userID}', [App\Http\Controllers\Payments\PaymentsController::class, 'getPaymentLimit'])->name('get_payment_limit');

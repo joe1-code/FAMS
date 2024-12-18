@@ -18,6 +18,8 @@ interface BaseRepository
     
     public function monthlyViewDoc($args);
     
+    //  function storeArrearsDocuments($args);
+    
 }
 
 

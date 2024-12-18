@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('arrears_payments', function (Blueprint $table) {
-            $table->unsignedBigInteger('unpaid_member_id')->comment('the id of respective arrear month')->nullable();
+            $table->unsignedBigInteger('unpaid_member_id')->comment('status for the payment of arrears, has he/she paid any amount so far')->nullable();
+            $table->unsignedBigInteger('payment_status')->comment('status for the payment of arrears, has he/she paid any amount so far')->nullable();
+            $table->unsignedBigInteger('completion_status')->comment('Has the member with arrears completed paying all his arrears?')->nullable();
+            $table->unsignedBigInteger('approval_status')->comment('Has the member with arrears completed paying all his arrears?')->nullable();
         });
     }
 
@@ -23,6 +26,9 @@ return new class extends Migration
     {
         Schema::table('arrears_payments', function (Blueprint $table) {
             $table->dropColumn('unpaid_member_id');
+            $table->dropColumn('payment_status');
+            $table->dropColumn('completion_status');
+            $table->dropColumn('approval_status');
         });
     }
 };

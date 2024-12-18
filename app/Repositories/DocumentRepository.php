@@ -71,6 +71,7 @@ class DocumentRepository implements BaseRepository
                     'path' => $path,
                     'mime_type' => $file->getClientMimeType(),
                     'user_id' => (int)$request->id,
+                    'document_type' => 1,
                 ]);
             });
             
@@ -109,7 +110,7 @@ class DocumentRepository implements BaseRepository
             $file = $requestPayload->file('document');
             $filename = time() .'_'. $file->getClientOriginalName();
 
-            $path = $file->storeAs('documents', $filename, 'public');
+            $path = $file->storeAs('arrears', $filename, 'public');
             // $storagePath = public_path('assets/documents');
             // $file->move($storagePath, $file);
             // $path = ('assets/documents/' . $filename);
@@ -121,6 +122,7 @@ class DocumentRepository implements BaseRepository
                     'path' => $path,
                     'mime_type' => $file->getClientMimeType(),
                     'user_id' => (int)$requestPayload->id,
+                    'document_type' => 2,
                 ]);
             });
             

@@ -21,7 +21,9 @@ interface PaymentsRepositoryInterface extends BaseRepository
     public function getArrears();
     public function individualArrears($args);
     public function arrearsInformations();
-    
+    public function arrearsComputations($args1);
+    public function createArrears($args1, $args2, $args3);
+        
 
 
 }

@@ -11,4 +11,6 @@ class ApiController extends Controller
         
         return Region::select('regions.*')->get();
     }
+
+    
 }

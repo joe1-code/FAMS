@@ -186,7 +186,7 @@
                                 <div class="card w-100">
                                     <div class="card-body">
                                         <h4 class="card-title mb-4" style="display: flex; justify-content:center;">ARREARS PAYMENT PROCESS</h4>
-                                        <div id="alert"></div>
+                                        <div id="alert" class="fade-out"></div>
                                         <div class="content-layer1">
                                             <div class="card w-90 p-0">
                                                 <div class="card-header">
@@ -223,6 +223,7 @@
                                                             <div class="col-md-6">
                                                                 <label for="paid_amount" class="form-label"><small>Amount (Tshs.)</small></label>
                                                                 <input type="number" class="form-control @error('paid_amount') is-invalid @enderror" id="paid_amount" name="paid_amount" placeholder="Enter Amount" required>
+                                                                <div class="text-danger" id="paid_amount_error"></div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label for="payment_method"><small>Payment Method</small></label>
@@ -239,7 +240,7 @@
                                                         <input type="hidden" id="module_group_id" name="module_group_id" value="1">
 
                                                         <div class="monthly_pay_butt">
-                                                            <button type="submit" class="btn btn-success"><small>Submit</small></button>
+                                                            <button type="submit" class="btn btn-success" id="sbmt"><small>Submit</small></button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -347,9 +348,66 @@
     
     $(document).ready(function(){
 
+        let totalArrears = 0;
+
+        $('#user_data').on('change', function(){
+
+            const userID = $(this).val();
+
+            if (userID) {
+                
+                $.ajax({
+
+                    url: `/api/get_payment_limit/${userID}`,
+                    method: 'GET',
+                    success: function(response){
+
+                        $totalArrears = response.total_arrears || 0;
+                        
+                        $('#paid_amount_error').text(`member's total arrears is: Tshs.${$totalArrears}`);
+                    },
+                    error: function(xhr){
+
+                        console.error('error', xhr);
+                        
+                        $('#paid_amount_error').text(`error occured while fetching member's total arrears.`);
+                    }
+                });
+            }
+        });
+
+        $('#paid_amount').on('input', function(e){
+            e.preventDefault();
+
+            const amount = parseFloat($(this).val());            
+
+            if (amount > $totalArrears) {
+                
+                $('#paid_amount_error').text(`The entered amount (${amount}) exceeds the total arrears (${$totalArrears}).`);
+                $('#sbmt').prop('disabled', true);
+
+            }
+            else{
+                $('#paid_amount_error').text("");
+                $('#sbmt').prop('disabled', false);
+            }
+        });
+
        $('#arrears_payment').on('submit', function(e){
             e.preventDefault();
 
+            const paid_amount = parseFloat($(this).val());
+
+            if (paid_amount > $totalArrears) {
+                Swal.fire({
+                title: "Error",
+                text: `The entered amount (${enteredAmount}) exceeds the total arrears (${totalArrears}).`,
+                icon: "error",
+            });
+
+             return;
+            }
+            
             var formData = new FormData(this);
             console.log(formData);
             

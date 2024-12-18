@@ -221,18 +221,15 @@ class PaymentsRepository implements PaymentsRepositoryInterface
         
             if ($paid_amount >= $arrears->total_arrears) {
 
-                $diff = $arrears->total_arrears - $paid_amount;
+                // Calculate remaining amount for the next arrears
+                $paid_amount = $paid_amount - $arrears->total_arrears;
                 $total_paid = $previous_paid + $arrears->total_arrears;
-                dd($total_paid);
                 // Case 1 & 2: Fully pay this month and carry over remaining amount
-                $arrears->paid_amount =  // Full payment for this month
+                $arrears->paid_amount = $total_paid; // Full payment for this month
+                $arrears->total_arrears = 0; // Full payment for this month
                 $arrears->pay_status = true; // Mark as fully paid
                 $arrears->save();
         
-                // Calculate remaining amount for the next arrears
-                // $paid_amount = $current_total_paid - $arrears->total_arrears;
-                $paid_amount = $paid_amount - $arrears->total_arrears;
-
             } elseif ($paid_amount > 0) {
 
                 if ($paid_amount < $arrears->total_arrears) {
@@ -253,9 +250,6 @@ class PaymentsRepository implements PaymentsRepositoryInterface
             }
         }
         
-                            
-
-        // dd($request);
     }
 
     public function createArrears($data, $arrears_document, $computations){

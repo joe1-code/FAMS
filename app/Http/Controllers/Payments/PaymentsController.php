@@ -223,9 +223,13 @@ class PaymentsController extends Controller
 
     public function payArrears(){
 
-        $user_data = User::ActiveMembers()->get();
-        // $user_data = (new Unpaid_member())->query()->join('users as usr', 'usr.id', '=', 'unpaid_members.user_id')->where('pay_status', 0)->distinct()->pluck('user_id');
-        // dd($user_data['user_id']);
+        // $user_data = User::ActiveMembers()->get();
+        $user_data = (new Unpaid_member())->query()->join('users as usr', 'usr.id', '=', 'unpaid_members.user_id')
+                        ->where('pay_status', 0)
+                        ->whereBetween('unpaid_members.created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])
+                        ->distinct()
+                        ->get();
+        // dd($user_data);
         $paymentMethods = PaymentMethod::all();
 
         return view('contributions/arrears/pay_arrears')

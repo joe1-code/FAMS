@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\User;
 use App\Repositories\UserRepositoryInterface;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -88,5 +89,26 @@ class UserRepository implements UserRepositoryInterface
             $member->save();
     });
 
+    }
+
+    public function getMembersForDt(){
+
+        $query = (new User())->query()
+        ->leftJoin('regions as rgn','rgn.id','=', 'users.region_id')
+        ->leftJoin('districts as dst', 'dst.id', '=', 'users.district_id')
+        ->select(                            
+            DB::raw("COALESCE(users.firstname, '') || ' ' || COALESCE(users.lastname, '') AS fullname"), 
+                'users.phone as phone',
+                'users.dob as dob',
+                'users.dod as dod',
+                'users.active as membership_status',
+                'users.available as available',
+                'rgn.name as region_name', 
+                'dst.name as district_name'
+        );        
+        // ->get();
+        
+        return DataTables::of($query)->make(true);
+        
     }
 }

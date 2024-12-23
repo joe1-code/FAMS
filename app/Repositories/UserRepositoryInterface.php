@@ -17,4 +17,6 @@ interface UserRepositoryInterface
     public function membership();
     
     public function editable($args1, $args2);
+
+    public function getMembersForDt();
 }

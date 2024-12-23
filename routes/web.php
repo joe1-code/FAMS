@@ -15,6 +15,7 @@ Route::post('/landing', [App\Http\Controllers\Auth\LoginController::class, 'logi
 Route::get('/landing/homepage', [App\Http\Controllers\Auth\LoginController::class, 'homePage'])->name('landing/homepage');
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 Route::get('/members', [App\Http\Controllers\Membership\MemberController::class, 'members'])->name('members');
+Route::get('/members_dt', [App\Http\Controllers\Membership\MemberController::class, 'getForDt'])->name('members/getForDt');
 Route::get('/register', [App\Http\Controllers\Membership\MemberController::class, 'register'])->name('register');
 Route::post('/register_member', [App\Http\Controllers\Membership\MemberController::class, 'registerMember'])->name('register_member');
 Route::get('/contributions', [App\Http\Controllers\Membership\MemberController::class, 'contributions'])->name('contributions');

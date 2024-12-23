@@ -108,7 +108,8 @@ class MemberController extends Controller
 
     public function members(){
 
-        $members = User::ActiveMembers()->get();
+        // $members = User::ActiveMembers()->get();
+        $members = (new User())->query()->get();
         $entitled_amount = $members->where('id', Auth()->user()->id)->pluck('entitled_amount');
         $UTT_deposit = MonthlyPayment::where('payment_method_id', 2)->sum('paid_amount');
         // dd(Carbon::now()->format('m'));
@@ -126,6 +127,12 @@ class MemberController extends Controller
 
 
         return view('contributions/monthly_payments');
+    }
+
+    public function getForDt(){
+
+       return $this->userRepository->getMembersForDt();
+        
     }
 
     

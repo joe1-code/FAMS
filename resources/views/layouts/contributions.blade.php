@@ -393,16 +393,26 @@
                     <div id="sidebar-menu">
                         <!-- Left Menu Start -->
                         <ul class="metismenu list-unstyled" id="side-menu">
-                            <li class="menu-title" key="t-menu">Menu</li>
+                            <li class="menu-title" key="t-menu">Fund Items List</li>
 
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                    <i class="bx bx-home-circle"></i>
-                                    <span key="t-contributions">Contributions</span>
+                                    <i class="bx bx-group"></i>
+                                    <span key="t-contributions">Membership</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{{ route('landing/homepage') }}" key="t-members">HomePage</a></li>
-                                    <li><a href="{{ route('members') }}" key="t-members">Members</a></li>
+                                    <li><a href="{{ route('members') }}" key="t-members">Members List</a></li>
+                                    <li><a href="#" key="t-members">Register Members</a></li>
+                                    <!-- <li><a href="dashboard-job.html"><span class="badge rounded-pill text-bg-success float-end" key="t-new">New</span> <span key="t-jobs">Jobs</span></a></li> -->
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="bx bx-credit-card"></i>
+                                    <span key="t-contributions">Contributions</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{{ route('payments') }}" method='POST' key="t-payments">Monthly Payments</a></li>
                                     <li><a href="{{ route('monthly_arrears') }}" key="t-arrears">Monthly Arrears</a></li>
                                     <!-- <li><a href="dashboard-job.html"><span class="badge rounded-pill text-bg-success float-end" key="t-new">New</span> <span key="t-jobs">Jobs</span></a></li> -->
@@ -814,31 +824,28 @@
                         </div>
                         <!-- end row -->
 
-<div class="row">
+                        <div class="row">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">Fund Members</h4>
+                <h4 class="card-title mb-4" style="display: flex; justify-content:center;">FUND MEMBERSHIP(MEMBERS)</h4>
                 <div class="table-responsive">
-                    <table class="table align-middle table-nowrap mb-0">
+                    <table class="table align-middle table-nowrap " id="members_dt">
                         <thead class="table-light">
                             <tr>
-                                <th style="width: 20px;">
-                                    <div class="form-check font-size-16 align-middle">
-                                        <input class="form-check-input" type="checkbox" id="transactionCheckAll">
-                                        <label class="form-check-label" for="transactionCheckAll"></label>
-                                    </div>
-                                </th>
-                                <th class="align-middle">Name</th>
+                                <th style="width: 20px;">No.(#)</th>
+                                <th class="align-middle">Full Name</th>
                                 <th class="align-middle">Region</th>
                                 <th class="align-middle">District</th>
-                                <th class="align-middle">DOB</th>
                                 <th class="align-middle">Phone</th>
-                                <th class="align-middle">Payment Status</th>
-                                <th class="align-middle">View Details</th>
+                                <th class="align-middle">Availability</th>
+                                <th class="align-middle">DOB</th>
+                                <th class="align-middle">DOD</th>
+                                <th class="align-middle">Membership Status</th>
+                                <th class="align-middle">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <!-- <tbody>
                             @foreach($memberData as $data)
                                 <tr>
                                     <td>
@@ -860,33 +867,7 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title mb-4" style="display: flex; justify-content:center;">OUTSTANDING ARREARS</h4>
-                <div class="table-responsive">
-                    <table class="table align-middle table-nowrap " id="member_arrears">
-                        <thead class="table-light">
-                            <tr>
-                                <th style="width: 20px;">No.(#)</th>
-                                <th class="align-middle">Full Name</th>
-                                <th class="align-middle">Region</th>
-                                <th class="align-middle">District</th>
-                                <th class="align-middle">Phone</th>
-                                <th class="align-middle">Outstanding Arrears</th>
-                                <th class="align-middle">Payment Status</th>
-                                <th class="align-middle">Action</th>
-                            </tr>
-                        </thead>
+                        </tbody> -->
                         
                     </table>
                 </div>
@@ -894,6 +875,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 
 <!-- Transaction Modal -->
@@ -1106,8 +1090,98 @@
 
 <!-- Mirrored from themesbrand.com/skote/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 12 Oct 2022 14:37:45 GMT -->
 </html>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <script>
+
+$(document).ready(function() {
+    
+    
+    $('#members_dt').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: "{{ route('members/getForDt') }}",
+    columns: [
+        { 
+            data: null, 
+            name: 'index', 
+            orderable: false, 
+            searchable: false,
+            render: function(data, type, row, meta) {
+                return meta.row + 1; // Display index number (starting from 1)
+            } 
+        },
+        { data: 'fullname', name: 'fullname' },
+        { data: 'region_name', name: 'region_name' },
+        { data: 'district_name', name: 'district_name' },
+        { data: 'phone', name: 'phone' },
+        {
+            data: 'available',
+            name: 'available',
+            orderable: false,
+            searchable: false,
+            render: function(data) {
+                return data === true ? 
+                    '<span class="badge bg-info">Available</span>' : 
+                    '<span class="badge bg-danger">Passed Away</span>';
+            }
+        },
+        { data: 'dob', name: 'dob' },
+        { data: 'dod', name: 'dod' },
+        {
+            data: 'membership_status',
+            name: 'membership_status',
+            orderable: false,
+            searchable: false,
+            render: function(data) {
+                return data === true ? 
+                    '<span class="badge bg-success">Active</span>' : 
+                    '<span class="badge bg-warning">Not Active</span>';
+            }
+        },
+        {
+            data: null,
+            name: 'action',
+            orderable: false,
+            searchable: false,
+            render: function(data, type, row) {
+                var paymentUrl = "{{ route('arrears_payment') }}";
+
+                return `
+                    <form action="${paymentUrl}" method="POST" style="display:inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-primary">Update Details</button>
+                    </form>
+                `;            
+            }
+        }
+    ],
+    fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+  $('td', nRow).click(function() {
+    document.location.href = "{{ route('arrears_summary') }}?id=" + aData['id'];
+  }).hover(function() {
+    $(this).css('cursor', 'pointer');
+  }, function() {
+    $(this).css('cursor', 'auto');
+  });
+}
+,
+    success: function(response){
+        console.log(response);
+        
+    },
+    order: [[0, 'desc']],
+    dom: '<"d-flex justify-content-end"f><"table-responsive"t><"d-flex justify-content-end"ip>',
+    // dom: 'Bfrtip',
+    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+    lengthMenu: [10, 25, 50, 100],
+    pageLength: 10,
+    responsive: true 
+});
+});
+
+
 document.addEventListener("DOMContentLoaded", function() {
     const viewDetailsButtons = document.querySelectorAll('.view-details-btn');
 

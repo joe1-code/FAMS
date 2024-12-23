@@ -204,6 +204,8 @@ class PaymentsRepository implements PaymentsRepositoryInterface
 
     public function arrearsComputations($request){
 
+        $computational_array = [];
+
         $pending_arrears = (new Unpaid_member())->query()
                             ->where('user_id', (int)$request->id)
                             ->where('pay_status', false)
@@ -249,16 +251,29 @@ class PaymentsRepository implements PaymentsRepositoryInterface
                 break;
             }
         }
-        
+        // $computations = (int)DB::table('arrears_general')->where('userid', (int)$request->id)->pluck('total_arrears')[0];
+        // dd($computations);
+
+        $latest_update = $arrears->where('user_id', (int)$request->id)->orderBy('updated_at', 'DESC')->first()->id;
+
+        $completed_payments = $arrears->where('user_id', (int)$request->id)
+                            ->whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])
+                            ->orderBy('updated_at', 'DESC')
+                            ->first();
+
+        // $computational_array = ['computation' => $computations, 'unpaid_member_id' => $latest_update, 'completed_status' => ($completed_payments->pay_status == true) ? 1:0];
+
+        return $computational_array;
     }
 
-    public function createArrears($data, $arrears_document, $computations){
+    public function createArrears($data, $arrears_document, $computational_array){
 
+        // dd($computational_array['completed_status']);
         $userID = (int)$data->id;
 
         $user_instance = User::where('id', $userID)->get();
 
-        DB::transaction(function() use($userID, $arrears_document, $data, $user_instance, $computations){
+        DB::transaction(function() use($userID, $arrears_document, $data, $user_instance, $computational_array){
  
             $arrearsPayments = ArrearsPayment::create([
                 'payment_type' => 2,
@@ -270,10 +285,10 @@ class PaymentsRepository implements PaymentsRepositoryInterface
                 'payment_status' => false,
                 'payment_method_id' => (int)$data->payment_method,
                 'doc_used' => false,
-                'total_arrears' => $computations,
+                // 'total_arrears' => $computational_array['computation'],
                 'approval_status' => false,
-                'unpaid_member_id' => false,
-                'completion_status' => false,
+                // 'unpaid_member_id' => $computational_array['unpaid_member_id'],
+                // 'completion_status' => $computational_array['completed_status'],
             ]);
                        
                     

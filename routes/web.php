@@ -41,3 +41,5 @@ Route::post('/arrears_payment/{id?}', [App\Http\Controllers\Payments\PaymentsCon
 Route::get('/pay_arrears', [App\Http\Controllers\Payments\PaymentsController::class, 'payArrears'])->name('pay_arrears');
 Route::post('/clear_arrears', [App\Http\Controllers\Payments\PaymentsController::class, 'getArrearsPayments'])->name('get_arrears_payment');
 Route::get('/api/get_payment_limit/{userID}', [App\Http\Controllers\Payments\PaymentsController::class, 'getPaymentLimit'])->name('get_payment_limit');
+Route::get('/attached_docs', [App\Http\Controllers\Payments\PaymentsController::class, 'attachedArrearsDocuments'])->name('attached_docs');
+Route::post('/view_arrears_docs', [App\Http\Controllers\Payments\PaymentsController::class, 'viewArrearsDocuments'])->name('view_arrears_docs');

@@ -260,6 +260,21 @@ class PaymentsController extends Controller
 
     }
 
+    public function attachedArrearsDocuments(){
+        
+        $user_data = User::ActiveMembers()->get();
+
+        return view('contributions/arrears/arrears_documents', ['memberData' => $user_data]);
+    }
+
+    public function viewArrearsDocuments(Request $request){
+        
+        $response = $this->DocumentRepository->monthlyArrearsDocs($request);
+
+        return $response;
+
+    }
+
 
 
     

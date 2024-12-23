@@ -17,6 +17,8 @@ interface BaseRepository
     public function storeMonthlyPaymentsDocs($args);
     
     public function monthlyViewDoc($args);
+
+    // public function monthlyArrearsDocs($args);
     
     //  function storeArrearsDocuments($args);
     

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\ArrearsPayment;
 use App\Models\MonthlyPayment;
 use App\Models\NotificationDocument;
 use App\Repositories\BaseRepository;
@@ -131,6 +132,22 @@ class DocumentRepository implements BaseRepository
         $docId = NotificationDocument::select('id')->where('filename', $filename)->first()->id;
 
         return $docId;
+    }
+
+    public function monthlyArrearsDocs($data){
+
+        $document = ArrearsPayment::where('arrears_payments.user_id', (int)$data->id)
+                    ->join('notification_documents as nd','nd.id', '=', 'arrears_payments.document_id')
+                    ->whereMonth('pay_date', $data->contr_month)
+                    ->whereYear('pay_date', $data->contr_year)
+                    ->get();
+        dd($document);
+        if ($document->isNotEmpty()) {
+            return response()->json(['status' => 'success', 'document' => $document[0]['filename']]);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'No document was found for specified month and a year']);
+        }
+        return 1;
     }
 
 

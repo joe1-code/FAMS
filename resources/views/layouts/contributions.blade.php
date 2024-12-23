@@ -14,7 +14,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <link rel="shortcut icon" href="assets/images/fams-logo.ico">
 
         <!-- Bootstrap Css -->
         <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
@@ -867,6 +867,34 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4" style="display: flex; justify-content:center;">OUTSTANDING ARREARS</h4>
+                <div class="table-responsive">
+                    <table class="table align-middle table-nowrap " id="member_arrears">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 20px;">No.(#)</th>
+                                <th class="align-middle">Full Name</th>
+                                <th class="align-middle">Region</th>
+                                <th class="align-middle">District</th>
+                                <th class="align-middle">Phone</th>
+                                <th class="align-middle">Outstanding Arrears</th>
+                                <th class="align-middle">Payment Status</th>
+                                <th class="align-middle">Action</th>
+                            </tr>
+                        </thead>
+                        
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Transaction Modal -->
 <div class="modal fade transaction-detailModal" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">

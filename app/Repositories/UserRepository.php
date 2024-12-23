@@ -47,11 +47,11 @@ class UserRepository implements UserRepositoryInterface
         return $record->delete();
     }
 
-    public function membership($validation){
+    public function membership($validation = null){
 
         $members = null;
 
-        $members = User::where('available', true)->where('active', true)
+        $members = User::where('available', true)
         ->leftJoin('regions as rgn','rgn.id','=', 'users.region_id')
         ->leftJoin('districts as dst', 'dst.id', '=', 'users.district_id')
         ->select('users.*', 'rgn.name as region_name', 'dst.name as district_name')        
@@ -62,18 +62,28 @@ class UserRepository implements UserRepositoryInterface
     }
 
     public function editable($request, $id){
-        
+
+        $phone = $request->phone;
+
+        if (preg_match('/^0/', $phone)) {
+
+            $phone = preg_replace('/^0/', '+255', $phone);
+        }
+
         $member = $this->find($id);
-        DB::transaction(function() use ($member, $request){
+        DB::transaction(function() use ($member, $request, $phone){
             $member->firstname = $request->firstname;
             $member->middlename = $request->middlename;
             $member->lastname = $request->lastname;
             $member->email = $request->email ?? null;
-            $member->phone = $request->phone ?? null;
+            $member->phone = $phone ?? null;
             $member->job_title = $request->job_title ?? null;
             $member->region_id = $request->input('regions') ?? null;
             $member->district_id = $request->input('districts') ?? null;
             $member->dob = $request->dob ?? null;
+            $member->entitled_amount = $request->entitled_amount;
+            $member->unit_id = $request->units ?? null;
+            $member->designation_id = $request->designations ?? null;
     
             $member->save();
     });

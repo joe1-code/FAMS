@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 
 if (! function_exists('format_phone_number')) {
     /**
@@ -25,6 +26,67 @@ if (! function_exists('convert_date')) {
         return \Carbon\Carbon::parse($date)->format('d/m/Y');
     }
 }
+
+if (!function_exists('throwGeneralException')) {
+    /**
+     * Throw a GeneralException with a custom message.
+     *
+     * @param string $message
+     * @throws \App\Exceptions\GeneralException
+     */
+    function throwGeneralException($message)
+    {
+        throw new \App\Exceptions\GeneralException($message);
+    }
+}
+
+if (! function_exists('standard_date_format')) {
+    function standard_date_format($date)
+    {
+        return \Carbon\Carbon::parse($date)->format('Y-n-j');
+    }
+}
+
+
+if (!function_exists('comparable_date_format')) {
+    
+    function comparable_date_format($date){
+        
+        $standard_format = standard_date_format($date);
+
+        return strtotime($standard_format);
+
+    }
+}
+
+if (!function_exists('number_2_format')) {
+    function number_2_format($value)
+    {
+        $floatValue = floatval($value);
+        return number_format($floatValue, 2, '.', ',');
+    }
+}
+
+if (!function_exists('access')) {
+    
+    function access(){
+
+    return User::where('available', true)
+        ->leftJoin('regions as rgn','rgn.id','=', 'users.region_id')
+        ->leftJoin('districts as dst', 'dst.id', '=', 'users.district_id')
+        ->select('users.*', 'rgn.name as region_name', 'dst.name as district_name');
+    }
+}
+
+// if (!function_exists('within_month')) {
+    
+//     function within_month(){
+
+//         return [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()];
+
+//     }
+// }
+
 
 
 

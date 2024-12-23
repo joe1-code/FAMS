@@ -26,6 +26,7 @@ class User extends Authenticatable
         'password',
         'active',
         'available',
+        'entitled_amount',
     ];
 
     /**
@@ -50,4 +51,20 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function scopeActiveMembers($query){
+
+        return $query->where('available', true)->where('active', true)
+                    ->leftJoin('regions as rgn','rgn.id','=', 'users.region_id')
+                    ->leftJoin('districts as dst', 'dst.id', '=', 'users.district_id')
+                    ->select('users.*', 'rgn.name as region_name', 'dst.name as district_name');        
+                    
+    }
+
+    // public function access(){
+    //     return User::where('available', true)
+    //     ->leftJoin('regions as rgn','rgn.id','=', 'users.region_id')
+    //     ->leftJoin('districts as dst', 'dst.id', '=', 'users.district_id')
+    //     ->select('users.*', 'rgn.name as region_name', 'dst.name as district_name');
+    // }
 }

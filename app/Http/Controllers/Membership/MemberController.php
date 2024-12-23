@@ -3,15 +3,11 @@
 namespace App\Http\Controllers\Membership;
 
 use App\Http\Controllers\Controller;
-use App\Models\Designation;
 use App\Models\District;
-use App\Models\MonthlyPayment;
 use App\Models\Region;
-use App\Models\Unit;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Repositories\UserRepositoryInterface;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -39,19 +35,12 @@ class MemberController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        $phone = $validatedData['phone'];
-
-        if (preg_match('/^0/', $phone)) {
-
-            $phone = preg_replace('/^0/', '+255', $phone);
-        }
-
         User::create([
             'firstname' => $validatedData['firstname'],
             'middlename' => $validatedData['middlename'],
             'lastname' => $validatedData['lastname'],
             'email' => $request->email ?? null,
-            'phone' => $phone,
+            'phone' => $validatedData['phone'],
             'password' => $validatedData['password'],
             'username' => $validatedData['firstname'].'.'.$validatedData['lastname'],
             'active' => false,
@@ -71,35 +60,29 @@ class MemberController extends Controller
         $particulars = User::where('users.id', $request->input('member_id'))
         ->leftJoin('regions as rgn','rgn.id','=', 'users.region_id')
         ->leftJoin('districts as dst', 'dst.id', '=', 'users.district_id')
-        ->join('units as unit', 'unit.id', '=', 'users.unit_id')
-        ->join('designations as desgn', 'desgn.id', '=', 'users.designation_id')
         ->select('users.*', 'rgn.name as region_name', 'dst.name as district_name')
         ->first();
         // dd($particulars);
         $regions = Region::all();
         $districts = District::all();
-
-        // dd(, );
+        // dd($particulars->username);
         return view('layouts/edit_contributions')
-                ->with('particulars', $particulars)
-                ->with('request', $request)
-                ->with('regions', $regions)
-                ->with('districts', $districts)
-                ->with('units', Unit::all())
-                ->with('designations', Designation::all());
+        ->with('particulars', $particulars)
+        ->with('request', $request)
+        ->with('regions', $regions)
+        ->with('districts', $districts);
     }
 
     public function submitEditData(Request $request, $id){
         // dd($request->input('regions'), $id);
         try {
-            // dd($request->all());
+            // dd($request->regions);
             $this->userRepository->editable($request, $id);
 
             // return redirect()->route('edit', ['id' => $id])->with('success', 'User has been updated successfully');
             return redirect()->back()->with('success', 'User has been updated successfully');
 
         } catch (\Exception $e) {
-            // dd($e);
             return redirect()->back()->with('error','An error occured while updating user details');
 
         }
@@ -108,24 +91,7 @@ class MemberController extends Controller
 
     public function members(){
 
-        $members = User::ActiveMembers()->get();
-        $entitled_amount = $members->where('id', Auth()->user()->id)->pluck('entitled_amount');
-        $UTT_deposit = MonthlyPayment::where('payment_method_id', 2)->sum('paid_amount');
-        // dd(Carbon::now()->format('m'));
-        $monthly_earnings = MonthlyPayment::whereMonth('pay_date', Carbon::now()->month)->whereYear('pay_date', Carbon::now()->year)->where('payment_status', 0)->sum('paid_amount');
-        // dd($monthly_earnings);
-
-        return view('layouts/contributions')
-                ->with('memberData', $members)
-                ->with('average_amount', number_2_format($entitled_amount[0]))
-                ->with('utt_amis', number_2_format($UTT_deposit))
-                ->with('earnings', number_2_format($monthly_earnings));
-    }
-
-    public function monthlyPayments(){
-
-
-        return view('contributions/monthly_payments');
+        return view('layouts/contributions');
     }
 
     

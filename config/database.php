@@ -37,7 +37,7 @@ return [
             'port' => env('DB_PGMAIN_PORT', '5432'),
             'database' => env('DB_PGMAIN_DATABASE', 'forge'),
             'username' => env('DB_PGMAIN_USERNAME', 'forge'),
-            'password' => env('DB_PGMAIN_PASSWORD', 'Wcf.2017h'),
+            'password' => env('DB_PGMAIN_PASSWORD', 'Wcf.2017'),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,

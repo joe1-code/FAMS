@@ -14,7 +14,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/fams-logo.ico">
+        <link rel="shortcut icon" href="assets/images/favicon.ico">
 
         <!-- Bootstrap Css -->
         <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
@@ -401,10 +401,9 @@
                                     <span key="t-contributions">Contributions</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{{ route('landing/homepage') }}" key="t-members">HomePage</a></li>
                                     <li><a href="{{ route('members') }}" key="t-members">Members</a></li>
-                                    <li><a href="{{ route('payments') }}" method='POST' key="t-payments">Monthly Payments</a></li>
-                                    <li><a href="{{ route('monthly_arrears') }}" key="t-arrears">Monthly Arrears</a></li>
+                                    <li><a href="" key="t-payments">Monthly Payments</a></li>
+                                    <li><a href="" key="t-arrears">Monthly Arrears</a></li>
                                     <!-- <li><a href="dashboard-job.html"><span class="badge rounded-pill text-bg-success float-end" key="t-new">New</span> <span key="t-jobs">Jobs</span></a></li> -->
                                 </ul>
                             </li>
@@ -542,7 +541,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-grow-1">
                                                         <p class="text-muted fw-medium">Monthly Earnings</p>
-                                                        <h4 class="mb-0">Tshs. {{ $earnings }}</h4>
+                                                        <h4 class="mb-0">$35, 723</h4>
                                                     </div>
 
                                                     <div class="flex-shrink-0 align-self-center ">
@@ -562,7 +561,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-grow-1">
                                                         <p class="text-muted fw-medium">Fund Balance(UTT AMIS)</p>
-                                                        <h4 class="mb-0">Tshs. {{ $utt_amis }}</h4>
+                                                        <h4 class="mb-0">$16.2</h4>
                                                     </div>
 
                                                     <div class="flex-shrink-0 align-self-center">
@@ -582,7 +581,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-grow-1">
                                                         <p class="text-muted fw-medium">Average Amount</p>
-                                                        <h4 class="mb-0">Tshs. {{ $average_amount }}</h4>
+                                                        <h4 class="mb-0">$16.2</h4>
                                                     </div>
 
                                                     <div class="flex-shrink-0 align-self-center">
@@ -814,7 +813,7 @@
                         </div>
                         <!-- end row -->
 
-<div class="row">
+                        <div class="row">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
@@ -867,34 +866,6 @@
         </div>
     </div>
 </div>
-
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title mb-4" style="display: flex; justify-content:center;">OUTSTANDING ARREARS</h4>
-                <div class="table-responsive">
-                    <table class="table align-middle table-nowrap " id="member_arrears">
-                        <thead class="table-light">
-                            <tr>
-                                <th style="width: 20px;">No.(#)</th>
-                                <th class="align-middle">Full Name</th>
-                                <th class="align-middle">Region</th>
-                                <th class="align-middle">District</th>
-                                <th class="align-middle">Phone</th>
-                                <th class="align-middle">Outstanding Arrears</th>
-                                <th class="align-middle">Payment Status</th>
-                                <th class="align-middle">Action</th>
-                            </tr>
-                        </thead>
-                        
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <!-- Transaction Modal -->
 <div class="modal fade transaction-detailModal" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">

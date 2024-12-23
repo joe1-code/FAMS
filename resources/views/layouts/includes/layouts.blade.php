@@ -6,21 +6,40 @@
             <!-- ========== Left Sidebar Start ========== -->
             @include('layouts.includes.vertical_bar')
             <!-- Left Sidebar End -->
+
+            
+
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
             <div class="main-content">
 
                 <div class="page-content">
-                    <div class="container-fluid"> 
-                        
+                    <div class="container-fluid">
 
-    <div class="row">
-    
-    <div class="col-lg-12">
-        <div class="card">
-        <div>
-        <h4 class="mb-sm-0 font-size-18">Edit Member Information</h4>
-        </div> 
-            <div class="card-body">
-            <form class="needs-validation" action="{{ route('submit_members', ['id'=>$request->input('member_id')]) }}" method="POST" novalidate>
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-sm-0 font-size-18">Edit Member Information</h4>
+
+                                    <!-- <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>
+                                            <li class="breadcrumb-item active">Dashboard</li>
+                                        </ol>
+                                    </div> -->
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                       
+
+                        <div class="row">
+    <!-- <========================= Content Here=======================================================> -->
+    <form class="needs-validation" action="{{ route('submit_members', ['id'=>$request->input('member_id')]) }}" method="POST" novalidate>
         @csrf
         @if (session('success'))
         <div class="col-md-8 alert alert-success">
@@ -161,64 +180,12 @@
                     Please Enter dob
                 </div>
             </div>
-
-            <div class="col-md-4 mb-3">
-                <label for="phone" class="form-label">Entitled Amount</label>
-                <input type="number" class="form-control @error('entitled_amount') is-invalid @enderror" id="entitled_amount" name="entitled_amount" placeholder="Enter Entitled Amount" value="{{$particulars->entitled_amount ?? ''}}" required>
-                @if ($errors->has('entitled_amount'))
-                    <div class="text-danger">
-                        {{ $errors->first('entitled_amount') }}
-                    </div>
-                @endif
-                <div class="invalid-feedback">
-                    Please Enter Entitled Amount
-                </div>
-            </div>
+        </div>
         
-        </div>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <label for="units" class="form-label">Unit</label>
-                <select class="form-control search-select" id="units" name="units" required>
-                    <option value="" disabled selected>Select a unit</option>
-                    @foreach($units as $unit) 
-                        <option value="{{ $unit->id ?? '' }}" {{ (old('unit') == $unit->id || $particulars->unit_id == $unit->id) ? 'selected' : '' }}>{{ $unit->name }}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('units'))
-                    <div class="text-danger">
-                        {{ $errors->first('units') }}
-                    </div>
-                @endif
-                <div class="invalid-feedback">
-                    Please select a unit
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <label for="designation" class="form-label">Designation</label>
-                <select class="form-control search-select" id="designations" name="designations" required>
-                    <option value="" disabled selected>Select a designation</option>
-                    @foreach($designations as $designation)
-                        <option value="{{ $designation->id ?? '' }}" {{ (old('designation') == $designation->id || $particulars->designation_id == $designation->id) ? 'selected' : '' }}>{{ $designation->name }}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('designations'))
-                    <div class="text-danger">
-                        {{ $errors->first('designations') }}
-                    </div>
-                @endif
-                <div class="invalid-feedback">
-                    Please select a designations
-                </div>
-            </div>
-        </div>
-          
+        
+        
         <div class="mt-4 d-grid col-md-4"  style="margin-left: auto; margin-right: auto;">
             <button class="btn btn-primary waves-effect waves-light" type="submit">Submit</button>
         </div>
     </form>
-            </div>
-        </div>
-    </div>
 </div>
-</div>     

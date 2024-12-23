@@ -14,7 +14,7 @@ interface UserRepositoryInterface
 
     public function delete($id);
 
-    public function membership();
+    public function membership($args);
     
     public function editable($args1, $args2);
 }

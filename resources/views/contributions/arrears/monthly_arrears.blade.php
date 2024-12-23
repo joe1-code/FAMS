@@ -121,16 +121,26 @@
                     <div id="sidebar-menu">
                         <!-- Left Menu Start -->
                         <ul class="metismenu list-unstyled" id="side-menu">
-                            <li class="menu-title" key="t-menu">Menu</li>
+                            <li class="menu-title" key="t-menu">Fund Items List</li>
 
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                    <i class="bx bx-home-circle"></i>
-                                    <span key="t-contributions">Contributions</span>
+                                    <i class="bx bx-group"></i>
+                                    <span key="t-contributions">Membership</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{{ route('landing/homepage') }}" key="t-members">HomePage</a></li>
-                                    <li><a href="{{ route('members') }}" key="t-members">Members</a></li>
+                                    <li><a href="{{ route('members') }}" key="t-members">Members List</a></li>
+                                    <li><a href="#" key="t-members">Register Members</a></li>
+                                    <!-- <li><a href="dashboard-job.html"><span class="badge rounded-pill text-bg-success float-end" key="t-new">New</span> <span key="t-jobs">Jobs</span></a></li> -->
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="bx bx-credit-card"></i>
+                                    <span key="t-contributions">Contributions</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{{ route('payments') }}" method='POST' key="t-payments">Monthly Payments</a></li>
                                     <li><a href="{{ route('monthly_arrears') }}" key="t-arrears">Monthly Arrears</a></li>
                                     <!-- <li><a href="dashboard-job.html"><span class="badge rounded-pill text-bg-success float-end" key="t-new">New</span> <span key="t-jobs">Jobs</span></a></li> -->

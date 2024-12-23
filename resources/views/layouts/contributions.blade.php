@@ -23,6 +23,45 @@
         <!-- App Css-->
         <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
 
+        <style>
+        @keyframes zoomIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .zoomIn {
+            animation: zoomIn 1.5s;
+        }
+
+        @keyframes zoomOut {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(0);
+            }
+        }
+
+        .zoomOut {
+            animation: zoomOut 1.5s;
+        }
+        tr:hover {
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 4px 8px rgba(57, 5, 229, 0.989);
+        cursor: pointer;
+        /* transform: scale(1.09); */
+        transition: transform 0.2s ease-in-out;
+    }
+    .cursor{
+        cursor: pointer;
+    }
+</style>
+
     </head>
 
     <body data-sidebar="dark" data-layout-mode="light">
@@ -938,14 +977,7 @@
                                     </table>                
                     </div>
             </div>
-            <div class="modal-footer">
-                <form action="{{ route('edit') }}" method="GET">
-                    @csrf
-                    <input type="hidden" name="member_id" id="edit-member-id" value="">
-                    <button type="submit" class="btn btn-success">Edit</button>
-                </form>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
+            
         </div>
     </div>
 </div>
@@ -1093,6 +1125,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
 
 $(document).ready(function() {
@@ -1146,20 +1180,27 @@ $(document).ready(function() {
             orderable: false,
             searchable: false,
             render: function(data, type, row) {
-                var paymentUrl = "{{ route('arrears_payment') }}";
+                
+                // Dynamically include user ID in the URL
+                var memberUrl = "{{ route('edit/members') }}?member_id=" + row.user_id;
+                console.log(memberUrl);
+                
 
                 return `
-                    <form action="${paymentUrl}" method="POST" style="display:inline;">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <button type="submit" class="btn btn-primary">Update Details</button>
+                    <form action="${memberUrl}" method="GET" style="display:inline;" class="update_form">
+                        <button type="submit" class="btn btn-primary btn_update">
+                            <input type="hidden" name="member_id" value="${row.user_id}">
+                            <i class="fas fa-edit"></i> Update Details
+                        </button>
                     </form>
-                `;            
+                `;
             }
         }
+
     ],
     fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
   $('td', nRow).click(function() {
-    document.location.href = "{{ route('arrears_summary') }}?id=" + aData['id'];
+    // document.location.href = "{{ route('arrears_summary') }}?id=" + aData['id'];
   }).hover(function() {
     $(this).css('cursor', 'pointer');
   }, function() {
@@ -1180,6 +1221,30 @@ $(document).ready(function() {
     responsive: true 
 });
 });
+
+    $(document).on('click', '.btn_update', function(e){
+
+        e.preventDefault();
+
+        let form = $(this).closest('.update_form');
+        // console.log(form);
+        // console.log(form.find(['input[name="member_id"]']).val(memberId));
+        
+        
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You are about to edit this member's data!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, proceed!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
 
 
 document.addEventListener("DOMContentLoaded", function() {

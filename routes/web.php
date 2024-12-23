@@ -21,7 +21,7 @@ Route::post('/register_member', [App\Http\Controllers\Membership\MemberControlle
 Route::get('/contributions', [App\Http\Controllers\Membership\MemberController::class, 'contributions'])->name('contributions');
 
 
-Route::get('/edit', [App\Http\Controllers\Membership\MemberController::class, 'edit'])->name('edit');
+Route::get('/edit', [App\Http\Controllers\Membership\MemberController::class, 'editMembers'])->name('edit/members');
 Route::post('/submit_members/{id}', [App\Http\Controllers\Membership\MemberController::class, 'submitEditData'])->name('submit_members');
 
 // <==========================================monthly payments routes============================================================================>

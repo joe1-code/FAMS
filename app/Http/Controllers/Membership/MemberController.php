@@ -13,6 +13,7 @@ use App\Repositories\UserRepository;
 use App\Repositories\UserRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MemberController extends Controller
 {
@@ -66,13 +67,14 @@ class MemberController extends Controller
         return view('layouts/contributions');
     }
 
-    public function edit(Request $request){
+    public function editMembers(Request $request){
+
         // dd($request->input('member_id'));
-        $particulars = User::where('users.id', $request->input('member_id'))
+        $particulars = DB::table('users')->where('users.id', $request->input('member_id'))
         ->leftJoin('regions as rgn','rgn.id','=', 'users.region_id')
         ->leftJoin('districts as dst', 'dst.id', '=', 'users.district_id')
-        ->join('units as unit', 'unit.id', '=', 'users.unit_id')
-        ->join('designations as desgn', 'desgn.id', '=', 'users.designation_id')
+        ->leftJoin('units as unit', 'unit.id', '=', 'users.unit_id')
+        ->leftJoin('designations as desgn', 'desgn.id', '=', 'users.designation_id')
         ->select('users.*', 'rgn.name as region_name', 'dst.name as district_name')
         ->first();
         // dd($particulars);

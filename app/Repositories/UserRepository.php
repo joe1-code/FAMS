@@ -97,16 +97,18 @@ class UserRepository implements UserRepositoryInterface
         ->leftJoin('regions as rgn','rgn.id','=', 'users.region_id')
         ->leftJoin('districts as dst', 'dst.id', '=', 'users.district_id')
         ->select(                            
-            DB::raw("COALESCE(users.firstname, '') || ' ' || COALESCE(users.lastname, '') AS fullname"), 
+            DB::raw("COALESCE(users.firstname, '') || ' ' || COALESCE(users.lastname, '') AS \"fullname\""),
                 'users.phone as phone',
+                'users.id as user_id',
                 'users.dob as dob',
                 'users.dod as dod',
                 'users.active as membership_status',
                 'users.available as available',
                 'rgn.name as region_name', 
                 'dst.name as district_name'
-        );        
-        // ->get();
+        )
+        ->groupBy('fullname', 'phone', 'dob', 'dod', 'membership_status', 'available', 'region_name', 'district_name', 'user_id')      
+        ->get();
         
         return DataTables::of($query)->make(true);
         

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Membership;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\Designation;
 use App\Models\District;
 use App\Models\MonthlyPayment;
@@ -80,13 +81,14 @@ class MemberController extends Controller
         // dd($particulars);
         $regions = Region::all();
         $districts = District::all();
-
+        $countries = Country::all();
         // dd(, );
         return view('layouts/edit_contributions')
                 ->with('particulars', $particulars)
                 ->with('request', $request)
                 ->with('regions', $regions)
                 ->with('districts', $districts)
+                ->with('countries', $countries)
                 ->with('units', Unit::all())
                 ->with('designations', Designation::all());
     }

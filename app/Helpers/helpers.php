@@ -78,15 +78,13 @@ if (!function_exists('access')) {
     }
 }
 
-// if (!function_exists('within_month')) {
+if (!function_exists('getTodayDate')) {
     
-//     function within_month(){
+    function getTodayDate(){
 
-//         return [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()];
-
-//     }
-// }
-
+        return \Carbon\Carbon::now()->toDateString();
+    }
+}
 
 
 

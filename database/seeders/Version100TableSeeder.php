@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\version100\CountriesTableSeeder;
 use Database\Seeders\version100\DesignationsTableSeeder;
 use Database\Seeders\version100\DistrictsTableSeeder;
 use Database\Seeders\version100\DocumentGroupsTableSeeder;
@@ -44,6 +45,7 @@ class Version100TableSeeder extends Seeder
         $this->call(WfDefinitionsTableSeeder::class);
         $this->call(PaymentMethodsTableSeeder::class);
         $this->call(GendersTableSeeder::class);
+        $this->call(CountriesTableSeeder::class);
 
         DB::commit();
     }

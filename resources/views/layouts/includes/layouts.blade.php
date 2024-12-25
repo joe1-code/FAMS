@@ -405,7 +405,7 @@
                                                     <option value="2">Unsurveyed Area</option>
                                                 </select>
                                             </div>
-                                            <div class="column col-md-4">
+                                            <div class="column col-md-4" id="area_unsurveyed">
                                                 <label for="unserveyed_area_descrpition" class="required-field">Unsurveyed Area Description</label>
                                                 <textarea 
                                                     name="unserveyed_area_descrpition" 
@@ -414,45 +414,50 @@
                                                     rows="4" 
                                                     placeholder="Enter details about the unsurveyed area">
                                                 </textarea>
+                                                <span class="small">Enter details about the unsurveyed area</span>
                                             </div>
 
                                         </div>
                                         <br>
-                                        <div class="row col-md-11">
-                                            <div class="form-group col-md-4">
-                                                <label for="road" class="required-field">Road</label>
-                                                <input type="text" id="road" name="road" class="form-control" required>
+                                        <div id="area_surveyed">
+                                            <div class="row col-md-11" >
+                                                <div class="form-group col-md-4">
+                                                    <label for="road" class="required-field">Road</label>
+                                                    <input type="text" id="road" name="road" class="form-control" required>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="plot" class="required-field">Plot No.</label>
+                                                    <input type="text" id="plot" name="plot" class="form-control" required>
+                                                </div>
+
                                             </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="plot" class="required-field">Plot No.</label>
-                                                <input type="text" id="plot" name="plot" class="form-control" required>
+                                            <br>
+                                            <div class="row col-md-11" id="area_surveyed">
+                                                <div class="form-group col-md-4">
+                                                    <label for="block" class="required-field">Block No.</label>
+                                                    <input type="text" id="block" name="block" class="form-control" required>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="Street" class="required-field">Street.</label>
+                                                    <input type="text" id="Street" name="Street" class="form-control" required>
+                                                </div>
+
+                                            </div>
+                                            <br>
+                                            <div class="column col-md-4" id="area_surveyed">
+                                                <label for="serveyed_area_descrpition" class="required-field">Surveyed Area Description</label>
+                                                <textarea 
+                                                    name="serveyed_area_descrpition" 
+                                                    id="serveyed_area_descrpition" 
+                                                    class="form-control" 
+                                                    rows="4" 
+                                                    placeholder="Enter details about the surveyed area">
+                                                </textarea>
+                                                <span class="small">More details about surveyed area i.e Bulding Name, Floor, Office / Room Number</span>
                                             </div>
 
                                         </div>
-                                        <br>
-                                        <div class="row col-md-11">
-                                            <div class="form-group col-md-4">
-                                                <label for="block" class="required-field">Block No.</label>
-                                                <input type="text" id="block" name="block" class="form-control" required>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="Street" class="required-field">Street.</label>
-                                                <input type="text" id="Street" name="Street" class="form-control" required>
-                                            </div>
-
-                                        </div>
-                                        <br>
-                                        <div class="column col-md-4">
-                                            <label for="serveyed_area_descrpition" class="required-field">Surveyed Area Description</label>
-                                            <textarea 
-                                                name="serveyed_area_descrpition" 
-                                                id="serveyed_area_descrpition" 
-                                                class="form-control" 
-                                                rows="4" 
-                                                placeholder="Enter details about the surveyed area">
-                                            </textarea>
-                                            <span class="small">More details about surveyed area i.e Bulding Name, Floor, Office / Room Number</span>
-                                        </div>
+                                            
                                         <br>
                                         <div style="display: flex; justify-content:end; gap: 4px;">
                                             <button type="button" class="btn prev-btn"><i class="fas fa-arrow-left"></i> Previous</button>
@@ -652,10 +657,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <script>
     $(document).ready(function(){
+        
         $('#region').on('change', function(){
 
             const region_id = $(this).val();
-            console.log(region_id);
             
             const district_select = $('#district');
 
@@ -678,6 +683,30 @@ document.addEventListener("DOMContentLoaded", () => {
                         
                     }
                 });
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('#area_unsurveyed').hide();
+        $('#area_surveyed').hide();
+
+        
+        $('#location').on('click', function(){
+
+            const area = $('#location').val();        
+            console.log(area);
+
+            $('#area_unsurveyed').hide();
+            $('#area_surveyed').hide();
+
+            if (area == 1) {
+                $('#area_surveyed').show();
+            }
+            else if(area == 2){
+                $('#area_unsurveyed').show();
             }
         });
     });

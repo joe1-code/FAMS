@@ -139,6 +139,13 @@ class MemberController extends Controller
         
     }
 
+    public function fetchDistricts($regionId){
+        
+        $districts = (new District())->query()->where('region_id', $regionId)->get(['id', 'name']);
+
+        return response()->json($districts);
+    }
+
     
     
 }

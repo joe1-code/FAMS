@@ -19,6 +19,7 @@ Route::get('/members_dt', [App\Http\Controllers\Membership\MemberController::cla
 Route::get('/register', [App\Http\Controllers\Membership\MemberController::class, 'register'])->name('register');
 Route::post('/register_member', [App\Http\Controllers\Membership\MemberController::class, 'registerMember'])->name('register_member');
 Route::get('/contributions', [App\Http\Controllers\Membership\MemberController::class, 'contributions'])->name('contributions');
+Route::get('/api/district/get/{region}', [App\Http\Controllers\Membership\MemberController::class, 'fetchDistricts'])->name('fetch/districts');
 
 
 Route::get('/edit', [App\Http\Controllers\Membership\MemberController::class, 'editMembers'])->name('edit/members');

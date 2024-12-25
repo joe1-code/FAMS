@@ -6,7 +6,7 @@
 <head>
         
         <meta charset="utf-8" />
-        <title>Dashboard | FAMS - Family Management system.</title>
+        <title>Membership | FAMS - Family Management system.</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
@@ -207,32 +207,35 @@
 
                                     <!-- Step 1 -->
                                     <div class="form-step" id="step-1">
+                                        <br>
                                         <div class="line-separator border-bottom border-1 border-secondary pb-2 mb-4">
                                             <h4 class="d-flex align-items-center">
                                                 <i class="fas fa-user me-2"></i> Personal Information
                                             </h4>
                                         </div>
-                                        <div class="row">
+                                        <br>
+                                        <div class="row col-md-11">
                                             <div class="form-group col-md-4">
-                                                <label for="firstname">Firstname</label>
+                                                <label for="firstname" class="required-field">Firstname</label>
                                                 <input type="text" id="firstname" name="firstname" class="form-control" required>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="middlename">Middlename</label>
+                                                <label for="middlename" class="required-field">Middlename</label>
                                                 <input type="text" id="lastname" name="lastname" class="form-control" required>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="lastname">Lastname</label>
+                                                <label for="lastname" class="required-field">Lastname</label>
                                                 <input type="text" id="lastname" name="lastname" class="form-control" required>
                                             </div>
 
                                         </div>
-
+                                        <br>
                                         <div class="row col-md-11">
-                                            <label for="doc" class="required">
-                                                Date of Birth (DOB)
-                                            </label>
-                                            <div class="row">
+                                            
+                                            <div class="row col-md-4">
+                                                <label for="doc" class="required-field">
+                                                    Date of Birth (DOB)
+                                                </label>
                                                 <div class="col">
                                                     <select name="dob_day" id="dob_day" class="form-control search-select" style="width:100%;">
                                                         <option value="" disabled></option>
@@ -259,14 +262,13 @@
                                                         @endfor
                                                     </select>
                                                 </div>
-
-                                                    <!-- Add Monthly Earnings to the Row -->
-                                                <div class="col-md-6">
+                                            </div>
+                                            <!-- Add Monthly Earnings to the Row -->
+                                            <div class="col-md-4">
                                                 <label for="monthly_earning">Monthly Earnings</label>
 
-                                                    <div class="form-group">
-                                                        <input type="number" id="monthly_earning" name="monthly_earning" class="form-control" required>
-                                                    </div>
+                                                <div class="form-group">
+                                                    <input type="number" id="monthly_earning" name="monthly_earning" class="form-control" required>
                                                 </div>
                                             </div>
                                             <input type="hidden" name="doc" />
@@ -275,26 +277,25 @@
                                             <span class="form-text text-muted">
                                                 <p></p>
                                             </span>
-                                            
-
+                                        
                                         </div>
-
+                                        <br>
                                         <div class="row col-md-11">
                                             <div class="form-group col-md-4">
-                                                <label for="tin_no" class="required-field">TIN No.</label>
+                                                <label for="tin_no" class="required-field1">TIN No.</label>
                                                 <input type="number" id="tin_no" name="tin_no" class="form-control" required>
                                             </div>
 
                                             <div class="form-group col-md-4">
-                                                <label for="nida_no" class="required-field">National Identification Number (NIDA).</label>
+                                                <label for="nida_no" class="required-field1">National Identification Number (NIDA).</label>
                                                 <input type="number" id="nida_no" name="nida_no" class="form-control" required>
                                             </div>
 
                                         </div>
-
+                                        <br>
                                         <div class="row col-md-11">
                                             <div class="form-group col-md-4">
-                                                <label for="passport_no" class="required-field">Passport No.</label>
+                                                <label for="passport_no" class="required-field1">Passport No.</label>
                                                 <input type="number" id="passport_no" name="passport_no" class="form-control" required>
                                             </div>
 
@@ -310,24 +311,153 @@
                                             
 
                                         </div>
-
-                                        
-                                        <button type="button" class="btn btn-primary next-btn">Next</button>
+                                        <br>
+                                        <div class="row col-md-11">
+                                            <div class="form-group col-md-4">
+                                                <label for="unit" class="required-field">Member Unit.</label>
+                                                <select name="unit" id="unit" class="form-control">
+                                                    <option value="">Select</option>
+                                                    @foreach($units as $unit)
+                                                    <option value="{{ $unit->id}}">{{ $unit->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="designation" class="required-field">Member Designation.</label>
+                                                <select name="designation" id="designation" class="form-control">
+                                                    <option value="">Select</option>
+                                                    @foreach($designations as $designation)
+                                                    <option value="{{ $designation->id}}">{{ $designation->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row col-md-11">
+                                            <div class="form-group col-md-4">
+                                                <label for="entitled_amount" class="required-field">Entitled Amount.</label>
+                                                <input type="number" id="entitled_amount" name="entitled_amount" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="next-btn" style="display: flex; justify-content:end">
+                                            <button type="button" class="btn btn-primary next-btn">Next <i class="fas fa-arrow-right"></i></button>
+                                        </div>
                                     </div>
 
                                     <!-- Step 2 -->
                                     <div class="form-step" id="step-2" style="display: none;">
-                                        <h4>Step 2: Contact Details</h4>
-                                        <div class="form-group">
-                                            <label for="email">Email</label>
-                                            <input type="email" id="email" name="email" class="form-control">
+                                        <br>
+                                        <div class="line-separator border-bottom border-1 border-secondary pb-2 mb-4">
+                                            <h4 class="d-flex align-items-center">
+                                                <i class="fas fa-university me-2"></i> Contact Details
+                                            </h4>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="phone">Phone</label>
-                                            <input type="text" id="phone" name="phone" class="form-control" required>
+                                        <br>
+                                        <div class="row col-md-11">
+                                            <div class="form-group col-md-4">
+                                                <label for="email" class="required-field">Email Address</label>
+                                                <input type="text" id="email" name="email" class="form-control" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="plot" class="required-field">Phone Number</label>
+                                                <input type="text" id="plot" name="plot" class="form-control" required>
+                                            </div>
+
                                         </div>
-                                        <button type="button" class="btn btn-secondary prev-btn">Previous</button>
-                                        <button type="button" class="btn btn-primary next-btn">Next</button>
+                                        <br>
+                                        <div class="row col-md-11">
+                                            <div class="form-group col-md-4">
+                                                <label for="box" class="required-field">P.O.Box</label>
+                                                <input type="text" id="box" name="box" class="form-control" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="fax" class="required-field">Fax</label>
+                                                <input type="text" id="fax" name="fax" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row col-md-11">
+                                            <div class="form-group col-md-4">
+                                                <label for="region" class="required-field">Member Region.</label>
+                                                <select name="region" id="region" class="form-control">
+                                                    <option value="">Select</option>
+                                                    @foreach($regions as $region)
+                                                    <option value="{{ $region->id}}">{{ $region->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="district" class="required-field">Member District.</label>
+                                                <select name="district" id="district" class="form-control">
+                                                    <option value="">Select</option>
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row col-md-11">
+                                            <div class="form-group col-md-4">
+                                                <label for="location" class="required-field">Location Type.</label>
+                                                <select name="location" id="location" class="form-control">
+                                                    <option value="">Select</option>
+                                                    <option value="1">Surveyed Area</option>
+                                                    <option value="2">Unsurveyed Area</option>
+                                                </select>
+                                            </div>
+                                            <div class="column col-md-4">
+                                                <label for="unserveyed_area_descrpition" class="required-field">Unsurveyed Area Description</label>
+                                                <textarea 
+                                                    name="unserveyed_area_descrpition" 
+                                                    id="unserveyed_area_descrpition" 
+                                                    class="form-control" 
+                                                    rows="4" 
+                                                    placeholder="Enter details about the unsurveyed area">
+                                                </textarea>
+                                            </div>
+
+                                        </div>
+                                        <br>
+                                        <div class="row col-md-11">
+                                            <div class="form-group col-md-4">
+                                                <label for="road" class="required-field">Road</label>
+                                                <input type="text" id="road" name="road" class="form-control" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="plot" class="required-field">Plot No.</label>
+                                                <input type="text" id="plot" name="plot" class="form-control" required>
+                                            </div>
+
+                                        </div>
+                                        <br>
+                                        <div class="row col-md-11">
+                                            <div class="form-group col-md-4">
+                                                <label for="block" class="required-field">Block No.</label>
+                                                <input type="text" id="block" name="block" class="form-control" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="Street" class="required-field">Street.</label>
+                                                <input type="text" id="Street" name="Street" class="form-control" required>
+                                            </div>
+
+                                        </div>
+                                        <br>
+                                        <div class="column col-md-4">
+                                            <label for="serveyed_area_descrpition" class="required-field">Surveyed Area Description</label>
+                                            <textarea 
+                                                name="serveyed_area_descrpition" 
+                                                id="serveyed_area_descrpition" 
+                                                class="form-control" 
+                                                rows="4" 
+                                                placeholder="Enter details about the surveyed area">
+                                            </textarea>
+                                            <span class="small">More details about surveyed area i.e Bulding Name, Floor, Office / Room Number</span>
+                                        </div>
+                                        <br>
+                                        <div style="display: flex; justify-content:end; gap: 4px;">
+                                            <button type="button" class="btn prev-btn"><i class="fas fa-arrow-left"></i> Previous</button>
+                                            <button type="button" class="btn btn-primary next-btn">Next  <i class="fas fa-arrow-right"></i></button>
+                                        </div>
                                     </div>
 
                                     <!-- Step 3 -->
@@ -346,8 +476,11 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <button type="button" class="btn btn-secondary prev-btn">Previous</button>
-                                        <button type="submit" class="btn btn-success">Submit</button>
+                                        <br>
+                                        <div style="display: flex; justify-content:end">
+                                            <button type="button" class="btn btn-secondary prev-btn">Previous</button>
+                                            <button type="submit" class="btn btn-success">Submit</button>
+                                        </div>
                                     </div>
                                 </form>
                                 
@@ -462,6 +595,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
+
 <script>
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -514,4 +648,37 @@ document.addEventListener("DOMContentLoaded", () => {
     showStep(currentStep);
 });
 
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('#region').on('change', function(){
+
+            const region_id = $(this).val();
+            console.log(region_id);
+            
+            const district_select = $('#district');
+
+            district_select.html('<option value="">select</option>');
+
+            if (region_id) {
+                
+                $.ajax({
+                    url: `/api/district/get/${region_id}`,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data){
+                            data.forEach(function(district){
+                                district_select.append(`<option value="${district.id}">${district.name}</option>`);
+                            });
+                    },
+                    error: function(xhr, error, status){
+
+                        console.error('error occured while fetching district', error);
+                        
+                    }
+                });
+            }
+        });
+    });
 </script>

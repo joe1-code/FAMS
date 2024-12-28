@@ -45,6 +45,24 @@
                 color: red;
             }
 
+            #surveyed_area_descrpition {
+                padding: 0px;
+                margin: 0;
+                line-height: 1.5;
+                vertical-align: top;
+                box-sizing: border-box; /* Ensures padding is included in width/height */
+                font-size: 16px; /* Match the font size to your design */
+            }
+            #unsurveyed_area_descrpition {
+                padding: 0px;
+                margin: 0;
+                line-height: 1.5;
+                vertical-align: top;
+                box-sizing: border-box; /* Ensures padding is included in width/height */
+                font-size: 16px; /* Match the font size to your design */
+            }
+
+
         </style>
 
     </head>
@@ -206,7 +224,7 @@
                                     @csrf
 
                                     <!-- Step 1 -->
-                                    <div class="form-step" id="step-1">
+                                    <div class="form-step" id="step-1" style="display: none;">
                                         <br>
                                         <div class="line-separator border-bottom border-1 border-secondary pb-2 mb-4">
                                             <h4 class="d-flex align-items-center">
@@ -221,17 +239,17 @@
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="middlename" class="required-field">Middlename</label>
-                                                <input type="text" id="lastname" name="lastname" class="form-control" required>
+                                                <input type="text" id="middlename" name="middlename" class="form-control" required>
                                             </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="lastname" class="required-field">Lastname</label>
-                                                <input type="text" id="lastname" name="lastname" class="form-control" required>
-                                            </div>
-
+                                            
                                         </div>
                                         <br>
                                         <div class="row col-md-11">
                                             
+                                            <div class="form-group col-md-4">
+                                                <label for="lastname" class="required-field">Lastname</label>
+                                                <input type="text" id="lastname" name="lastname" class="form-control" required>
+                                            </div>
                                             <div class="row col-md-4">
                                                 <label for="doc" class="required-field">
                                                     Date of Birth (DOB)
@@ -245,7 +263,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col">
-                                                    <select name="dob_month" class="form-control search-select" style="width:100%;">
+                                                    <select name="dob_month" id="dob_month" class="form-control search-select" style="width:100%;">
                                                         <option value="" disabled></option>
                                                         @for ($i = 1; $i <= 12; $i++)
                                                             <option value="{{ $i }}" {{ $doc->format('n') == $i ? 'selected' : '' }}>
@@ -255,7 +273,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col">
-                                                    <select name="dob_year" class="form-control search-select" style="width:100%;">
+                                                    <select name="dob_year" id="dob_year" class="form-control search-select" style="width:100%;">
                                                         <option value="" disabled></option>
                                                         @for ($year = now()->format('Y'); $year >= 1900; $year--)
                                                             <option value="{{ $year }}" {{ $doc->format('Y') == $year ? 'selected' : '' }}>{{ $year }}</option>
@@ -263,14 +281,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <!-- Add Monthly Earnings to the Row -->
-                                            <div class="col-md-4">
-                                                <label for="monthly_earning">Monthly Earnings</label>
 
-                                                <div class="form-group">
-                                                    <input type="number" id="monthly_earning" name="monthly_earning" class="form-control" required>
-                                                </div>
-                                            </div>
                                             <input type="hidden" name="doc" />
                                             <input type="hidden" name="today_date" value="{{ getTodayDate() }}" />
 
@@ -338,6 +349,14 @@
                                                 <label for="entitled_amount" class="required-field">Entitled Amount.</label>
                                                 <input type="number" id="entitled_amount" name="entitled_amount" class="form-control" required>
                                             </div>
+                                            <!-- Add Monthly Earnings to the Row -->
+                                            <div class="col-md-4">
+                                                <label for="monthly_earning">Monthly Earnings</label>
+
+                                                <div class="form-group">
+                                                    <input type="number" id="monthly_earning" name="monthly_earning" class="form-control" required>
+                                                </div>
+                                            </div>
                                         </div>
                                         <br>
                                         <div class="next-btn" style="display: flex; justify-content:end">
@@ -360,8 +379,8 @@
                                                 <input type="text" id="email" name="email" class="form-control" required>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="plot" class="required-field">Phone Number</label>
-                                                <input type="text" id="plot" name="plot" class="form-control" required>
+                                                <label for="phone" class="required-field">Phone Number</label>
+                                                <input type="text" id="phone_no" name="phone_no" class="form-control" required>
                                             </div>
 
                                         </div>
@@ -406,10 +425,10 @@
                                                 </select>
                                             </div>
                                             <div class="column col-md-4" id="area_unsurveyed">
-                                                <label for="unserveyed_area_descrpition" class="required-field">Unsurveyed Area Description</label>
+                                                <label for="unsurveyed_area_descrpition" class="required-field">Unsurveyed Area Description</label>
                                                 <textarea 
-                                                    name="unserveyed_area_descrpition" 
-                                                    id="unserveyed_area_descrpition" 
+                                                    name="unsurveyed_area_descrpition" 
+                                                    id="unsurveyed_area_descrpition" 
                                                     class="form-control" 
                                                     rows="4" 
                                                     placeholder="Enter details about the unsurveyed area">
@@ -432,7 +451,7 @@
 
                                             </div>
                                             <br>
-                                            <div class="row col-md-11" id="area_surveyed">
+                                            <div class="row col-md-11">
                                                 <div class="form-group col-md-4">
                                                     <label for="block" class="required-field">Block No.</label>
                                                     <input type="text" id="block" name="block" class="form-control" required>
@@ -444,11 +463,11 @@
 
                                             </div>
                                             <br>
-                                            <div class="column col-md-4" id="area_surveyed">
-                                                <label for="serveyed_area_descrpition" class="required-field">Surveyed Area Description</label>
+                                            <div class="column col-md-4">
+                                                <label for="surveyed_area_descrpition" class="required-field">Surveyed Area Description</label>
                                                 <textarea 
-                                                    name="serveyed_area_descrpition" 
-                                                    id="serveyed_area_descrpition" 
+                                                    name="surveyed_area_descrpition" 
+                                                    id="surveyed_area_descrpition" 
                                                     class="form-control" 
                                                     rows="4" 
                                                     placeholder="Enter details about the surveyed area">
@@ -459,7 +478,7 @@
                                         </div>
                                             
                                         <br>
-                                        <div style="display: flex; justify-content:end; gap: 4px;">
+                                        <div class="next-btn" style="display: flex; justify-content:end; gap: 4px;">
                                             <button type="button" class="btn prev-btn"><i class="fas fa-arrow-left"></i> Previous</button>
                                             <button type="button" class="btn btn-primary next-btn">Next  <i class="fas fa-arrow-right"></i></button>
                                         </div>
@@ -467,23 +486,113 @@
 
                                     <!-- Step 3 -->
                                     <div class="form-step" id="step-3" style="display: none;">
-                                        <h4>Step 3: Job Details</h4>
-                                        <div class="form-group">
-                                            <label for="job_title">Job Title</label>
-                                            <input type="text" id="job_title" name="job_title" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="designation">Designation</label>
-                                            <select id="designation" name="designation" class="form-control">
-                                                <option value="">Select</option>
-                                                @foreach($designations as $designation)
-                                                    <option value="{{ $designation->id }}">{{ $designation->name }}</option>
-                                                @endforeach
-                                            </select>
+                                        <br>
+                                        <div class="line-separator border-bottom border-1 border-secondary pb-2 mb-4">
+                                            <h4 class="d-flex align-items-center">
+                                                <i class="fas fa-briefcase me-2"></i> Professional/Bussiness Details
+                                            </h4>
                                         </div>
                                         <br>
-                                        <div style="display: flex; justify-content:end">
-                                            <button type="button" class="btn btn-secondary prev-btn">Previous</button>
+                                        <div class="row col-md-11" >
+                                            <div class="form-group col-md-4">
+                                                <label for="job_title" class="required-field1">Job Title</label>
+                                                <input type="text" id="job_title" name="job_title" class="form-control" required>
+                                            </div>
+                                            <div class="column col-md-4" id="job_description">
+                                                <label for="job_description" class="required-field">Job Description</label>
+                                                <textarea 
+                                                    name="job_description" 
+                                                    id="job_description" 
+                                                    class="form-control" 
+                                                    rows="4" 
+                                                    placeholder="Enter details about the job you do">
+                                                </textarea>
+                                                <span class="small">Enter details about the way you carry your job</span>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row col-md-11">
+                                            <div class="form-group col-md-4">
+                                                <label for="business_name" class="required-field1">Business Name</label>
+                                                <input type="text" id="business_name" name="business_name" class="form-control" required>
+                                            </div>
+                                            <div class="column col-md-4" id="business_nature">
+                                                <label for="business_nature" class="required-field1">Nature Of Business</label>
+                                                <textarea 
+                                                    name="business_nature" 
+                                                    id="business_nature" 
+                                                    class="form-control" 
+                                                    rows="4" 
+                                                    placeholder="Enter details about the business you do">
+                                                </textarea>
+                                                <span class="small">Enter details about the way you carry your business</span>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row col-md-11">
+                                            <div class="form-group col-md-4">
+                                                <label for="education_level" class="required-field">Education Level.</label>
+                                                <select name="education_level" id="education_level" class="form-control">
+                                                    <option value="">Select</option>
+                                                    <option value="1">Primary</option>
+                                                    <option value="2">Secondary</option>
+                                                    <option value="3">Diploma</option>
+                                                    <option value="4">Bachelor's Degree</option>
+                                                    <option value="5">Masters' Degree</option>
+                                                    <option value="6">phD Degree</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4" id="degree_name">
+                                                <label for="degree_name" class="required-field">Latest Diploma/Degree Name.</label>
+                                                <input type="text" id="degree_name" name="degree_name" class="form-control" required>
+                                                <span class="small">e.g BSc. In Information Systems And Networking Engineering.</span>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row col-md-11" id="university">
+                                            <div class="form-group col-md-4">
+                                                <label for="university_name" class="required-field">Latest University Name.</label>
+                                                <input type="text" id="university_name" name="university_name" class="form-control" required>
+                                                <span class="small">e.g University Of Dar Es Salaam (UDSM) </span>
+                                            </div>
+                                            <div class="row col-md-4">
+                                                <label for="doc" class="required-field">
+                                                     Latest Degree Completion Date
+                                                </label>
+                                                <div class="col">
+                                                    <select name="uni_day" id="uni_day" class="form-control search-select" style="width:100%;">
+                                                        <option value="" disabled></option>
+                                                        @for ($i = 1; $i <= 31; $i++)
+                                                            <option value="{{ $i }}" {{ $doc->format('j') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <select name="uni_month" id="uni_month" class="form-control search-select" style="width:100%;">
+                                                        <option value="" disabled></option>
+                                                        @for ($i = 1; $i <= 12; $i++)
+                                                            <option value="{{ $i }}" {{ $doc->format('n') == $i ? 'selected' : '' }}>
+                                                                {{ \Carbon\Carbon::create()->month($i)->format('F') }}
+                                                            </option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <select name="uni_year" id="uni_year" class="form-control search-select" style="width:100%;">
+                                                        <option value="" disabled></option>
+                                                        @for ($year = now()->format('Y'); $year >= 1900; $year--)
+                                                            <option value="{{ $year }}" {{ $doc->format('Y') == $year ? 'selected' : '' }}>{{ $year }}</option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <input type="hidden" name="doc" />
+                                            <input type="hidden" name="today_date" value="{{ getTodayDate() }}" />
+                                        </div>
+                                        <br>
+                                        <div class="next-btn" style="display: flex; justify-content:end; gap:4px;">
+                                            <button type="button" class="btn prev-btn"><i class="fas fa-arrow-left"></i> Previous</button>
                                             <button type="submit" class="btn btn-success">Submit</button>
                                         </div>
                                     </div>
@@ -607,7 +716,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const steps = document.querySelectorAll(".form-step");
     const nextBtns = document.querySelectorAll(".next-btn");
     const prevBtns = document.querySelectorAll(".prev-btn");
-
+    
+    
     let currentStep = 0;
 
     const showStep = (step) => {
@@ -616,15 +726,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    nextBtns.forEach((btn) => {
+    nextBtns.forEach((btn, index) => {
         btn.addEventListener("click", () => {
-            saveData();
-            if (currentStep < steps.length - 1) {
-                currentStep++;
+            console.log('index...',index);
+            console.log('currentStep...', currentStep);
+            
+            if (index === currentStep && currentStep < steps.length - 1) {
+                saveData();
+                currentStep++;                
                 showStep(currentStep);
             }
         });
     });
+
+    // steps.forEach((step, index)=>{
+    //     console.log(`step... ${index}`, step);
+        
+    // });
 
     prevBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
@@ -692,6 +810,8 @@ document.addEventListener("DOMContentLoaded", () => {
     $(document).ready(function(){
         $('#area_unsurveyed').hide();
         $('#area_surveyed').hide();
+        $('#degree_name').hide();
+        $('#university').hide();
 
         
         $('#location').on('click', function(){
@@ -707,6 +827,21 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             else if(area == 2){
                 $('#area_unsurveyed').show();
+            }
+        });
+
+        $('#education_level').on('click', function(){
+
+            $('#degree_name').hide();
+            $('#university').hide();
+
+            const degree = $(this).val();
+
+            if (degree == 3 || degree == 4 || degree == 5 || degree == 6) {
+                
+                $('#degree_name').show();
+                $('#university').show();
+
             }
         });
     });

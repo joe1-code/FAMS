@@ -7,6 +7,7 @@ use Database\Seeders\version100\DesignationsTableSeeder;
 use Database\Seeders\version100\DistrictsTableSeeder;
 use Database\Seeders\version100\DocumentGroupsTableSeeder;
 use Database\Seeders\version100\DocumentsTableSeeder;
+use Database\Seeders\version100\EducationLevelTableSeeder;
 use Database\Seeders\version100\GendersTableSeeder;
 use Database\Seeders\version100\PaymentMethodsTableSeeder;
 use Database\Seeders\version100\PaymentTypesTableSeeder;
@@ -46,6 +47,7 @@ class Version100TableSeeder extends Seeder
         $this->call(PaymentMethodsTableSeeder::class);
         $this->call(GendersTableSeeder::class);
         $this->call(CountriesTableSeeder::class);
+        $this->call(EducationLevelTableSeeder::class);
 
         DB::commit();
     }

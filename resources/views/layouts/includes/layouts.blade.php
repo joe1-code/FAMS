@@ -204,6 +204,7 @@
             <!-- ============================================================== -->
              @php
              $doc = $doc ?? \Carbon\Carbon::now();
+
              @endphp
             <div class="main-content">
 
@@ -235,11 +236,11 @@
                                         <div class="row col-md-11">
                                             <div class="form-group col-md-4">
                                                 <label for="firstname" class="required-field">Firstname</label>
-                                                <input type="text" id="firstname" name="firstname" class="form-control" required>
+                                                <input type="text" id="firstname" name="firstname" class="form-control" value="{{ old('firstname', $particulars->firstname ?? '') }}" required>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="middlename" class="required-field">Middlename</label>
-                                                <input type="text" id="middlename" name="middlename" class="form-control" required>
+                                                <input type="text" id="middlename" name="middlename" class="form-control" value="{{ old('middlename', $particulars->middlename ?? '') }}" required>
                                             </div>
                                             
                                         </div>
@@ -248,7 +249,7 @@
                                             
                                             <div class="form-group col-md-4">
                                                 <label for="lastname" class="required-field">Lastname</label>
-                                                <input type="text" id="lastname" name="lastname" class="form-control" required>
+                                                <input type="text" id="lastname" name="lastname" class="form-control" value="{{ old('lastname', $particulars->lastname ?? '') }}" required>
                                             </div>
                                             <div class="row col-md-4">
                                                 <label for="doc" class="required-field">
@@ -347,7 +348,7 @@
                                         <div class="row col-md-11">
                                             <div class="form-group col-md-4">
                                                 <label for="entitled_amount" class="required-field">Entitled Amount.</label>
-                                                <input type="number" id="entitled_amount" name="entitled_amount" class="form-control" required>
+                                                <input type="number" id="entitled_amount" name="entitled_amount" class="form-control" value="{{ old('entitled_amount', $particulars->entitled_amount ?? '') }}" required>
                                             </div>
                                             <!-- Add Monthly Earnings to the Row -->
                                             <div class="col-md-4">
@@ -376,11 +377,11 @@
                                         <div class="row col-md-11">
                                             <div class="form-group col-md-4">
                                                 <label for="email" class="required-field">Email Address</label>
-                                                <input type="text" id="email" name="email" class="form-control" required>
+                                                <input type="text" id="email" name="email" class="form-control" value="{{ old('email', $particulars->email ?? '') }}" required>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="phone" class="required-field">Phone Number</label>
-                                                <input type="text" id="phone_no" name="phone_no" class="form-control" required>
+                                                <input type="text" id="phone_no" name="phone_no" class="form-control" value="{{ old('phone_no', $particulars->phone ?? '') }}" required>
                                             </div>
 
                                         </div>
@@ -496,7 +497,7 @@
                                         <div class="row col-md-11" >
                                             <div class="form-group col-md-4">
                                                 <label for="job_title" class="required-field1">Job Title</label>
-                                                <input type="text" id="job_title" name="job_title" class="form-control" required>
+                                                <input type="text" id="job_title" name="job_title" class="form-control" value="{{ old('job_title', $particulars->job_title ?? '') }}" required>
                                             </div>
                                             <div class="column col-md-4" id="job_description">
                                                 <label for="job_description" class="required-field">Job Description</label>
@@ -713,6 +714,9 @@
 <script>
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    localStorage.clear();
+
     const steps = document.querySelectorAll(".form-step");
     const nextBtns = document.querySelectorAll(".next-btn");
     const prevBtns = document.querySelectorAll(".prev-btn");
@@ -722,16 +726,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const showStep = (step) => {
         steps.forEach((formStep, index) => {
+            
             formStep.style.display = index === step ? "block" : "none";
         });
     };
 
     nextBtns.forEach((btn, index) => {
         btn.addEventListener("click", () => {
-            console.log('index...',index);
-            console.log('currentStep...', currentStep);
+            // console.log('index...',index);
+            console.log('formstep...',currentStep);
             
-            if (index === currentStep && currentStep < steps.length - 1) {
+            if (index == currentStep && currentStep < steps.length - 1) {
                 saveData();
                 currentStep++;                
                 showStep(currentStep);
@@ -743,7 +748,9 @@ document.addEventListener("DOMContentLoaded", () => {
     //     console.log(`step... ${index}`, step);
         
     // });
-
+    console.log(steps[currentStep]);
+    
+    
     prevBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
             if (currentStep > 0) {
@@ -756,18 +763,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const saveData = () => {
         const inputs = steps[currentStep].querySelectorAll("input, select");
         inputs.forEach((input) => {
+
             localStorage.setItem(input.name, input.value);
         });
     };
-
     const loadData = () => {
         const inputs = document.querySelectorAll("input, select");
         inputs.forEach((input) => {
-            input.value = localStorage.getItem(input.name) || "";
+            savedValue = localStorage.getItem(input.name);
+            if (savedValue == null) {
+                input.value = savedValue;
+            }
         });
     };
 
-    loadData();
+    //no need to load the data from the localstorage while its cleared on page reload
+    // loadData();
     showStep(currentStep);
 });
 

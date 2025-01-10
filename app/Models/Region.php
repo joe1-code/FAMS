@@ -15,4 +15,8 @@ class Region extends Model
 
         return $this->hasMany(Region::class);
     }
+
+    public function region(){
+        return $this->belongsTo(Country::class);
+    }
 }

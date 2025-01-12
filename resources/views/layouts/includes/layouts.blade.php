@@ -223,7 +223,6 @@
 
                                 <form id="multiStepForm" method="POST" action="{{ route('submit_members', ['id'=>$request->input('member_id')]) }}">
                                     @csrf
-
                                     <!-- Step 1 -->
                                     <div class="form-step" id="step-1" style="display: none;">
                                         <br>
@@ -714,71 +713,52 @@
 <script>
 
 document.addEventListener("DOMContentLoaded", () => {
-
-    localStorage.clear();
-
     const steps = document.querySelectorAll(".form-step");
     const nextBtns = document.querySelectorAll(".next-btn");
     const prevBtns = document.querySelectorAll(".prev-btn");
-    
-    
+
     let currentStep = 0;
 
+    // Function to display the current step
     const showStep = (step) => {
         steps.forEach((formStep, index) => {
-            
             formStep.style.display = index === step ? "block" : "none";
         });
+        console.log(`Displaying Step: ${step}`);
     };
 
-    nextBtns.forEach((btn, index) => {
-        btn.addEventListener("click", () => {
-            // console.log('index...',index);
-            console.log('formstep...',currentStep);
-            
-            if (index == currentStep && currentStep < steps.length - 1) {
-                saveData();
-                currentStep++;                
-                showStep(currentStep);
-            }
-        });
+    // Function to handle the "Next" button click
+    const handleNext = (event) => {
+        event.stopPropagation(); // Prevent event bubbling
+        console.log(`Current Step Before Click: ${currentStep}`);
+        if (currentStep < steps.length - 1) {
+            currentStep++;
+            console.log(`Current Step After Click: ${currentStep}`);
+            showStep(currentStep);
+        }
+    };
+
+    // Function to handle the "Previous" button click
+    const handlePrev = (event) => {
+        event.stopPropagation(); // Prevent event bubbling
+        console.log(`Current Step Before Click: ${currentStep}`);
+        if (currentStep > 0) {
+            currentStep--;
+            console.log(`Current Step After Click: ${currentStep}`);
+            showStep(currentStep);
+        }
+    };
+
+    // Attach single event listeners to buttons
+    nextBtns.forEach((btn) => {
+        btn.addEventListener("click", handleNext); // Ensure only one listener
     });
 
-    // steps.forEach((step, index)=>{
-    //     console.log(`step... ${index}`, step);
-        
-    // });
-    console.log(steps[currentStep]);
-    
-    
     prevBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            if (currentStep > 0) {
-                currentStep--;
-                showStep(currentStep);
-            }
-        });
+        btn.addEventListener("click", handlePrev); // Ensure only one listener
     });
 
-    const saveData = () => {
-        const inputs = steps[currentStep].querySelectorAll("input, select");
-        inputs.forEach((input) => {
-
-            localStorage.setItem(input.name, input.value);
-        });
-    };
-    const loadData = () => {
-        const inputs = document.querySelectorAll("input, select");
-        inputs.forEach((input) => {
-            savedValue = localStorage.getItem(input.name);
-            if (savedValue == null) {
-                input.value = savedValue;
-            }
-        });
-    };
-
-    //no need to load the data from the localstorage while its cleared on page reload
-    // loadData();
+    // Initialize the first step
     showStep(currentStep);
 });
 

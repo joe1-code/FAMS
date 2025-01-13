@@ -766,6 +766,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <script>
     $(document).ready(function(){
+
+        $('#area_unsurveyed').hide();
+        $('#area_surveyed').hide();
+        $('#degree_name').hide();
+        $('#university').hide();
         
         $('#region').on('change', function(){
 
@@ -794,17 +799,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
         });
-    });
-</script>
 
-<script>
-    $(document).ready(function(){
-        $('#area_unsurveyed').hide();
-        $('#area_surveyed').hide();
-        $('#degree_name').hide();
-        $('#university').hide();
-
-        
         $('#location').on('click', function(){
 
             const area = $('#location').val();        
@@ -837,3 +832,4 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 </script>
+

@@ -94,7 +94,7 @@ class MemberController extends Controller
     }
 
     public function submitEditData(Request $request, $id){
-        // dd($request->input('regions'), $id);
+        dd($request->input(), $id);
         try {
             // dd($request->all());
             $this->userRepository->editable($request, $id);

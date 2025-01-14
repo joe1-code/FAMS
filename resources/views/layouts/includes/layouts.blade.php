@@ -286,7 +286,7 @@
 
                                     <!-- Multi-step Form -->
                                     <div class="form-container">
-                                        <form id="multiStepForm" method="POST" action="{{ route('submit_members', ['id'=>$request->input('member_id')]) }}">
+                                        <form id="multiStepForm" method="POST" action="">
                                             @csrf
                                             <!-- Step 1 -->
                                             <div class="form-step" id="step-1" style="display: block;">
@@ -320,7 +320,7 @@
                                                             Date of Birth (DOB)
                                                         </label>
                                                         <div class="col">
-                                                            <select name="dob_day" id="dob_day" class="form-control search-select" style="width:100%;">
+                                                            <select name="dob_day" id="dob_day" class="form-control search-select" style="width:100%;" required>
                                                                 <option value="" disabled></option>
                                                                 @for ($i = 1; $i <= 31; $i++)
                                                                     <option value="{{ $i }}" {{ $doc->format('j') == $i ? 'selected' : '' }}>{{ $i }}</option>
@@ -328,7 +328,7 @@
                                                             </select>
                                                         </div>
                                                         <div class="col">
-                                                            <select name="dob_month" id="dob_month" class="form-control search-select" style="width:100%;">
+                                                            <select name="dob_month" id="dob_month" class="form-control search-select" style="width:100%;" required>
                                                                 <option value="" disabled></option>
                                                                 @for ($i = 1; $i <= 12; $i++)
                                                                     <option value="{{ $i }}" {{ $doc->format('n') == $i ? 'selected' : '' }}>
@@ -338,7 +338,7 @@
                                                             </select>
                                                         </div>
                                                         <div class="col">
-                                                            <select name="dob_year" id="dob_year" class="form-control search-select" style="width:100%;">
+                                                            <select name="dob_year" id="dob_year" class="form-control search-select" style="width:100%;" required>
                                                                 <option value="" disabled></option>
                                                                 @for ($year = now()->format('Y'); $year >= 1900; $year--)
                                                                     <option value="{{ $year }}" {{ $doc->format('Y') == $year ? 'selected' : '' }}>{{ $year }}</option>
@@ -359,12 +359,12 @@
                                                 <div class="row col-md-11">
                                                     <div class="form-group col-md-4">
                                                         <label for="tin_no" class="required-field1">TIN No.</label>
-                                                        <input type="number" id="tin_no" name="tin_no" class="form-control" required>
+                                                        <input type="number" id="tin_no" name="tin_no" class="form-control">
                                                     </div>
 
                                                     <div class="form-group col-md-4">
                                                         <label for="nida_no" class="required-field1">National Identification Number (NIDA).</label>
-                                                        <input type="number" id="nida_no" name="nida_no" class="form-control" required>
+                                                        <input type="number" id="nida_no" name="nida_no" class="form-control">
                                                     </div>
 
                                                 </div>
@@ -372,12 +372,12 @@
                                                 <div class="row col-md-11">
                                                     <div class="form-group col-md-4">
                                                         <label for="passport_no" class="required-field1">Passport No.</label>
-                                                        <input type="number" id="passport_no" name="passport_no" class="form-control" required>
+                                                        <input type="number" id="passport_no" name="passport_no" class="form-control">
                                                     </div>
 
                                                     <div class="form-group col-md-4">
                                                         <label for="countries" class="required-field">Country.</label>
-                                                        <select name="country" id="country" class="form-control">
+                                                        <select name="country" id="country" class="form-control" required>
                                                             <option value="">Select</option>
                                                             @foreach($countries as $country)
                                                             <option value="{{ $country->id}}">{{ $country->name }}</option>
@@ -391,7 +391,7 @@
                                                 <div class="row col-md-11">
                                                     <div class="form-group col-md-4">
                                                         <label for="unit" class="required-field">Member Unit.</label>
-                                                        <select name="unit" id="unit" class="form-control">
+                                                        <select name="unit" id="unit" class="form-control" required>
                                                             <option value="">Select</option>
                                                             @foreach($units as $unit)
                                                             <option value="{{ $unit->id}}">{{ $unit->name }}</option>
@@ -400,7 +400,7 @@
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="designation" class="required-field">Member Designation.</label>
-                                                        <select name="designation" id="designation" class="form-control">
+                                                        <select name="designation" id="designation" class="form-control" required>
                                                             <option value="">Select</option>
                                                             @foreach($designations as $designation)
                                                             <option value="{{ $designation->id}}">{{ $designation->name }}</option>
@@ -416,7 +416,7 @@
                                                     </div>
                                                     <!-- Add Monthly Earnings to the Row -->
                                                     <div class="col-md-4">
-                                                        <label for="monthly_earning">Monthly Earnings</label>
+                                                        <label for="monthly_earning" class="required-field">Monthly Earnings</label>
 
                                                         <div class="form-group">
                                                             <input type="number" id="monthly_earning" name="monthly_earning" class="form-control" required>
@@ -440,8 +440,8 @@
                                                 <br>
                                                 <div class="row col-md-11">
                                                     <div class="form-group col-md-4">
-                                                        <label for="email" class="required-field">Email Address</label>
-                                                        <input type="text" id="email" name="email" class="form-control" value="{{ old('email', $particulars->email ?? '') }}" required>
+                                                        <label for="email" class="">Email Address</label>
+                                                        <input type="text" id="email" name="email" class="form-control" value="{{ old('email', $particulars->email ?? '') }}">
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="phone" class="required-field">Phone Number</label>
@@ -452,19 +452,19 @@
                                                 <br>
                                                 <div class="row col-md-11">
                                                     <div class="form-group col-md-4">
-                                                        <label for="box" class="required-field">P.O.Box</label>
-                                                        <input type="text" id="box" name="box" class="form-control" required>
+                                                        <label for="box" class="">P.O.Box</label>
+                                                        <input type="text" id="box" name="box" class="form-control">
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label for="fax" class="required-field">Fax</label>
-                                                        <input type="text" id="fax" name="fax" class="form-control" required>
+                                                        <label for="fax" class="">Fax</label>
+                                                        <input type="text" id="fax" name="fax" class="form-control">
                                                     </div>
                                                 </div>
                                                 <br>
                                                 <div class="row col-md-11">
                                                     <div class="form-group col-md-4">
                                                         <label for="region" class="required-field">Member Region.</label>
-                                                        <select name="region" id="region" class="form-control">
+                                                        <select name="region" id="region" class="form-control" required>
                                                             <option value="">Select</option>
                                                             @foreach($regions as $region)
                                                             <option value="{{ $region->id}}">{{ $region->name }}</option>
@@ -506,24 +506,24 @@
                                                 <div id="area_surveyed">
                                                     <div class="row col-md-11" >
                                                         <div class="form-group col-md-4">
-                                                            <label for="road" class="required-field">Road</label>
-                                                            <input type="text" id="road" name="road" class="form-control" required>
+                                                            <label for="road" class="">Road</label>
+                                                            <input type="text" id="road" name="road" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-4">
-                                                            <label for="plot" class="required-field">Plot No.</label>
-                                                            <input type="text" id="plot" name="plot" class="form-control" required>
+                                                            <label for="plot" class="">Plot No.</label>
+                                                            <input type="text" id="plot" name="plot" class="form-control">
                                                         </div>
 
                                                     </div>
                                                     <br>
                                                     <div class="row col-md-11">
                                                         <div class="form-group col-md-4">
-                                                            <label for="block" class="required-field">Block No.</label>
-                                                            <input type="text" id="block" name="block" class="form-control" required>
+                                                            <label for="block" class="">Block No.</label>
+                                                            <input type="text" id="block" name="block" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-4">
-                                                            <label for="Street" class="required-field">Street.</label>
-                                                            <input type="text" id="Street" name="Street" class="form-control" required>
+                                                            <label for="Street" class="">Street.</label>
+                                                            <input type="text" id="Street" name="Street" class="form-control">
                                                         </div>
 
                                                     </div>
@@ -560,8 +560,8 @@
                                                 <br>
                                                 <div class="row col-md-11" >
                                                     <div class="form-group col-md-4">
-                                                        <label for="job_title" class="required-field1">Job Title</label>
-                                                        <input type="text" id="job_title" name="job_title" class="form-control" value="{{ old('job_title', $particulars->job_title ?? '') }}" required>
+                                                        <label for="job_title" class="">Job Title</label>
+                                                        <input type="text" id="job_title" name="job_title" class="form-control" value="{{ old('job_title', $particulars->job_title ?? '') }}">
                                                     </div>
                                                     <div class="column col-md-4" id="job_description">
                                                         <label for="job_description" class="required-field">Job Description</label>
@@ -578,11 +578,11 @@
                                                 <br>
                                                 <div class="row col-md-11">
                                                     <div class="form-group col-md-4">
-                                                        <label for="business_name" class="required-field1">Business Name</label>
-                                                        <input type="text" id="business_name" name="business_name" class="form-control" required>
+                                                        <label for="business_name" class="">Business Name</label>
+                                                        <input type="text" id="business_name" name="business_name" class="form-control">
                                                     </div>
                                                     <div class="column col-md-4" id="business_nature">
-                                                        <label for="business_nature" class="required-field1">Nature Of Business</label>
+                                                        <label for="business_nature" class="">Nature Of Business</label>
                                                         <textarea 
                                                             name="business_nature" 
                                                             id="business_nature" 
@@ -597,7 +597,7 @@
                                                 <div class="row col-md-11">
                                                     <div class="form-group col-md-4">
                                                         <label for="education_level" class="required-field">Education Level.</label>
-                                                        <select name="education_level" id="education_level" class="form-control">
+                                                        <select name="education_level" id="education_level" class="form-control" required>
                                                             <option value="">Select</option>
                                                             <option value="1">Primary</option>
                                                             <option value="2">Secondary</option>
@@ -609,7 +609,7 @@
                                                     </div>
                                                     <div class="form-group col-md-4" id="degree_name">
                                                         <label for="degree_name" class="required-field">Latest Diploma/Degree Name.</label>
-                                                        <input type="text" id="degree_name" name="degree_name" class="form-control" required>
+                                                        <input type="text" id="degree_name" name="degree_name" class="form-control">
                                                         <span class="small">e.g BSc. In Information Systems And Networking Engineering.</span>
                                                     </div>
                                                 </div>
@@ -617,7 +617,7 @@
                                                 <div class="row col-md-11" id="university">
                                                     <div class="form-group col-md-4">
                                                         <label for="university_name" class="required-field">Latest University Name.</label>
-                                                        <input type="text" id="university_name" name="university_name" class="form-control" required>
+                                                        <input type="text" id="university_name" name="university_name" class="form-control">
                                                         <span class="small">e.g University Of Dar Es Salaam (UDSM) </span>
                                                     </div>
                                                     <div class="row col-md-4">
@@ -658,7 +658,7 @@
                                                 <br>
                                                 <div class="next-btn" style="display: flex; justify-content:end; gap:4px;">
                                                     <button type="button" class="btn prev-btn"><i class="fas fa-arrow-left"></i> Previous</button>
-                                                    <button type="submit" class="btn btn-success">Submit</button>
+                                                    <button type="submit" class="btn btn-success" id="btn_submit">Submit</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -770,7 +770,6 @@
     </body>
 
 
-<!-- Mirrored from themesbrand.com/skote/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 12 Oct 2022 14:37:45 GMT -->
 </html>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -806,7 +805,7 @@
             indicator.classList.remove("active", "completed");
         }
     });
-        console.log(`Displaying Step: ${step}`);
+        // console.log(`Displaying Step: ${step}`);
     };
     
     
@@ -814,10 +813,9 @@
     // Function to handle the "Next" button click
     const handleNext = (event) => {
         event.stopPropagation(); // Prevent event bubbling
-        console.log(`Current Step Before Click: ${currentStep}`);
         if (currentStep < steps.length - 1) {
             currentStep++;
-            console.log(`Current Step After Click: ${currentStep}`);
+            // console.log(`Current Step After Click: ${currentStep}`);
             showStep(currentStep);
         }
     };
@@ -825,10 +823,8 @@
     // Function to handle the "Previous" button click
     const handlePrev = (event) => {
         event.stopPropagation(); // Prevent event bubbling
-        console.log(`Current Step Before Click: ${currentStep}`);
         if (currentStep > 0) {
             currentStep--;
-            console.log(`Current Step After Click: ${currentStep}`);
             showStep(currentStep);
         }
     };
@@ -911,6 +907,39 @@
                 $('#university').show();
 
             }
+        });
+
+        $('#btn_submit').on('click', function(e){
+
+            e.preventDefault();
+            const form = document.querySelector('#multiStepForm');
+                        
+            const formData = {};
+            $('#multiStepForm').find('input, select, textarea').each(function () {
+                const name = $(this).attr('name');
+                if (name) {
+                    formData[name] = $(this).val();
+                }
+            });
+            
+            $.ajax({
+
+                url: "{{ route('submit_members', ['id'=>$request->input('member_id')]) }}",
+                method: "POST",
+                data: formData,
+                dataType: "JSON",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                success: function(data){
+                    console.log(data);
+                    
+                },
+                error: function(error, xhr, status){
+                    console.error(error);
+                },
+            });
+            
         });
     });
 </script>

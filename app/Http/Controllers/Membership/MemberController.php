@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\Designation;
 use App\Models\District;
+use App\Models\Membership\UserParticular;
 use App\Models\MonthlyPayment;
 use App\Models\Region;
 use App\Models\Unit;
@@ -14,6 +15,7 @@ use App\Repositories\UserRepository;
 use App\Repositories\UserRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class MemberController extends Controller
@@ -82,7 +84,9 @@ class MemberController extends Controller
         $regions = Region::all();
         $districts = District::all();
         $countries = Country::all();
-        // dd(, );
+
+        $user_data = UserParticular::where('user_id', $request->input('member_id'))->first();
+        // dd($user_data);
         return view('layouts/edit_contributions')
                 ->with('particulars', $particulars)
                 ->with('request', $request)
@@ -90,21 +94,25 @@ class MemberController extends Controller
                 ->with('districts', $districts)
                 ->with('countries', $countries)
                 ->with('units', Unit::all())
+                ->with('user_data', $user_data)
                 ->with('designations', Designation::all());
     }
 
     public function submitEditData(Request $request, $id){
-        dd($request->input(), $id);
+        // dd($request->input(), $id);
         try {
-            // dd($request->all());
             $this->userRepository->editable($request, $id);
 
+            return response()->json(['status' => 'success', 'message' => 'successfully updated the user'], 200);
             // return redirect()->route('edit', ['id' => $id])->with('success', 'User has been updated successfully');
-            return redirect()->back()->with('success', 'User has been updated successfully');
+            // return redirect()->back()->with('success', 'User has been updated successfully');
 
         } catch (\Exception $e) {
             // dd($e);
-            return redirect()->back()->with('error','An error occured while updating user details');
+            return response()->json([
+                'status' => 'error',
+                'message' => 'an error occured :'.' '.$e->getMessage()
+            ], 500);
 
         }
 

@@ -86,6 +86,18 @@ if (!function_exists('getTodayDate')) {
     }
 }
 
+if (!function_exists("period_format")) {
+    
+    function period_format($date,$month,$year){
+
+        $day = str_pad($date, 2, '0', STR_PAD_LEFT);   // Zero-pad day
+            $month = str_pad($month, 2, '0', STR_PAD_LEFT); // Zero-pad month
+            $year = $year;
+
+           return "{$year}-{$month}-{$day}";
+    }
+}
+
 
 
 

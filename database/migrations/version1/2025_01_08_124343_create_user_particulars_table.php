@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('country_id')->nullable();
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->unsignedBigInteger('tin_no')->comment('Indicates the TIN NO. from TRA')->nullable();
-            $table->unsignedBigInteger('nin')->comment('Indicates the NIDA NO. from NIDA')->nullable();
+            $table->text('nin')->comment('Indicates the NIDA NO. from NIDA')->nullable();
             $table->unsignedBigInteger('passport_no')->comment('Indicates the PASSPORT NO. from immigrations')->nullable();
             $table->text('address')->comment('shows the address of a member i.e p.o.box')->nullable();
             $table->string('fax')->nullable();
@@ -45,8 +45,11 @@ return new class extends Migration
             $table->date('university_start_date')->comment('the date when a member started a university edu')->nullable();
             $table->date('university_end_date')->comment('the date when a member completed a university edu')->nullable();
             $table->integer('education_level')->comment("the latest education level of a member")->nullable();
-            $table->string('cdiploma/degree_name')->comment("the latest degree or diploma certificate acquired by the user ")->nullable();
+            $table->string('diploma_degree_name')->comment("the latest degree or diploma certificate acquired by the user ")->nullable();
+            $table->date('edu_completion_date')->comment("the latest date a user completed bachelor or diploma")->nullable();
             $table->unsignedBigInteger('family_group_id')->nullable();
+            $table->integer('monthly_earning')->nullable();
+            $table->foreign('family_group_id')->references('id')->on('family_groups')->onDelete('cascade');
 
             $table->timestamps();
             $table->softDeletes();

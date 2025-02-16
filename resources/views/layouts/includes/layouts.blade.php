@@ -359,12 +359,12 @@
                                                 <div class="row col-md-11">
                                                     <div class="form-group col-md-4">
                                                         <label for="tin_no" class="required-field1">TIN No.</label>
-                                                        <input type="number" id="tin_no" name="tin_no" class="form-control">
+                                                        <input type="number" id="tin_no" name="tin_no" value="{{ old('tin_no', $user_data->tin_no ?? '') }}" class="form-control">
                                                     </div>
 
                                                     <div class="form-group col-md-4">
                                                         <label for="nida_no" class="required-field1">National Identification Number (NIDA).</label>
-                                                        <input type="number" id="nida_no" name="nida_no" class="form-control">
+                                                        <input type="number" id="nida_no" name="nida_no" value="{{ old('nida_no', $user_data->nin  ?? '') }}" class="form-control">
                                                     </div>
 
                                                 </div>
@@ -372,7 +372,7 @@
                                                 <div class="row col-md-11">
                                                     <div class="form-group col-md-4">
                                                         <label for="passport_no" class="required-field1">Passport No.</label>
-                                                        <input type="number" id="passport_no" name="passport_no" class="form-control">
+                                                        <input type="number" id="passport_no" name="passport_no" value="{{ old('passport_no', $user_data->passport_no  ?? '') }}" class="form-control">
                                                     </div>
 
                                                     <div class="form-group col-md-4">
@@ -419,7 +419,7 @@
                                                         <label for="monthly_earning" class="required-field">Monthly Earnings</label>
 
                                                         <div class="form-group">
-                                                            <input type="number" id="monthly_earning" name="monthly_earning" class="form-control" required>
+                                                            <input type="number" id="monthly_earning" name="monthly_earning" value="{{ old('monthly_earning', $user_data->monthly_earning ?? '') }}" class="form-control" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -453,11 +453,11 @@
                                                 <div class="row col-md-11">
                                                     <div class="form-group col-md-4">
                                                         <label for="box" class="">P.O.Box</label>
-                                                        <input type="text" id="box" name="box" class="form-control">
+                                                        <input type="text" id="box" name="box" value="{{ old('box', $user_data->address ?? '') }}" class="form-control">
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="fax" class="">Fax</label>
-                                                        <input type="text" id="fax" name="fax" class="form-control">
+                                                        <input type="text" id="fax" name="fax" value="{{ old('fax', $user_data->fax ?? '') }}" class="form-control">
                                                     </div>
                                                 </div>
                                                 <br>
@@ -496,7 +496,9 @@
                                                             id="unsurveyed_area_descrpition" 
                                                             class="form-control" 
                                                             rows="4" 
+                                                            value="{{ old('unsurveyed_area_descrpition', $user_data->unsurveyed_area_description ?? '') }}"
                                                             placeholder="Enter details about the unsurveyed area">
+                                                            
                                                         </textarea>
                                                         <span class="small">Enter details about the unsurveyed area</span>
                                                     </div>
@@ -507,11 +509,11 @@
                                                     <div class="row col-md-11" >
                                                         <div class="form-group col-md-4">
                                                             <label for="road" class="">Road</label>
-                                                            <input type="text" id="road" name="road" class="form-control">
+                                                            <input type="text" id="road" name="road" value="{{ old('road', $user_data->road ?? '') }}" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="plot" class="">Plot No.</label>
-                                                            <input type="text" id="plot" name="plot" class="form-control">
+                                                            <input type="text" id="plot" name="plot" value="{{ old('plot', $user_data->plot_no ?? '') }}" class="form-control">
                                                         </div>
 
                                                     </div>
@@ -519,11 +521,11 @@
                                                     <div class="row col-md-11">
                                                         <div class="form-group col-md-4">
                                                             <label for="block" class="">Block No.</label>
-                                                            <input type="text" id="block" name="block" class="form-control">
+                                                            <input type="text" id="block" name="block" value="{{ old('block', $user_data->block_no ?? '') }}" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="Street" class="">Street.</label>
-                                                            <input type="text" id="Street" name="Street" class="form-control">
+                                                            <input type="text" id="Street" name="Street" value="{{ old('Street', $user_data->street ?? '') }}" class="form-control">
                                                         </div>
 
                                                     </div>
@@ -535,6 +537,7 @@
                                                             id="surveyed_area_descrpition" 
                                                             class="form-control" 
                                                             rows="4" 
+                                                            value="{{ old('surveyed_area_descrpition', $user_data->surveyed_area_descrpition ?? '') }}"
                                                             placeholder="Enter details about the surveyed area">
                                                         </textarea>
                                                         <span class="small">More details about surveyed area i.e Bulding Name, Floor, Office / Room Number</span>
@@ -570,6 +573,7 @@
                                                             id="job_description" 
                                                             class="form-control" 
                                                             rows="4" 
+                                                            value="{{ old('job_description', $user_data->job_description ?? '') }}"
                                                             placeholder="Enter details about the job you do">
                                                         </textarea>
                                                         <span class="small">Enter details about the way you carry your job</span>
@@ -579,7 +583,7 @@
                                                 <div class="row col-md-11">
                                                     <div class="form-group col-md-4">
                                                         <label for="business_name" class="">Business Name</label>
-                                                        <input type="text" id="business_name" name="business_name" class="form-control">
+                                                        <input type="text" id="business_name" name="business_name" value="{{ old('business_name', $user_data->business_name ?? '') }}" class="form-control">
                                                     </div>
                                                     <div class="column col-md-4" id="business_nature">
                                                         <label for="business_nature" class="">Nature Of Business</label>
@@ -588,6 +592,7 @@
                                                             id="business_nature" 
                                                             class="form-control" 
                                                             rows="4" 
+                                                            value="{{ old('business_nature', $user_data->business_nature ?? '') }}"
                                                             placeholder="Enter details about the business you do">
                                                         </textarea>
                                                         <span class="small">Enter details about the way you carry your business</span>
@@ -609,7 +614,7 @@
                                                     </div>
                                                     <div class="form-group col-md-4" id="degree_name">
                                                         <label for="degree_name" class="required-field">Latest Diploma/Degree Name.</label>
-                                                        <input type="text" id="degree_name" name="degree_name" class="form-control">
+                                                        <input type="text" id="degree_name" name="degree_name" value="{{ old('degree_name', $user_data->diploma_degree_name ?? '') }}" class="form-control">
                                                         <span class="small">e.g BSc. In Information Systems And Networking Engineering.</span>
                                                     </div>
                                                 </div>
@@ -617,7 +622,7 @@
                                                 <div class="row col-md-11" id="university">
                                                     <div class="form-group col-md-4">
                                                         <label for="university_name" class="required-field">Latest University Name.</label>
-                                                        <input type="text" id="university_name" name="university_name" class="form-control">
+                                                        <input type="text" id="university_name" name="university_name" value="{{ old('university_name', $user_data->university_education ?? '') }}" class="form-control">
                                                         <span class="small">e.g University Of Dar Es Salaam (UDSM) </span>
                                                     </div>
                                                     <div class="row col-md-4">
@@ -777,6 +782,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 <script>
     const steps = document.querySelectorAll(".form-step");
@@ -929,14 +936,34 @@
                 data: formData,
                 dataType: "JSON",
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data){
-                    console.log(data);
-                    
+
+                    Swal.fire({
+                        title: "Success!",
+                        text: data.message,
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload();
+
+                            //redirect route
+                            // window.location.href = 'my_redirect_route';
+                        }
+                    });
+
                 },
                 error: function(error, xhr, status){
-                    console.error(error);
+                    console.log('error detected: ', error.responseJSON || error.responseText);
+                    let errorMessage = xhr.responseJSON?.message || "An error occurred!";
+                    Swal.fire({
+                        title: "Error!",
+                        text: errorMessage,
+                        icon: "error",
+                        confirmButtonText: "Try Again"
+                    });
                 },
             });
             

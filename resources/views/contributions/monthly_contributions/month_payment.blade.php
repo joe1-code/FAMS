@@ -53,6 +53,27 @@
 
     </head>
 
+    <script>
+    setInterval(function() {
+        fetch("{{ route('logout') }}", {
+            method: "GET",
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                window.location.href = "{{ route('logout') }}";
+            }
+        })
+        .catch(error => {
+            console.error("Session expired:", error);
+            window.location.href = "{{ route('logout') }}";
+        });
+    }, 120000); // Check session every 2 minutes
+</script>
+
+
     <body data-sidebar="dark" data-layout-mode="light">
 
         <!-- Begin page -->
@@ -255,9 +276,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div style="background-color: red;">
-                                            @include("contributions.monthly_contributions.includes.wf_track_html", $workflow)
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -265,6 +283,20 @@
                     </div>
                 </div>
             </div>
+            <!-- @if(count($workflow))
+            <div class="col-lg-12" style="width: 115%; display:flex; justify-content:center;">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4" style="display: flex; justify-content:center;">MONTHLY CONTRIBUTIONS WORKFLOWS</h4>
+                        <div class="table-responsive">
+                            @include("contributions.monthly_contributions.includes.wf_track_html", $workflow)       
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif -->
+
+            
             <!-- end main content-->
         </div>
         <!-- END layout-wrapper -->

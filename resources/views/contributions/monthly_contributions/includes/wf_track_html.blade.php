@@ -1,6 +1,6 @@
 {{--['resource_id' => 1, 'wf_module_group_id'=> 2, 'type' => 2, 'workflowScriptAlreadyIncluded' => true]--}}
 @php
-    $workflowId = "workflow_track_table" . $resource_id;
+$workflowId = "workflow_track_table" . $resource_id;
     if (!isset($workflowScriptAlreadyIncluded)) {
         $workflowScriptAlreadyIncluded = false;
     }

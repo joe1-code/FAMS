@@ -10,6 +10,7 @@ use App\Repositories\UserRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -69,6 +70,16 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        if ($request->ajax()) {
+            return response()->json(['message' => 'Logged out due to inactivity'], 401);
+        }
+
+        // if ($request->session()->has('expired')) {
+            
+        //    return redirect('/')->with('message', 'Your session has expired, please login again!');
+        // }
+        
         return redirect('/');
     }
 
@@ -80,4 +91,8 @@ class LoginController extends Controller
         return view('layouts.home_page')
                     ->with('memberData', $data);
     } 
+
+    public function handleSession(){
+        
+    }
 }

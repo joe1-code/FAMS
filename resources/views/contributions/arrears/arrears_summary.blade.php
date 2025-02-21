@@ -28,6 +28,25 @@
         <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
 
     </head>
+    <script>
+    setInterval(function() {
+        fetch("{{ route('logout') }}", {
+            method: "GET",
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                window.location.href = "{{ route('logout') }}";
+            }
+        })
+        .catch(error => {
+            console.error("Session expired:", error);
+            window.location.href = "{{ route('logout') }}";
+        });
+    }, 120000); // Check session every 2 minutes
+</script>
 
     <body data-sidebar="dark" data-layout-mode="light">
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->

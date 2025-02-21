@@ -60,6 +60,21 @@ class CreateUnpaidMemberJob implements ShouldQueue
             });
             
         }
+        else {
+            $members = User::ActiveMembers()->get();
+             // $members = User::all();
+            //  dd($members);
+             foreach ($members as $member) {
+
+            Unpaid_member::Create([
+                'user_id' => $member->id,
+                'pay_status' => false,
+                'penalty' => null,
+                'total_arrears' => null,
+                'paid_amount' => null
+            ]);
+        }
+        }
         
         // dd($pastMonthdata);
 
@@ -69,7 +84,10 @@ class CreateUnpaidMemberJob implements ShouldQueue
 
             Unpaid_member::where('deleted_at', null)->updateorCreate([
                 'user_id' => $member->id,
-                'pay_status' => false
+                'pay_status' => false,
+                'penalty' => null,
+                'total_arrears' => null,
+                'paid_amount' => null
             ]);
         }
     }

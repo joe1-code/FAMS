@@ -14,7 +14,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/fams-logo.ico">
+        <link rel="shortcut icon" href="assets/images/favicon.ico">
 
         <!-- Bootstrap Css -->
         <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
@@ -63,6 +63,26 @@
 </style>
 
     </head>
+    <script>
+    setInterval(function() {
+        fetch("{{ route('logout') }}", {
+            method: "GET",
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                window.location.href = "{{ route('logout') }}";
+            }
+        })
+        .catch(error => {
+            console.error("Session expired:", error);
+            window.location.href = "{{ route('logout') }}";
+        });
+    }, 120000); // Check session every 2 minutes
+</script>
+
 
     <body data-sidebar="dark" data-layout-mode="light">
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->

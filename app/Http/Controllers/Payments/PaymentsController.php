@@ -124,9 +124,9 @@ class PaymentsController extends Controller
 
     public function getForDataTable(){
         
-        $query = User::query()->join('unpaid_members as um', 'um.user_id', '=', 'users.id')
-                                ->join('regions as rgn', 'rgn.id', '=', 'users.region_id')
-                                ->join('districts as dst', 'dst.id', '=', 'users.district_id')
+        $query = User::join('unpaid_members as um', 'um.user_id', '=', 'users.id')
+                                ->leftJoin('regions as rgn', 'rgn.id', '=', 'users.region_id')
+                                ->leftJoin('districts as dst', 'dst.id', '=', 'users.district_id')
                                 ->whereBetween('um.created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])
                                 ->select(
                                         // DB::raw("CONCAT(firstname,' ',lastname) as fullname"),
@@ -136,6 +136,7 @@ class PaymentsController extends Controller
                                         DB::raw("case when um.pay_status = true then 'Paid' else 'Not Paid' end as pay_status"),
                                         DB::raw('rgn.name as region'),
                                         DB::raw('dst.name as district'));
+
 
                         
 

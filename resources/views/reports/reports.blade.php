@@ -1,31 +1,12 @@
 
 <!doctype html>
 <html lang="en">
-    <style>
 
-        th {
-            background-color: #e3f2fd;
-        }
-        .over15color{
-            background-color: #e6771c;
-        }
-        .incidentMonth{
-            background-color: #e3f2fd;
-        }
-
-
-
-    </style>
-@php
-$active = $memberData->where('active', 1)->count();
-$inactive = $memberData->where('active', 0)->count();
-@endphp
     
-<!-- Mirrored from themesbrand.com/skote/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 12 Oct 2022 14:34:47 GMT -->
 <head>
         
         <meta charset="utf-8" />
-        <title>Dashboard | FAMS - Family Management system.</title>
+        <title>Dashboard | FAMS - Reports.</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
@@ -40,33 +21,29 @@ $inactive = $memberData->where('active', 0)->count();
         <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <!-- App Css-->
         <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 
     </head>
-    <!-- <script>
-    setInterval(function() {
-        fetch("{{ route('logout') }}", {
-            method: "GET",
-            headers: {
-                "X-Requested-With": "XMLHttpRequest"
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                window.location.href = "{{ route('logout') }}";
-            }
-        })
-        .catch(error => {
-            console.error("Session expired:", error);
-            window.location.href = "{{ route('logout') }}";
-        });
-    }, 120000); // Check session every 2 minutes
-</script> -->
-
+    <script>
+//     setInterval(function() {
+//         fetch("{{ route('logout') }}", {
+//             method: "GET",
+//             headers: {
+//                 "X-Requested-With": "XMLHttpRequest"
+//             }
+//         })
+//         .then(response => {
+//             if (!response.ok) {
+//                 window.location.href = "{{ route('logout') }}";
+//             }
+//         })
+//         .catch(error => {
+//             console.error("Session expired:", error);
+//             window.location.href = "{{ route('logout') }}";
+//         });
+//     }, 120000); // Check session every 2 minutes
+// </script>
 
     <body data-sidebar="dark" data-layout-mode="light">
-    <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
         <!-- Begin page -->
         <div id="layout-wrapper">
@@ -99,7 +76,6 @@ $inactive = $memberData->where('active', 0)->count();
                         <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
                             <i class="fa fa-fw fa-bars"></i>
                         </button>
-
                     </div>
 
                     <div class="d-flex">
@@ -124,14 +100,11 @@ $inactive = $memberData->where('active', 0)->count();
                                 </form>
                             </div>
                         </div>
-
-
                         <div class="dropdown d-none d-lg-inline-block ms-1">
                             <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">
                                 <i class="bx bx-fullscreen"></i>
                             </button>
                         </div>
-
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -215,211 +188,29 @@ $inactive = $memberData->where('active', 0)->count();
 
                 <div class="page-content">
                     <div class="container-fluid">
-
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-                 <h4 class="card-title mb-4">Welcome</h4>
-                <div class="row">
-        <div class="col-md-6">
-            <div>&nbsp;</div>
-            <div class="computation-group">
-                <table class="table table-bordered" style="text-align: center; background-color: #e3f2fd ;">
-                    <thead>
-                    <th style="text-align: center">Full Names</th>
-                    <!-- <th style="text-align: right">Title</th> -->
-                    <!-- <th style="text-align: right">Total Contributions</th> -->
-                    <th style="text-align: center">Phone</th>
-                    <th style="text-align: center">Region</th>
-                    <th style="text-align: center">Action</th>
-                    </thead>
-                    <tbody>
-                    <!-- @php
-                        try {
-                            if (isset($contribution_history['contributions']) && is_countable($contribution_history['contributions']) && count($contribution_history['contributions'])) {
-                                   end($contribution_history['contributions']); // Move pointer to last index
-                                    $last_index = key($contribution_history['contributions']);
-                            }
-                             // get key of last index (where pointer is)
-                        } catch (\Throwable $e) {
-                            \Illuminate\Support\Facades\Log::info($e->getMessage());
-                            $last_index = 0;
-                        }
-                    @endphp -->
-                    @foreach($memberData as $data)
-                        <tr class="" style="text-align: left">
-                            <td>{{ $data->firstname.' '.$data->middlename.' '.$data->lastname }}</td>
-                                <td style="text-align: right">
-                                    {{ $data->phone }}
-                                </td>
-                            <td class="" style="text-align: center">{{$data->region_name}}</td>
-                            @if($data->active == true)
-                            <td style="text-align: right;">
-                                <button class="btn btn-secondary site-btn" style="font-weight: normal; background-color: white; color: black;">
-                                    <i class="fas fa-pencil-alt" aria-hidden="true" style="color: black;"></i> Deactivate
-                                </button>
-                            </td>
-
-                            @else
-                            
-                            <td style="text-align: right;">
-                                <button class="btn btn-secondary site-btn" style="font-weight: normal; background-color: white; color: black;">
-                                    <i class="fas fa-pencil-alt" aria-hidden="true" style="color: black;"></i> Activate
-                                </button>
-                            </td>
-                            @endif
-                                <!-- <td class="over15color" style="text-align: center">{{ 10 .'%'}}</td> -->
-                        </tr>
-                     @endforeach   
-                    </tbody>
-
-                </table>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div>
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th colspan="4" style="text-align: center; background-color: #e3f2fd ;">REGISTERED MEMBERS</th></tr>
-                    <tr><th style="text-align: center; background-color: green;">Active</th>
-                        <!-- <th>Amount</th> -->
-                            <th style="text-align: center; background-color:#e6771c;">Inactive</th>
-                        <!-- <th>Remark</th> -->
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td style="text-align: center;">{{ $active }}</td>
-                        <!-- <td> {{ 5600 }} </td> -->
-                            <td style="text-align: center;">
-                                {{ $inactive }}
-                            </td>
-                        <!-- <td>{{ 'Need Review' }}</td> -->
-                    </tr>
-                    </tbody>
-                </table>
-
-                <table class="table table-bordered">
-                    <tr>
-                        <th colspan="4" style="text-align: center; background-color: #e3f2fd ;">CHAIRPERSON</th></tr>
-                        <th>Full Names</th>
-                        <td>{{ $data->firstname.' '.$data->middlename.' '.$data->lastname }}</td>
-                    </tr>
-                    <tr>
-                        <th>Age</th>
-                        <td> {{ 29 }}</td>
-                    </tr>
-                    <tr>
-                        <th>Gender</th>
-                        <td> {{ 29 }}</td>
-                    </tr>
-                    
-                </table>
-                <table class="table table-bordered">
-                    <tr>
-                        <th colspan="4" style="text-align: center; background-color: #e3f2fd ;">GENERAL SECRETARY</th></tr>
-                        <th>Full Names</th>
-                        <td>{{ $data->firstname.' '.$data->middlename.' '.$data->lastname }}</td>
-                    </tr>
-                    <tr>
-                        <th>Age</th>
-                        <td> {{ 29 }}</td>
-                    </tr>
-                    <tr>
-                        <th>Gender</th>
-                        <td> {{ 29 }}</td>
-                    </tr>
-                    
-                </table>
-                <table class="table table-bordered">
-                    <tr>
-                        <th colspan="4" style="text-align: center; background-color: #e3f2fd ;">ACCOUNTANT</th></tr>
-                        <th>Full Names</th>
-                        <td>{{ $data->firstname.' '.$data->middlename.' '.$data->lastname }}</td>
-                    </tr>
-                    <tr>
-                        <th>Age</th>
-                        <td> {{ 29 }}</td>
-                    </tr>
-                    <tr>
-                        <th>Gender</th>
-                        <td> {{ 29 }}</td>
-                    </tr>
-                    
-                </table>
-            </div>
-                
-                </div>
-           
-        </div>
-        <div>&nbsp;</div>
-
-        </div>
-        <div>&nbsp;</div>
-        <legend></legend>
-        <div>&nbsp;</div>
-
-       
-                <!-- <table class="table table-bordered">
-                    <tr><th class="active">Active Members: </th>
-                        <td class="badge bg-success">{{ $active }}</td>
-                        <th>Inactive Members: </th>
-                        <td  class="badge bg-warning"> {{ $inactive }} </td>
-                    </tr>
-                </table> -->
-
-
-           
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Transaction Modal -->
-
-
-                <!-- end modal -->
-
-                <!-- subscribeModal -->
-                <!-- <div class="modal fade" id="subscribeModal" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header border-bottom-0">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="text-center mb-4">
-                                    <div class="avatar-md mx-auto mb-4">
-                                        <div class="avatar-title bg-light rounded-circle text-primary h1">
-                                            <i class="mdi mdi-email-open"></i>
-                                        </div>
-                                    </div>
-
-                                    <div class="row justify-content-center">
-                                        <div class="col-xl-10">
-                                            <h4 class="text-primary">Subscribe !</h4>
-                                            <p class="text-muted font-size-14 mb-4">Subscribe our newletter and get notification to stay update.</p>
-
-                                            <div class="input-group bg-light rounded">
-                                                <input type="email" class="form-control bg-transparent border-0" placeholder="Enter Email address" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                                
-                                                <button class="btn btn-primary" type="button" id="button-addon2">
-                                                    <i class="bx bxs-paper-plane"></i>
-                                                </button>
-                                                
-                                            </div>
+    
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4" style="display: flex; justify-content:center;">ALL REPORTS</h4>
+                                    <div class="table-responsive">
+                                        <table class="table align-middle table-nowrap " id="member_arrears">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th style="width: 20px;">No.(#)</th>
+                                                    <th class="align-middle">Report Name</th> 
+                                                </tr>
+                                            </thead>
                                             
-                                        </div>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div> -->
-                <!-- end modal -->
 
+            <div>
                 <footer class="footer">
                     <div class="container-fluid">
                         <div class="row">
@@ -521,19 +312,83 @@ $inactive = $memberData->where('active', 0)->count();
 <!-- Mirrored from themesbrand.com/skote/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 12 Oct 2022 14:37:45 GMT -->
 </html>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const viewDetailsButtons = document.querySelectorAll('.view-details-btn');
 
-    viewDetailsButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const memberId = this.getAttribute('data-id');
-            const memberName = this.getAttribute('data-name');
+$(document).ready(function() {
+    
+    
+    $('#member_arrears').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: "{{ route('monthly_arrears/getForDatatable') }}",
+    columns: [
+        { 
+            data: null, 
+            name: 'index', 
+            orderable: false, 
+            searchable: false,
+            render: function(data, type, row, meta) {
+                return meta.row + 1; // Display index number (starting from 1)
+            } 
+        },
+        { data: 'fullname', name: 'fullname' },
+        { data: 'region_name', name: 'region_name' },
+        { data: 'district_name', name: 'district_name' },
+        { data: 'phone', name: 'phone' },
+        { data: 'arrears', name: 'arrears' },
+        {
+            data: 'pay_status',
+            name: 'pay_status',
+            orderable: false,
+            searchable: false,
+            render: function(data) {
+                return data === 'Paid' ? 
+                    '<span class="badge bg-success">Paid</span>' : 
+                    '<span class="badge bg-warning">Not Paid</span>';
+            }
+        },
+        {
+            data: null,
+            name: 'action',
+            orderable: false,
+            searchable: false,
+            render: function(data, type, row) {
+                var paymentUrl = "{{ route('arrears_payment') }}";
 
-            document.getElementById('member-id').textContent = memberId;
-            document.getElementById('member-name').textContent = memberName;
-            document.getElementById('edit-member-id').value = memberId;
-        });
-    });
+                return `
+                    <form action="${paymentUrl}" method="POST" style="display:inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-primary">Arrears Payment</button>
+                    </form>
+                `;            
+            }
+        }
+    ],
+    fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+  $('td', nRow).click(function() {
+    document.location.href = "{{ route('arrears_summary') }}?id=" + aData['id'];
+  }).hover(function() {
+    $(this).css('cursor', 'pointer');
+  }, function() {
+    $(this).css('cursor', 'auto');
+  });
+}
+,
+    success: function(response){
+        console.log(response);
+        
+    },
+    order: [[0, 'desc']],
+    dom: '<"d-flex justify-content-end"f><"table-responsive"t><"d-flex justify-content-end"ip>',
+    // dom: 'Bfrtip',
+    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+    lengthMenu: [10, 25, 50, 100],
+    pageLength: 10,
+    responsive: true 
+});
 });
 </script>

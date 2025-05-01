@@ -13,6 +13,7 @@ use Database\Seeders\version100\GendersTableSeeder;
 use Database\Seeders\version100\PaymentMethodsTableSeeder;
 use Database\Seeders\version100\PaymentTypesTableSeeder;
 use Database\Seeders\version100\RegionsTableSeeder;
+use Database\Seeders\version100\ReportsTableSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\Version100\UnitGroupsTableSeeder;
@@ -50,6 +51,7 @@ class Version100TableSeeder extends Seeder
         $this->call(CountriesTableSeeder::class);
         $this->call(EducationLevelTableSeeder::class);
         $this->call(FamilyGroupsTableSeeder::class);
+        $this->call(ReportsTableSeeder::class);
 
         DB::commit();
     }

@@ -54,23 +54,23 @@
     </head>
 
     <script>
-    setInterval(function() {
-        fetch("{{ route('logout') }}", {
-            method: "GET",
-            headers: {
-                "X-Requested-With": "XMLHttpRequest"
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                window.location.href = "{{ route('logout') }}";
-            }
-        })
-        .catch(error => {
-            console.error("Session expired:", error);
-            window.location.href = "{{ route('logout') }}";
-        });
-    }, 120000); // Check session every 2 minutes
+    // setInterval(function() {
+    //     fetch("{{ route('logout') }}", {
+    //         method: "GET",
+    //         headers: {
+    //             "X-Requested-With": "XMLHttpRequest"
+    //         }
+    //     })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             window.location.href = "{{ route('logout') }}";
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.error("Session expired:", error);
+    //         window.location.href = "{{ route('logout') }}";
+    //     });
+    // }, 12000000); // Check session every 2 minutes
 </script>
 
 
